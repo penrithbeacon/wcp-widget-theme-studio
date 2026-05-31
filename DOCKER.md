@@ -79,7 +79,9 @@ Themes are shareable JSON files containing CSS custom property values:
 
 Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
 
-## Built-in Themes
+## Built-in Themes (15 total)
+
+**Community themes:**
 
 | Theme | ID |
 |-------|----|
@@ -95,6 +97,14 @@ Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
 | Ayu Dark | `ayu` |
 | Cyberpunk | `cyberpunk` |
 | Forest | `forest` |
+
+**Penrith Beacon WCP native themes:**
+
+| Theme | ID |
+|-------|----||
+| Penrith Beacon WCP Dark | `pb-wcp-dark` |
+| Penrith Beacon WCP Light | `pb-wcp-light` |
+| Penrith Beacon WCP High Contrast | `pb-wcp-hc` |
 
 ## WCP Compatibility
 
@@ -119,9 +129,11 @@ Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
 | Tag | Description |
 |-----|-------------|
 | `latest` | Latest stable release |
+| `1.1.0-wcp1.1.0` | Widget v1.1.0, WCP protocol v1.1.0 — adds 3 Penrith Beacon WCP themes |
 | `1.0.0-wcp1.1.0` | Widget v1.0.0, WCP protocol v1.1.0 |
 
 ## Source
 
 - Docker Hub: [penrithbeacon/wcp-widget-theme-studio](https://hub.docker.com/r/penrithbeacon/wcp-widget-theme-studio)
 - GitHub: [penrithbeacon/wcp-widget-theme-studio](https://github.com/penrithbeacon/wcp-widget-theme-studio)
+- WCP Specification: [widgetcontextprotocol.com](https://widgetcontextprotocol.com)
