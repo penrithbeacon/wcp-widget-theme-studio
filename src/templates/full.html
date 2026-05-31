@@ -567,29 +567,47 @@ function _blobDownload(text, filename) {
   a.href = url; a.download = filename; a.click();
   setTimeout(()=>URL.revokeObjectURL(url), 5000);
 }
+let _jsonModalPayload = null; // set before modal opens, buttons read from here
+
 function showThemeJson() {
   const t = THEMES.find(x => x.id === currentId);
   if (!t) return;
   const payload = { uuid: t.uuid || null, name: t.name, vars: t.vars };
   const json = JSON.stringify(payload, null, 2);
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
+  const filename = t.id + '.pbtheme.json';
+  _jsonModalPayload = { json, filename };
+
   const escaped = json.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-  overlay.innerHTML = `
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;width:500px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);" onclick="event.stopPropagation()">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong style="font-size:14px;">{ } ${t.name}.pbtheme.json</strong>
-        <button onclick="this.closest('.overlay-root').remove()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
-      </div>
-      <pre style="flex:1;overflow:auto;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;line-height:1.6;color:var(--text);white-space:pre-wrap;">${escaped}</pre>
-      <div style="display:flex;justify-content:flex-end;gap:8px;">
-        <button id="_copy-json-btn" onclick="_copyText(${JSON.stringify(json)},this)" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--blue);cursor:pointer;font-size:12px;padding:6px 14px;">Copy JSON</button>
-        <button onclick="_blobDownload(${JSON.stringify(json)},'${t.id}.pbtheme.json')" style="background:var(--accent);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;">Download</button>
-      </div>
-    </div>`;
+  const overlay = document.createElement('div');
   overlay.className = 'overlay-root';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
+
+  const box = document.createElement('div');
+  box.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;width:500px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);';
+  box.addEventListener('click', e => e.stopPropagation());
+
+  box.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <strong style="font-size:14px;">{ } ${t.name}.pbtheme.json</strong>
+      <button id="_json-close" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
+    </div>
+    <pre style="flex:1;overflow:auto;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;line-height:1.6;color:var(--text);white-space:pre-wrap;">${escaped}</pre>
+    <div style="display:flex;justify-content:flex-end;gap:8px;">
+      <button id="_json-copy-btn" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--blue);cursor:pointer;font-size:12px;padding:6px 14px;">Copy JSON</button>
+      <button id="_json-dl-btn" style="background:var(--accent);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;">Download</button>
+    </div>`;
+
+  overlay.appendChild(box);
   overlay.addEventListener('click', () => overlay.remove());
   document.body.appendChild(overlay);
+
+  document.getElementById('_json-close').addEventListener('click', () => overlay.remove());
+  document.getElementById('_json-copy-btn').addEventListener('click', function() {
+    _copyText(_jsonModalPayload.json, this);
+  });
+  document.getElementById('_json-dl-btn').addEventListener('click', function() {
+    _blobDownload(_jsonModalPayload.json, _jsonModalPayload.filename);
+  });
 }
 
 function showStudioAbout() {
@@ -600,7 +618,7 @@ function showStudioAbout() {
       <div style="text-align:center;margin-bottom:16px;">
         <div style="font-size:36px;margin-bottom:8px;">🎨</div>
         <div style="font-weight:600;font-size:16px;margin-bottom:4px;">WCP Theme Studio</div>
-        <div style="font-size:12px;color:var(--muted);">WCP Widget · Port 3740 · v1.0.0 (1)</div>
+        <div style="font-size:12px;color:var(--muted);">WCP Widget · Port 3740 · v1.0.0 (2)</div>
       </div>
       <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A WCP-compliant theme gallery and editor for <strong style="color:var(--text)">Penrith Beacon MCP</strong>. Includes 12 professionally crafted themes and a full custom theme editor. Each theme is shareable as a <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;">.pbtheme.json</code> URL.</p>
       <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:16px;">Built-in themes are inspired by beloved open source colour schemes from the developer community. Full attribution in the About tab.</p>
