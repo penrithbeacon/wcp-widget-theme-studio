@@ -153,7 +153,7 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
         <div style="margin-bottom:12px">
           <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Theme</div>
           <div style="display:flex;gap:6px;margin-bottom:10px">
-            <div style="flex:1;background:var(--surface2);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--text)">Natterjack Dark</div>
+            <div id="settings-theme-name" style="flex:1;background:var(--surface2);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--text)">Forest</div>
             <button class="prev-btn2" style="font-size:11px">Change</button>
           </div>
           <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">API Token</div>
@@ -281,6 +281,8 @@ function selectTheme(id) {
   if (!t) return;
   applyVars(t.vars);
   document.getElementById('preview-label').textContent = t.name;
+  const stn = document.getElementById('settings-theme-name');
+  if (stn) stn.textContent = t.name;
   // Update About tab
   const info = THEME_ABOUT[t.id];
   const aboutBody = document.getElementById('about-body');
