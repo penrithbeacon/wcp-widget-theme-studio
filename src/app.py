@@ -35,10 +35,12 @@ BUILTIN_THEMES = [
 ]
 
 WCP_MANIFEST = {
-  "wcp":"1.1.0","name":"WCP Theme Studio","version":"1.1.0",
+  "wcp":"1.3.0","name":"WCP Theme Studio","version":"1.2.0",
   "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
-  "widget":{"path":"/widget/","renderMode":"iframe","refreshInterval":0,"authType":"none","defaultSize":{"w":6,"h":4}},
+  "components":[
+    {"id":"theme-studio","name":"WCP Theme Studio","role":"widget","path":"/widget/","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":6,"h":4}}
+  ],
   "pages":[{"id":"full","path":"/widget/full","title":"Theme Studio","description":"Full theme gallery with editor","window":{"width":1100,"height":700}}],
   "actions":[
     {"id":"open-studio","type":"wcp:open-window","label":"Open Theme Studio","page":"full"},
