@@ -146,35 +146,133 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
       </div>
     </div>
 
-    <!-- Tab: Settings -->
+    <!-- Tab: Demo -->
     <div id="tab-settings" style="display:none">
-      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--accent);margin-bottom:12px">
-        ℹ️ This is a <strong>visual preview</strong> of what the Settings panel looks like with each theme. These controls are not functional.
+      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--accent);margin-bottom:16px">
+        🎨 <strong>Design System Reference</strong> — all components are visual previews only, not interactive.
       </div>
-      <div class="prev-card">
-        <div class="prev-card-title" style="margin-bottom:12px">Settings Panel</div>
-        <div style="margin-bottom:12px">
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Active Theme</div>
-          <div style="display:flex;gap:6px;margin-bottom:10px">
-            <div id="settings-theme-name" style="flex:1;background:var(--surface2);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--text)">Forest</div>
-            <button class="prev-btn2" style="font-size:11px;opacity:.5;cursor:default" disabled>Change</button>
+
+      <!-- Masthead -->
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Masthead</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:22px;height:22px;border-radius:5px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="12" height="12" viewBox="0 0 28 28" fill="#0d1117"><rect x="4" y="14" width="4" height="8" rx="1"/><rect x="11" y="9" width="4" height="13" rx="1"/><rect x="18" y="4" width="4" height="18" rx="1"/></svg>
+        </div>
+        <span style="font-weight:600;font-size:13px">Natterjack WCP</span>
+        <div style="flex:1"></div>
+        <span style="font-size:11px;color:var(--muted)">Updated 14:32</span>
+        <div style="background:var(--accent);color:#0d1117;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;">⟳ Refresh All</div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">⚙</div>
+      </div>
+
+      <!-- Breadcrumb + Mode Toggle -->
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Breadcrumb & Mode Toggle</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+        <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
+          <span style="cursor:pointer;color:var(--blue)">Root</span>
+          <span>›</span>
+          <span style="cursor:pointer;color:var(--blue)">Shopping</span>
+          <span>›</span>
+          <span style="color:var(--text)">Groceries</span>
+        </div>
+        <div style="display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+          <div style="background:var(--accent);color:#0d1117;padding:4px 12px;font-size:11px;font-weight:600;">Single</div>
+          <div style="background:none;color:var(--muted);padding:4px 12px;font-size:11px;">Multiple</div>
+        </div>
+      </div>
+
+      <!-- Folder Sidebar -->
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Folder Sidebar</div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);background:rgba(240,136,62,.1);">
+          <span style="color:var(--accent)">📁</span>
+          <span style="font-size:13px;font-weight:500;color:var(--accent)">Root</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 24px;border-bottom:1px solid rgba(48,54,61,.4);">
+          <span>📁</span><span style="font-size:12px;color:var(--text)">Shopping</span>
+          <span style="margin-left:auto;font-size:10px;color:var(--muted)">▶</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 40px;border-bottom:1px solid rgba(48,54,61,.4);background:rgba(88,166,255,.05);">
+          <span>📁</span><span style="font-size:12px;color:var(--blue)">Groceries</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 24px;border-bottom:1px solid rgba(48,54,61,.4);">
+          <span>📁</span><span style="font-size:12px;color:var(--text)">Widgets</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 24px;">
+          <span>📁</span><span style="font-size:12px;color:var(--text)">TikTok</span>
+        </div>
+      </div>
+
+      <!-- Cards (flush, no radius, no gap) -->
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Pinboard Cards (flush tiles)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;margin-bottom:16px;">
+        <!-- Link card -->
+        <div style="background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--border);">
+            <span style="font-size:12px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Natterjack WCP</span>
+            <span style="font-size:15px;color:var(--muted);">⋮</span>
           </div>
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Widget URL</div>
-          <input class="prev-input" type="text" value="http://localhost:3740" readonly style="margin-bottom:10px;opacity:.7">
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Gap between cards (px)</div>
-          <input class="prev-input" type="number" value="0" readonly style="width:80px;margin-bottom:10px;opacity:.7">
-          <div style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:4px">
-            <input type="checkbox" style="accent-color:var(--accent)" disabled> Rounded corners
+          <div style="padding:8px 10px;font-size:11px;color:var(--muted);flex:1;">Developer dashboard</div>
+          <div style="padding:6px 8px;border-top:1px solid var(--border);display:flex;gap:5px;">
+            <div style="background:var(--accent);color:#0d1117;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:600;">Open</div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:10px;color:var(--text);">↗ Browser</div>
           </div>
-          <div style="display:flex;justify-content:flex-end;margin-top:12px">
-            <button class="prev-btn" style="opacity:.5;cursor:default" disabled>Save</button>
+        </div>
+        <!-- Widget card -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-left:none;display:flex;flex-direction:column;">
+          <div style="background:var(--surface2);border-bottom:1px solid var(--border);padding:6px 10px;font-size:11px;font-weight:600;">⚡ Weather Ticker</div>
+          <div style="padding:10px;font-size:10px;color:var(--muted);flex:1;line-height:1.6;">
+            📍 Penrith, England<br>
+            📅 Sun 1 Jun · 🕐 14:32<br>
+            ⛅ 18°C · Partly Cloudy
+          </div>
+        </div>
+        <!-- Snippet card -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-left:none;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid var(--border);font-size:11px;font-weight:600;">
+            <span>📄 Welcome Notice</span>
+            <span style="margin-left:auto;font-size:15px;color:var(--muted);">⋮</span>
+          </div>
+          <div style="padding:10px;flex:1;">
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:4px">Hello! 👋</div>
+            <div style="font-size:10px;color:var(--muted);line-height:1.5;">Your HTML snippet renders in a sandboxed iframe here.</div>
           </div>
         </div>
       </div>
-      <div class="prev-card">
-        <div class="prev-card-title" style="margin-bottom:10px">Status Messages</div>
-        <div style="background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--green);margin-bottom:8px">✓ Settings saved successfully</div>
-        <div style="background:rgba(248,81,73,.08);border:1px solid var(--red);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--red)">✗ Could not reach server</div>
+
+      <!-- Modals -->
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Modal Dialogs</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <!-- Alert modal -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow);">
+          <div style="font-size:13px;color:var(--text);margin-bottom:16px;">Pinboard settings saved.</div>
+          <div style="background:var(--accent);color:#0d1117;border-radius:6px;padding:7px 24px;font-size:12px;font-weight:600;display:inline-block;">OK</div>
+        </div>
+        <!-- Add link modal -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);">
+          <div style="font-weight:600;font-size:13px;margin-bottom:12px;">Add Link</div>
+          <div style="margin-bottom:8px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;">Title</div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:6px 8px;font-size:11px;color:var(--muted);">e.g. Google</div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;">URL</div>
+            <div style="background:var(--surface2);border:1px solid var(--accent);border-radius:5px;padding:6px 8px;font-size:11px;color:var(--text);">https://example.com</div>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px;">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 12px;font-size:11px;color:var(--text);">Cancel</div>
+            <div style="background:var(--accent);color:#0d1117;border-radius:5px;padding:5px 12px;font-size:11px;font-weight:600;">Add</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status messages -->
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Status & Notifications</div>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;">
+        <div style="background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--green);">✓ Theme imported successfully</div>
+        <div style="background:rgba(248,81,73,.08);border:1px solid var(--red);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--red);">✗ Could not reach server</div>
+        <div style="background:rgba(214,153,34,.08);border:1px solid var(--yellow);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--yellow);">⚠ Widget container unavailable</div>
+        <div style="background:rgba(88,166,255,.08);border:1px solid var(--blue);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--blue);">ℹ WCP manifest loaded successfully</div>
       </div>
     </div>
 
