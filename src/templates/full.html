@@ -207,12 +207,27 @@ function selectTheme(id) {
 
 function copyUrl(id) {
   const url = `${BASE}/widget/themes/${id}.njtheme.json`;
-  navigator.clipboard.writeText(url).then(() => {
-    const btn = document.getElementById('copy-'+id);
+  const btn = document.getElementById('copy-'+id);
+  const showDone = () => {
     if (!btn) return;
     btn.textContent = 'Copied!'; btn.classList.add('done');
     setTimeout(()=>{ btn.textContent='Copy URL'; btn.classList.remove('done'); }, 2000);
-  });
+  };
+  if (window.parent !== window) {
+    window.parent.postMessage({ type: 'wcp:copy-to-clipboard', text: url }, '*');
+    showDone(); return;
+  }
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(showDone).catch(()=>{ fallbackCopy(url); showDone(); });
+  } else { fallbackCopy(url); showDone(); }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch(_) {}
+  document.body.removeChild(ta);
 }
 
 function newTheme() {
