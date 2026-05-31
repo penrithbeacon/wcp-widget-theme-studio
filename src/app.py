@@ -1,7 +1,7 @@
 """
 WCP Widget: Theme Studio
 Theme gallery with 12 built-in themes + custom theme editor.
-Each theme is served as a downloadable .njtheme.json for import into Natterjack WCP.
+Each theme is served as a downloadable .pbtheme.json for import into Penrith Beacon MCP.
 Port: 3740
 """
 
@@ -31,8 +31,8 @@ BUILTIN_THEMES = [
 ]
 
 WCP_MANIFEST = {
-  "wcp":"1.0.0","name":"Theme Studio","version":"1.0.0",
-  "description":"Gallery of 12 beautifully crafted themes + custom theme editor. Each theme is shareable as a .njtheme.json URL for import into Natterjack WCP.",
+  "wcp":"1.0.0","name":"WCP Theme Studio","version":"1.0.0",
+  "description":"Gallery of 12 beautifully crafted themes + custom theme editor. Each theme is shareable as a .pbtheme.json URL for import into Penrith Beacon MCP.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "widget":{"path":"/widget/","renderMode":"iframe","refreshInterval":0,"authType":"none","defaultSize":{"w":6,"h":4}},
   "pages":[{"id":"full","path":"/widget/full","title":"Theme Studio","description":"Full theme gallery with editor","window":{"width":1100,"height":700}}],
@@ -70,7 +70,7 @@ def manifest():
     return jsonify({k:m[k] for k in ['wcp','name','version','description','icon','health','widget']})
 
 @app.route('/widget/health')
-def health(): return jsonify({"status":"ok","name":"Theme Studio"})
+def health(): return jsonify({"status":"ok","name":"WCP Theme Studio"})
 
 @app.route('/widget/full')
 def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST)
@@ -84,14 +84,14 @@ def icon():
 
 # ── Theme file endpoint ────────────────────────────────────────────────────────
 
-@app.route('/widget/themes/<theme_id>.njtheme.json')
+@app.route('/widget/themes/<theme_id>.pbtheme.json')
 def get_theme_file(theme_id):
     theme = next((t for t in all_themes() if t['id'] == theme_id), None)
     if not theme: return jsonify({"error":"not found"}), 404
     payload = {"uuid": theme.get('uuid', str(uuid_lib.uuid4())),
                "name": theme['name'], "vars": theme['vars']}
     resp = Response(json.dumps(payload, indent=2), mimetype='application/json')
-    resp.headers['Content-Disposition'] = f'inline; filename="{theme_id}.njtheme.json"'
+    resp.headers['Content-Disposition'] = f'inline; filename="{theme_id}.pbtheme.json"'
     return resp
 
 # ── Theme list API ────────────────────────────────────────────────────────────

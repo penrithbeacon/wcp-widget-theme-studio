@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Theme Studio</title>
+<title>WCP Theme Studio</title>
 <style>
 :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#f0883e;--green:#3fb950;--red:#f85149;--yellow:#d29922;--blue:#58a6ff;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.45)}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -79,7 +79,7 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
 
   <!-- LEFT: theme list -->
   <div class="sidebar">
-    <div class="sidebar-header">🎨 Theme Studio
+    <div class="sidebar-header">🎨 WCP Theme Studio
       <span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:auto">{{themes|length}} themes</span>
     </div>
     <div class="theme-list" id="theme-list">
@@ -163,7 +163,7 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
         <div style="width:22px;height:22px;border-radius:5px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
           <svg width="12" height="12" viewBox="0 0 28 28" fill="#0d1117"><rect x="4" y="14" width="4" height="8" rx="1"/><rect x="11" y="9" width="4" height="13" rx="1"/><rect x="18" y="4" width="4" height="18" rx="1"/></svg>
         </div>
-        <span style="font-weight:600;font-size:13px">Natterjack WCP</span>
+        <span style="font-weight:600;font-size:13px">Penrith Beacon MCP Dashboard</span>
         <div style="flex:1"></div>
         <span style="font-size:11px;color:var(--muted)">Updated 14:32</span>
         <div style="background:var(--accent);color:#0d1117;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;">⟳ Refresh All</div>
@@ -214,7 +214,7 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
         <!-- Link card -->
         <div style="background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;">
           <div style="display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--border);">
-            <span style="font-size:12px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Natterjack WCP</span>
+            <span style="font-size:12px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Penrith Beacon MCP Dashboard</span>
             <span style="font-size:15px;color:var(--muted);">⋮</span>
           </div>
           <div style="padding:8px 10px;font-size:11px;color:var(--muted);flex:1;">Developer dashboard</div>
@@ -313,11 +313,11 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
 
   <!-- RIGHT: editor -->
   <div class="editor" id="editor-panel">
-    <div class="editor-header" id="editor-title" style="display:flex;align-items:center;justify-content:space-between;">
-      <span>Select a theme or create new</span>
+    <div class="editor-header" style="display:flex;align-items:center;justify-content:space-between;">
+      <span id="editor-title">Select a theme or create new</span>
       <div style="display:flex;gap:6px;">
         <button class="btn" id="btn-view-json" style="font-size:11px;display:none" onclick="showThemeJson()">{ } JSON</button>
-        <button class="btn" style="font-size:11px" onclick="showStudioAbout()" title="About Theme Studio">ℹ</button>
+        <button class="btn" style="font-size:11px;padding:3px 8px;" onclick="showStudioAbout()" title="About WCP Theme Studio">ℹ</button>
       </div>
     </div>
     <div class="editor-body" id="editor-body">
@@ -407,7 +407,7 @@ function selectTheme(id) {
     aboutBody.innerHTML = `<p style="font-size:20px;margin-bottom:8px">${info.emoji}</p>
       <p style="color:var(--text);font-weight:600;margin-bottom:6px">${t.name}</p>
       <p style="margin-bottom:10px">${info.desc}</p>
-      ${info.url ? `<a href="${info.url}" style="color:var(--blue);font-size:11px">${info.url}</a>` : '<span style="font-size:11px">Original design for Natterjack WCP</span>'}`;
+      ${info.url ? `<a href="${info.url}" style="color:var(--blue);font-size:11px">${info.url}</a>` : '<span style="font-size:11px">Original design for Penrith Beacon MCP</span>'}`;
   }
   // Hide editor if viewing built-in
   if (t.builtin && editId === null) {
@@ -418,7 +418,7 @@ function selectTheme(id) {
 }
 
 function copyUrl(id) {
-  const url = `${BASE}/widget/themes/${id}.njtheme.json`;
+  const url = `${BASE}/widget/themes/${id}.pbtheme.json`;
   const btn = document.getElementById('copy-'+id);
   const showDone = () => {
     if (!btn) return;
@@ -435,7 +435,7 @@ function copyUrl(id) {
 }
 
 async function addToDashboard(id, btn) {
-  const url = `${BASE}/widget/themes/${id}.njtheme.json`;
+  const url = `${BASE}/widget/themes/${id}.pbtheme.json`;
   const orig = btn.textContent;
   btn.textContent = '…'; btn.disabled = true;
   try {
@@ -551,13 +551,13 @@ function showThemeJson() {
   overlay.innerHTML = `
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;width:500px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);" onclick="event.stopPropagation()">
       <div style="display:flex;justify-content:space-between;align-items:center;">
-        <strong style="font-size:14px;">{ } ${t.name}.njtheme.json</strong>
+        <strong style="font-size:14px;">{ } ${t.name}.pbtheme.json</strong>
         <button onclick="this.closest('.overlay-root').remove()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
       </div>
       <pre style="flex:1;overflow:auto;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;line-height:1.6;color:var(--text);white-space:pre-wrap;">${json.replace(/</g,'&lt;')}</pre>
       <div style="display:flex;justify-content:flex-end;gap:8px;">
         <button onclick="navigator.clipboard?.writeText(\`${json.replace(/`/g,'\\`')}\`)" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--blue);cursor:pointer;font-size:12px;padding:6px 14px;">Copy JSON</button>
-        <a href="${BASE}/widget/themes/${t.id}.njtheme.json" download="${t.id}.njtheme.json" style="background:var(--accent);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;text-decoration:none;">Download</a>
+        <a href="${BASE}/widget/themes/${t.id}.pbtheme.json" download="${t.id}.pbtheme.json" style="background:var(--accent);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;text-decoration:none;">Download</a>
       </div>
     </div>`;
   overlay.className = 'overlay-root';
@@ -572,10 +572,10 @@ function showStudioAbout() {
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;width:420px;max-width:95vw;box-shadow:var(--shadow);" onclick="event.stopPropagation()">
       <div style="text-align:center;margin-bottom:16px;">
         <div style="font-size:36px;margin-bottom:8px;">🎨</div>
-        <div style="font-weight:600;font-size:16px;margin-bottom:4px;">Theme Studio</div>
+        <div style="font-weight:600;font-size:16px;margin-bottom:4px;">WCP Theme Studio</div>
         <div style="font-size:12px;color:var(--muted);">WCP Widget · Port 3740 · v1.0.0</div>
       </div>
-      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A WCP-compliant theme gallery and editor for <strong style="color:var(--text)">Penrith Beacon WCP</strong>. Includes 12 professionally crafted themes and a full custom theme editor. Each theme is shareable as a <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;">.njtheme.json</code> URL.</p>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A WCP-compliant theme gallery and editor for <strong style="color:var(--text)">Penrith Beacon MCP</strong>. Includes 12 professionally crafted themes and a full custom theme editor. Each theme is shareable as a <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;">.pbtheme.json</code> URL.</p>
       <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:16px;">Built-in themes are inspired by beloved open source colour schemes from the developer community. Full attribution in the About tab.</p>
       <div style="display:flex;justify-content:center;">
         <button onclick="this.closest('.overlay-root').remove()" style="background:var(--accent);border:none;border-radius:6px;color:#0d1117;font-weight:600;padding:8px 24px;cursor:pointer;font-size:13px;">Close</button>
