@@ -148,29 +148,33 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
 
     <!-- Tab: Settings -->
     <div id="tab-settings" style="display:none">
+      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--accent);margin-bottom:12px">
+        ℹ️ This is a <strong>visual preview</strong> of what the Settings panel looks like with each theme. These controls are not functional.
+      </div>
       <div class="prev-card">
         <div class="prev-card-title" style="margin-bottom:12px">Settings Panel</div>
         <div style="margin-bottom:12px">
-          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Theme</div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Active Theme</div>
           <div style="display:flex;gap:6px;margin-bottom:10px">
             <div id="settings-theme-name" style="flex:1;background:var(--surface2);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--text)">Forest</div>
-            <button class="prev-btn2" style="font-size:11px">Change</button>
+            <button class="prev-btn2" style="font-size:11px;opacity:.5;cursor:default" disabled>Change</button>
           </div>
           <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Widget URL</div>
-          <input class="prev-input" type="text" value="http://localhost:3740" style="margin-bottom:10px">
+          <input class="prev-input" type="text" value="http://localhost:3740" readonly style="margin-bottom:10px;opacity:.7">
           <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Gap between cards (px)</div>
-          <input class="prev-input" type="number" value="0" style="width:80px;margin-bottom:10px">
+          <input class="prev-input" type="number" value="0" readonly style="width:80px;margin-bottom:10px;opacity:.7">
           <div style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:4px">
-            <input type="checkbox" style="accent-color:var(--accent)"> Rounded corners
+            <input type="checkbox" style="accent-color:var(--accent)" disabled> Rounded corners
           </div>
           <div style="display:flex;justify-content:flex-end;margin-top:12px">
-            <button class="prev-btn">Save</button>
+            <button class="prev-btn" style="opacity:.5;cursor:default" disabled>Save</button>
           </div>
         </div>
       </div>
       <div class="prev-card">
-        <div class="prev-card-title" style="margin-bottom:10px">Notification</div>
-        <div style="background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--green)">✓ Settings saved successfully</div>
+        <div class="prev-card-title" style="margin-bottom:10px">Status Messages</div>
+        <div style="background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--green);margin-bottom:8px">✓ Settings saved successfully</div>
+        <div style="background:rgba(248,81,73,.08);border:1px solid var(--red);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--red)">✗ Could not reach server</div>
       </div>
     </div>
 
