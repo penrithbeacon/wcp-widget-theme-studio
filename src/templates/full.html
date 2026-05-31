@@ -32,7 +32,9 @@ html,body{background:var(--bg);color:var(--text);font-family:-apple-system,Blink
 .sidebar-footer{padding:12px;border-top:1px solid var(--border);flex-shrink:0;}
 
 /* Centre: preview */
-.preview{overflow:auto;background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:16px;}
+.preview{overflow:auto;background:var(--bg);padding:0;display:flex;flex-direction:column;gap:0;}
+.preview-sticky{position:sticky;top:0;z-index:20;background:var(--bg);padding:16px 20px 0;border-bottom:1px solid var(--border);}
+.preview-scroll{padding:16px 20px 80px;display:flex;flex-direction:column;gap:16px;}
 .preview-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
 .prev-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
 .prev-card-title{font-weight:600;margin-bottom:8px;}
@@ -110,7 +112,8 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
 
   <!-- CENTRE: preview -->
   <div class="preview" id="preview">
-    <div>
+    <!-- Sticky header: theme name + tabs -->
+    <div class="preview-sticky">
       <div class="preview-title" id="preview-label">Dracula</div>
       <div class="tabs">
         <div class="tab active" onclick="switchTab('dashboard',this)">Dashboard</div>
@@ -118,6 +121,8 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
         <div class="tab" onclick="switchTab('about',this)">About</div>
       </div>
     </div>
+    <!-- Scrollable content -->
+    <div class="preview-scroll">
     <!-- Tab: Dashboard -->
     <div id="tab-dashboard">
       <div class="prev-card">
@@ -303,11 +308,18 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
         </div>
       </div>
     </div>
+    </div><!-- /preview-scroll -->
   </div>
 
   <!-- RIGHT: editor -->
   <div class="editor" id="editor-panel">
-    <div class="editor-header" id="editor-title">Select a theme or create new</div>
+    <div class="editor-header" id="editor-title" style="display:flex;align-items:center;justify-content:space-between;">
+      <span>Select a theme or create new</span>
+      <div style="display:flex;gap:6px;">
+        <button class="btn" id="btn-view-json" style="font-size:11px;display:none" onclick="showThemeJson()">{ } JSON</button>
+        <button class="btn" style="font-size:11px" onclick="showStudioAbout()" title="About Theme Studio">ℹ</button>
+      </div>
+    </div>
     <div class="editor-body" id="editor-body">
       <p style="color:var(--muted);font-size:12px;line-height:1.6">
         Select a theme from the list to preview it.<br><br>
@@ -385,6 +397,9 @@ function selectTheme(id) {
   document.getElementById('preview-label').textContent = t.name;
   const stn = document.getElementById('settings-theme-name');
   if (stn) stn.textContent = t.name;
+  // Show JSON button whenever a theme is selected
+  const jsonBtn = document.getElementById('btn-view-json');
+  if (jsonBtn) jsonBtn.style.display = '';
   // Update About tab
   const info = THEME_ABOUT[t.id];
   const aboutBody = document.getElementById('about-body');
@@ -524,6 +539,51 @@ async function deleteTheme(id, name) {
   if (!confirm(`Delete "${name}"?`)) return;
   await fetch(`/widget/api/custom/${id}`, {method:'DELETE'});
   location.reload();
+}
+
+function showThemeJson() {
+  const t = THEMES.find(x => x.id === currentId);
+  if (!t) return;
+  const payload = { uuid: t.uuid || null, name: t.name, vars: t.vars };
+  const json = JSON.stringify(payload, null, 2);
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;width:500px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);" onclick="event.stopPropagation()">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:14px;">{ } ${t.name}.njtheme.json</strong>
+        <button onclick="this.closest('.overlay-root').remove()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
+      </div>
+      <pre style="flex:1;overflow:auto;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;line-height:1.6;color:var(--text);white-space:pre-wrap;">${json.replace(/</g,'&lt;')}</pre>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button onclick="navigator.clipboard?.writeText(\`${json.replace(/`/g,'\\`')}\`)" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--blue);cursor:pointer;font-size:12px;padding:6px 14px;">Copy JSON</button>
+        <a href="${BASE}/widget/themes/${t.id}.njtheme.json" download="${t.id}.njtheme.json" style="background:var(--accent);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;text-decoration:none;">Download</a>
+      </div>
+    </div>`;
+  overlay.className = 'overlay-root';
+  overlay.addEventListener('click', () => overlay.remove());
+  document.body.appendChild(overlay);
+}
+
+function showStudioAbout() {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;width:420px;max-width:95vw;box-shadow:var(--shadow);" onclick="event.stopPropagation()">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div style="font-size:36px;margin-bottom:8px;">🎨</div>
+        <div style="font-weight:600;font-size:16px;margin-bottom:4px;">Theme Studio</div>
+        <div style="font-size:12px;color:var(--muted);">WCP Widget · Port 3740 · v1.0.0</div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A WCP-compliant theme gallery and editor for <strong style="color:var(--text)">Penrith Beacon WCP</strong>. Includes 12 professionally crafted themes and a full custom theme editor. Each theme is shareable as a <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;">.njtheme.json</code> URL.</p>
+      <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:16px;">Built-in themes are inspired by beloved open source colour schemes from the developer community. Full attribution in the About tab.</p>
+      <div style="display:flex;justify-content:center;">
+        <button onclick="this.closest('.overlay-root').remove()" style="background:var(--accent);border:none;border-radius:6px;color:#0d1117;font-weight:600;padding:8px 24px;cursor:pointer;font-size:13px;">Close</button>
+      </div>
+    </div>`;
+  overlay.className = 'overlay-root';
+  overlay.addEventListener('click', () => overlay.remove());
+  document.body.appendChild(overlay);
 }
 
 // Init
