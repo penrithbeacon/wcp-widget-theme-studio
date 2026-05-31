@@ -5,7 +5,7 @@ Each theme is served as a downloadable .njtheme.json for import into Natterjack 
 Port: 3740
 """
 
-import json, os, uuid
+import json, os, uuid as uuid_lib
 from flask import Flask, jsonify, render_template, request, Response
 
 app = Flask(__name__)
@@ -16,18 +16,18 @@ os.makedirs('/app/data', exist_ok=True)
 # ── Built-in themes ───────────────────────────────────────────────────────────
 
 BUILTIN_THEMES = [
-  {"id":"dracula","name":"Dracula","builtin":True,"vars":{"--bg":"#282a36","--surface":"#343746","--surface2":"#44475a","--border":"#6272a4","--text":"#f8f8f2","--muted":"#6272a4","--accent":"#ff79c6","--green":"#50fa7b","--red":"#ff5555","--yellow":"#f1fa8c","--blue":"#8be9fd","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
-  {"id":"nord","name":"Nord","builtin":True,"vars":{"--bg":"#2e3440","--surface":"#3b4252","--surface2":"#434c5e","--border":"#4c566a","--text":"#eceff4","--muted":"#d8dee9","--accent":"#88c0d0","--green":"#a3be8c","--red":"#bf616a","--yellow":"#ebcb8b","--blue":"#81a1c1","--radius":"8px","--shadow":"0 4px 12px rgba(0,0,0,.4)"}},
-  {"id":"catppuccin","name":"Catppuccin Mocha","builtin":True,"vars":{"--bg":"#1e1e2e","--surface":"#313244","--surface2":"#45475a","--border":"#585b70","--text":"#cdd6f4","--muted":"#a6adc8","--accent":"#cba6f7","--green":"#a6e3a1","--red":"#f38ba8","--yellow":"#f9e2af","--blue":"#89b4fa","--radius":"8px","--shadow":"0 4px 20px rgba(0,0,0,.5)"}},
-  {"id":"tokyo","name":"Tokyo Night","builtin":True,"vars":{"--bg":"#1a1b2e","--surface":"#24253e","--surface2":"#2f3154","--border":"#414868","--text":"#c0caf5","--muted":"#9aa5ce","--accent":"#7aa2f7","--green":"#9ece6a","--red":"#f7768e","--yellow":"#e0af68","--blue":"#7dcfff","--radius":"6px","--shadow":"0 4px 20px rgba(0,0,0,.6)"}},
-  {"id":"gruvbox","name":"Gruvbox Dark","builtin":True,"vars":{"--bg":"#282828","--surface":"#3c3836","--surface2":"#504945","--border":"#665c54","--text":"#ebdbb2","--muted":"#a89984","--accent":"#fabd2f","--green":"#b8bb26","--red":"#fb4934","--yellow":"#fabd2f","--blue":"#83a598","--radius":"4px","--shadow":"0 4px 12px rgba(0,0,0,.5)"}},
-  {"id":"monokai","name":"Monokai","builtin":True,"vars":{"--bg":"#272822","--surface":"#3e3d32","--surface2":"#49483e","--border":"#75715e","--text":"#f8f8f2","--muted":"#75715e","--accent":"#f92672","--green":"#a6e22e","--red":"#f92672","--yellow":"#e6db74","--blue":"#66d9ef","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
-  {"id":"onedark","name":"One Dark","builtin":True,"vars":{"--bg":"#282c34","--surface":"#2c313c","--surface2":"#3e4451","--border":"#4b5263","--text":"#abb2bf","--muted":"#5c6370","--accent":"#61afef","--green":"#98c379","--red":"#e06c75","--yellow":"#e5c07b","--blue":"#61afef","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.4)"}},
-  {"id":"solarized","name":"Solarized Dark","builtin":True,"vars":{"--bg":"#002b36","--surface":"#073642","--surface2":"#0b4a56","--border":"#586e75","--text":"#839496","--muted":"#657b83","--accent":"#268bd2","--green":"#859900","--red":"#dc322f","--yellow":"#b58900","--blue":"#268bd2","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
-  {"id":"rosepine","name":"Rosé Pine","builtin":True,"vars":{"--bg":"#191724","--surface":"#1f1d2e","--surface2":"#26233a","--border":"#403d52","--text":"#e0def4","--muted":"#6e6a86","--accent":"#eb6f92","--green":"#31748f","--red":"#eb6f92","--yellow":"#f6c177","--blue":"#9ccfd8","--radius":"8px","--shadow":"0 4px 20px rgba(0,0,0,.5)"}},
-  {"id":"ayu","name":"Ayu Dark","builtin":True,"vars":{"--bg":"#0d1017","--surface":"#131721","--surface2":"#1a1f29","--border":"#2d3345","--text":"#bfbdb6","--muted":"#565b66","--accent":"#e6b450","--green":"#7fd962","--red":"#f07178","--yellow":"#e6b450","--blue":"#39bae6","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
-  {"id":"cyberpunk","name":"Cyberpunk","builtin":True,"vars":{"--bg":"#060010","--surface":"#100025","--surface2":"#1a003a","--border":"#ff2d78","--text":"#f0f0f0","--muted":"#888888","--accent":"#ff2d78","--green":"#00ff41","--red":"#ff2d78","--yellow":"#ffff00","--blue":"#00b4ff","--radius":"2px","--shadow":"0 0 20px rgba(255,45,120,.3)"}},
-  {"id":"forest","name":"Forest","builtin":True,"vars":{"--bg":"#1a2214","--surface":"#22301a","--surface2":"#2d4020","--border":"#3d5c2a","--text":"#c8d8c0","--muted":"#7a9a6a","--accent":"#5a9e3a","--green":"#5a9e3a","--red":"#c0392b","--yellow":"#d4a017","--blue":"#3a7ab8","--radius":"8px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
+  {"id":"dracula",   "uuid":"2d9e7698-c49e-482d-87cf-a2d8c03f423d","name":"Dracula",         "builtin":True,"vars":{"--bg":"#282a36","--surface":"#343746","--surface2":"#44475a","--border":"#6272a4","--text":"#f8f8f2","--muted":"#6272a4","--accent":"#ff79c6","--green":"#50fa7b","--red":"#ff5555","--yellow":"#f1fa8c","--blue":"#8be9fd","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
+  {"id":"nord",      "uuid":"6b5bd0ad-39ac-4bcd-8a04-54959b39bef2","name":"Nord",             "builtin":True,"vars":{"--bg":"#2e3440","--surface":"#3b4252","--surface2":"#434c5e","--border":"#4c566a","--text":"#eceff4","--muted":"#d8dee9","--accent":"#88c0d0","--green":"#a3be8c","--red":"#bf616a","--yellow":"#ebcb8b","--blue":"#81a1c1","--radius":"8px","--shadow":"0 4px 12px rgba(0,0,0,.4)"}},
+  {"id":"catppuccin","uuid":"d3a11c29-4dbd-4fa6-a6de-145c13045867","name":"Catppuccin Mocha", "builtin":True,"vars":{"--bg":"#1e1e2e","--surface":"#313244","--surface2":"#45475a","--border":"#585b70","--text":"#cdd6f4","--muted":"#a6adc8","--accent":"#cba6f7","--green":"#a6e3a1","--red":"#f38ba8","--yellow":"#f9e2af","--blue":"#89b4fa","--radius":"8px","--shadow":"0 4px 20px rgba(0,0,0,.5)"}},
+  {"id":"tokyo",     "uuid":"d9ac54b8-622c-4811-b387-5fdc7d1af8aa","name":"Tokyo Night",      "builtin":True,"vars":{"--bg":"#1a1b2e","--surface":"#24253e","--surface2":"#2f3154","--border":"#414868","--text":"#c0caf5","--muted":"#9aa5ce","--accent":"#7aa2f7","--green":"#9ece6a","--red":"#f7768e","--yellow":"#e0af68","--blue":"#7dcfff","--radius":"6px","--shadow":"0 4px 20px rgba(0,0,0,.6)"}},
+  {"id":"gruvbox",   "uuid":"fddd994e-71ad-4006-9c1e-b251e6beb7ac","name":"Gruvbox Dark",     "builtin":True,"vars":{"--bg":"#282828","--surface":"#3c3836","--surface2":"#504945","--border":"#665c54","--text":"#ebdbb2","--muted":"#a89984","--accent":"#fabd2f","--green":"#b8bb26","--red":"#fb4934","--yellow":"#fabd2f","--blue":"#83a598","--radius":"4px","--shadow":"0 4px 12px rgba(0,0,0,.5)"}},
+  {"id":"monokai",   "uuid":"cc0d722b-48ac-495f-b8d2-d9f3304b97f8","name":"Monokai",          "builtin":True,"vars":{"--bg":"#272822","--surface":"#3e3d32","--surface2":"#49483e","--border":"#75715e","--text":"#f8f8f2","--muted":"#75715e","--accent":"#f92672","--green":"#a6e22e","--red":"#f92672","--yellow":"#e6db74","--blue":"#66d9ef","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
+  {"id":"onedark",   "uuid":"ab07c05a-5ff7-445d-ac86-0e5ee6ab1887","name":"One Dark",         "builtin":True,"vars":{"--bg":"#282c34","--surface":"#2c313c","--surface2":"#3e4451","--border":"#4b5263","--text":"#abb2bf","--muted":"#5c6370","--accent":"#61afef","--green":"#98c379","--red":"#e06c75","--yellow":"#e5c07b","--blue":"#61afef","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.4)"}},
+  {"id":"solarized", "uuid":"10ab0dcf-361a-4680-9d10-3d6cbd09c5c8","name":"Solarized Dark",   "builtin":True,"vars":{"--bg":"#002b36","--surface":"#073642","--surface2":"#0b4a56","--border":"#586e75","--text":"#839496","--muted":"#657b83","--accent":"#268bd2","--green":"#859900","--red":"#dc322f","--yellow":"#b58900","--blue":"#268bd2","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
+  {"id":"rosepine",  "uuid":"67637421-bd4d-460d-ba9c-6f5c462feb4e","name":"Rosé Pine",        "builtin":True,"vars":{"--bg":"#191724","--surface":"#1f1d2e","--surface2":"#26233a","--border":"#403d52","--text":"#e0def4","--muted":"#6e6a86","--accent":"#eb6f92","--green":"#31748f","--red":"#eb6f92","--yellow":"#f6c177","--blue":"#9ccfd8","--radius":"8px","--shadow":"0 4px 20px rgba(0,0,0,.5)"}},
+  {"id":"ayu",       "uuid":"ef5178f8-d30d-42b7-aac1-9028eae0811c","name":"Ayu Dark",         "builtin":True,"vars":{"--bg":"#0d1017","--surface":"#131721","--surface2":"#1a1f29","--border":"#2d3345","--text":"#bfbdb6","--muted":"#565b66","--accent":"#e6b450","--green":"#7fd962","--red":"#f07178","--yellow":"#e6b450","--blue":"#39bae6","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
+  {"id":"cyberpunk", "uuid":"e10609cb-2da3-4f28-920c-b7fc51845755","name":"Cyberpunk",        "builtin":True,"vars":{"--bg":"#060010","--surface":"#100025","--surface2":"#1a003a","--border":"#ff2d78","--text":"#f0f0f0","--muted":"#888888","--accent":"#ff2d78","--green":"#00ff41","--red":"#ff2d78","--yellow":"#ffff00","--blue":"#00b4ff","--radius":"2px","--shadow":"0 0 20px rgba(255,45,120,.3)"}},
+  {"id":"forest",    "uuid":"94153276-8395-48df-a4a8-9cadebb605e6","name":"Forest",            "builtin":True,"vars":{"--bg":"#1a2214","--surface":"#22301a","--surface2":"#2d4020","--border":"#3d5c2a","--text":"#c8d8c0","--muted":"#7a9a6a","--accent":"#5a9e3a","--green":"#5a9e3a","--red":"#c0392b","--yellow":"#d4a017","--blue":"#3a7ab8","--radius":"8px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
 ]
 
 WCP_MANIFEST = {
@@ -88,7 +88,8 @@ def icon():
 def get_theme_file(theme_id):
     theme = next((t for t in all_themes() if t['id'] == theme_id), None)
     if not theme: return jsonify({"error":"not found"}), 404
-    payload = {"name": theme['name'], "vars": theme['vars']}
+    payload = {"uuid": theme.get('uuid', str(uuid_lib.uuid4())),
+               "name": theme['name'], "vars": theme['vars']}
     resp = Response(json.dumps(payload, indent=2), mimetype='application/json')
     resp.headers['Content-Disposition'] = f'inline; filename="{theme_id}.njtheme.json"'
     return resp
@@ -106,9 +107,11 @@ def api_add_custom():
     if not name or not isinstance(vars_, dict):
         return jsonify({"success":False,"error":"name and vars required"}), 400
     custom = read_custom()
-    tid = data.get('id') or str(uuid.uuid4())[:8]
+    tid = data.get('id') or str(uuid_lib.uuid4())[:8]
+    # Assign a permanent UUID if not already present
+    if 'uuid' not in data: data['uuid'] = str(uuid_lib.uuid4())
     existing = next((i for i,t in enumerate(custom) if t['id']==tid), None)
-    entry = {"id":tid,"name":name,"builtin":False,"vars":vars_}
+    entry = {"id":tid,"uuid":data.get('uuid', str(uuid_lib.uuid4())),"name":name,"builtin":False,"vars":vars_}
     if existing is not None: custom[existing] = entry
     else: custom.append(entry)
     write_custom(custom)
