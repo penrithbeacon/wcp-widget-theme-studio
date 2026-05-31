@@ -94,6 +94,7 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
         </div>
         <div class="theme-item-actions">
           <button class="btn btn-copy" id="copy-{{t.id}}" onclick="event.stopPropagation();copyUrl('{{t.id}}')">Copy URL</button>
+          <button class="btn" id="add-{{t.id}}" style="color:var(--accent);border-color:rgba(240,136,62,.4)" onclick="event.stopPropagation();addToDashboard('{{t.id}}',this)">Add to Dashboard</button>
           {% if not t.builtin %}
           <button class="btn" onclick="event.stopPropagation();editTheme('{{t.id}}')">Edit</button>
           <button class="btn btn-danger" onclick="event.stopPropagation();deleteTheme('{{t.id}}','{{t.name}}')">×</button>
@@ -220,6 +221,26 @@ function copyUrl(id) {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(url).then(showDone).catch(()=>{ fallbackCopy(url); showDone(); });
   } else { fallbackCopy(url); showDone(); }
+}
+
+async function addToDashboard(id, btn) {
+  const url = `${BASE}/widget/themes/${id}.njtheme.json`;
+  const orig = btn.textContent;
+  btn.textContent = '…'; btn.disabled = true;
+  try {
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: 'wcp:import-theme', url }, '*');
+      btn.textContent = 'Added!';
+    } else {
+      const r = await fetch('http://localhost:3737/api/theme-auto-import', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ url }),
+      });
+      const d = await r.json();
+      btn.textContent = d.success ? 'Added!' : 'Error';
+    }
+  } catch { btn.textContent = 'Error'; }
+  setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
 }
 
 function fallbackCopy(text) {
