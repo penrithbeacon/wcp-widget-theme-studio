@@ -113,34 +113,93 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
     <div>
       <div class="preview-title" id="preview-label">Dracula</div>
       <div class="tabs">
-        <div class="tab active">Dashboard</div>
-        <div class="tab">Settings</div>
-        <div class="tab">About</div>
+        <div class="tab active" onclick="switchTab('dashboard',this)">Dashboard</div>
+        <div class="tab" onclick="switchTab('settings',this)">Settings</div>
+        <div class="tab" onclick="switchTab('about',this)">About</div>
       </div>
     </div>
-    <div class="prev-card">
-      <div class="prev-card-title">Widget Card</div>
-      <p class="prev-text">This is how content looks in this theme. Muted text, clear headings, comfortable reading experience.</p>
-      <div class="prev-row">
-        <button class="prev-btn">Primary Action</button>
-        <button class="prev-btn2">Secondary</button>
-        <button class="prev-btn-d">Danger</button>
+    <!-- Tab: Dashboard -->
+    <div id="tab-dashboard">
+      <div class="prev-card">
+        <div class="prev-card-title">Widget Card</div>
+        <p class="prev-text">This is how content looks in this theme. Muted text, clear headings, comfortable reading experience.</p>
+        <div class="prev-row">
+          <button class="prev-btn">Primary Action</button>
+          <button class="prev-btn2">Secondary</button>
+          <button class="prev-btn-d">Danger</button>
+        </div>
+        <input class="prev-input" type="text" placeholder="Input field placeholder text…">
       </div>
-      <input class="prev-input" type="text" placeholder="Input field placeholder text…">
-    </div>
-    <div class="prev-card">
-      <div class="prev-row">
-        <span><span class="dot" style="background:var(--green)"></span>Running</span>
-        <span><span class="dot" style="background:var(--red)"></span>Stopped</span>
-        <span class="badge badge-g">Success</span>
-        <span class="badge badge-b">Widget</span>
-        <span class="badge badge-r">Error</span>
-        <span class="badge badge-y">Warning</span>
+      <div class="prev-card">
+        <div class="prev-row">
+          <span><span class="dot" style="background:var(--green)"></span>Running</span>
+          <span><span class="dot" style="background:var(--red)"></span>Stopped</span>
+          <span class="badge badge-g">Success</span>
+          <span class="badge badge-b">Widget</span>
+          <span class="badge badge-r">Error</span>
+          <span class="badge badge-y">Warning</span>
+        </div>
+      </div>
+      <div class="prev-card">
+        <div class="prev-card-title">Colour Palette</div>
+        <div class="color-grid" id="color-grid"></div>
       </div>
     </div>
-    <div class="prev-card">
-      <div class="prev-card-title">Colour Palette</div>
-      <div class="color-grid" id="color-grid"></div>
+
+    <!-- Tab: Settings -->
+    <div id="tab-settings" style="display:none">
+      <div class="prev-card">
+        <div class="prev-card-title" style="margin-bottom:12px">Settings Panel</div>
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Theme</div>
+          <div style="display:flex;gap:6px;margin-bottom:10px">
+            <div style="flex:1;background:var(--surface2);border:1px solid var(--accent);border-radius:6px;padding:7px 10px;font-size:12px;color:var(--text)">Natterjack Dark</div>
+            <button class="prev-btn2" style="font-size:11px">Change</button>
+          </div>
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">API Token</div>
+          <input class="prev-input" type="password" value="••••••••••••••••" style="margin-bottom:10px">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px">Gap between cards (px)</div>
+          <input class="prev-input" type="number" value="0" style="width:80px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:4px">
+            <input type="checkbox" style="accent-color:var(--accent)"> Rounded corners
+          </div>
+          <div style="display:flex;justify-content:flex-end;margin-top:12px">
+            <button class="prev-btn">Save</button>
+          </div>
+        </div>
+      </div>
+      <div class="prev-card">
+        <div class="prev-card-title" style="margin-bottom:10px">Notification</div>
+        <div style="background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--green)">✓ Settings saved successfully</div>
+      </div>
+    </div>
+
+    <!-- Tab: About -->
+    <div id="tab-about" style="display:none">
+      <div class="prev-card" id="about-content">
+        <div class="prev-card-title" style="margin-bottom:8px">About This Theme</div>
+        <div id="about-body" style="font-size:12px;line-height:1.7;color:var(--muted)">
+          Select a theme to see its details and attribution.
+        </div>
+      </div>
+      <div class="prev-card">
+        <div class="prev-card-title" style="margin-bottom:8px">Theme Sources</div>
+        <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px">These themes are inspired by beloved developer colour schemes from the open source community. Each represents years of refinement by dedicated creators.</p>
+        <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)">
+          <span>🧛 <strong style="color:var(--text)">Dracula</strong> — Zeno Rocha · <a href="https://draculatheme.com" style="color:var(--blue)">draculatheme.com</a></span>
+          <span>🧊 <strong style="color:var(--text)">Nord</strong> — Arctic Ice Studio · <a href="https://nordtheme.com" style="color:var(--blue)">nordtheme.com</a></span>
+          <span>🐱 <strong style="color:var(--text)">Catppuccin</strong> — Community · <a href="https://catppuccin.com" style="color:var(--blue)">catppuccin.com</a></span>
+          <span>🌃 <strong style="color:var(--text)">Tokyo Night</strong> — enkia · GitHub</span>
+          <span>🪵 <strong style="color:var(--text)">Gruvbox</strong> — Pavel Pertsev · GitHub</span>
+          <span>🎨 <strong style="color:var(--text)">Monokai</strong> — Wimer Hazenberg · <a href="https://monokai.pro" style="color:var(--blue)">monokai.pro</a></span>
+          <span>⬛ <strong style="color:var(--text)">One Dark</strong> — Atom / GitHub</span>
+          <span>☀️ <strong style="color:var(--text)">Solarized</strong> — Ethan Schoonover · <a href="https://ethanschoonover.com/solarized" style="color:var(--blue)">ethanschoonover.com</a></span>
+          <span>🌹 <strong style="color:var(--text)">Rosé Pine</strong> — Emilia Dunfelt · <a href="https://rosepinetheme.com" style="color:var(--blue)">rosepinetheme.com</a></span>
+          <span>🌅 <strong style="color:var(--text)">Ayu</strong> — Ike Ku · GitHub</span>
+          <span>🤖 <strong style="color:var(--text)">Cyberpunk</strong> — Original design</span>
+          <span>🌲 <strong style="color:var(--text)">Forest</strong> — Original design</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -174,9 +233,33 @@ const VAR_DEFS = [
   {k:'--shadow',l:'Box Shadow',t:'text'},
 ];
 
+const THEME_ABOUT = {
+  dracula:    { emoji:'🧛', desc:'A dark theme created by Zeno Rocha, inspired by the Dracula story. One of the most popular developer themes worldwide.', url:'https://draculatheme.com' },
+  nord:       { emoji:'🧊', desc:'An arctic, north-bluish colour palette by Arctic Ice Studio. Designed to be clean, elegant and easily readable in low-light environments.', url:'https://nordtheme.com' },
+  catppuccin: { emoji:'🐱', desc:'A community-driven pastel theme that is warm yet readable. Available in four soothing variants across dozens of applications.', url:'https://catppuccin.com' },
+  tokyo:      { emoji:'🌃', desc:'Inspired by the neon lights of Tokyo at night. A sophisticated dark theme with cool purples and warm highlights.', url:'https://github.com/enkia/tokyo-night-vscode-theme' },
+  gruvbox:    { emoji:'🪵', desc:'A retro groove colour scheme by Pavel Pertsev. Warm, earthy tones with excellent readability — a timeless classic.', url:'https://github.com/morhetz/gruvbox' },
+  monokai:    { emoji:'🎨', desc:'Created by Wimer Hazenberg in 2006. One of the most recognisable coding themes ever made, known for its vibrant contrasting colours.', url:'https://monokai.pro' },
+  onedark:    { emoji:'⬛', desc:'Atom\'s default dark theme, maintained by the GitHub team. Clean and consistent — used daily by millions of developers.', url:'https://github.com/atom/one-dark-ui' },
+  solarized:  { emoji:'☀️', desc:'By Ethan Schoonover — meticulously designed with both dark and light variants using the same precise colour relationships.', url:'https://ethanschoonover.com/solarized' },
+  rosepine:   { emoji:'🌹', desc:'By Emilia Dunfelt — elegant, muted pastel tones inspired by natural materials. Has a cult following for its gentle, readable palette.', url:'https://rosepinetheme.com' },
+  ayu:        { emoji:'🌅', desc:'By Ike Ku — a simple, bright theme with three variants. The dark version uses deep blues with warm amber accents.', url:'https://github.com/dempfi/ayu' },
+  cyberpunk:  { emoji:'🤖', desc:'Original design inspired by the cyberpunk aesthetic — neon pinks and electric blues against pure black. Bold and futuristic.', url:'' },
+  forest:     { emoji:'🌲', desc:'Original design — a nature-inspired dark theme with deep greens and earthy neutrals. Calm, grounded and easy on the eyes.', url:'' },
+};
+
 let currentId = THEMES[0]?.id;
 let editId    = null;
 let workVars  = {};
+
+function switchTab(tab, el) {
+  ['dashboard','settings','about'].forEach(t => {
+    const panel = document.getElementById('tab-'+t);
+    if (panel) panel.style.display = t === tab ? '' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
 
 function applyVars(vars) {
   const root = document.documentElement;
@@ -198,6 +281,15 @@ function selectTheme(id) {
   if (!t) return;
   applyVars(t.vars);
   document.getElementById('preview-label').textContent = t.name;
+  // Update About tab
+  const info = THEME_ABOUT[t.id];
+  const aboutBody = document.getElementById('about-body');
+  if (aboutBody && info) {
+    aboutBody.innerHTML = `<p style="font-size:20px;margin-bottom:8px">${info.emoji}</p>
+      <p style="color:var(--text);font-weight:600;margin-bottom:6px">${t.name}</p>
+      <p style="margin-bottom:10px">${info.desc}</p>
+      ${info.url ? `<a href="${info.url}" style="color:var(--blue);font-size:11px">${info.url}</a>` : '<span style="font-size:11px">Original design for Natterjack WCP</span>'}`;
+  }
   // Hide editor if viewing built-in
   if (t.builtin && editId === null) {
     document.getElementById('editor-title').textContent = t.name + ' (Built-in)';
