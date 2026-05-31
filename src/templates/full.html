@@ -611,6 +611,20 @@ function showStudioAbout() {
 
 // Init
 if (THEMES.length) selectTheme(THEMES[0].id);
+
+// Guarantee sidebar footer always visible by JS-measuring available height
+function fixSidebarHeight() {
+  const header = document.querySelector('.sidebar-header');
+  const footer = document.querySelector('.sidebar-footer');
+  const list   = document.getElementById('theme-list');
+  if (!header || !footer || !list) return;
+  const available = window.innerHeight - header.offsetHeight - footer.offsetHeight;
+  list.style.height    = Math.max(available, 60) + 'px';
+  list.style.maxHeight = Math.max(available, 60) + 'px';
+}
+fixSidebarHeight();
+window.addEventListener('resize', fixSidebarHeight);
+
 </script>
 </body>
 </html>
