@@ -91,7 +91,7 @@ def get_theme_file(theme_id):
     payload = {"uuid": theme.get('uuid', str(uuid_lib.uuid4())),
                "name": theme['name'], "vars": theme['vars']}
     resp = Response(json.dumps(payload, indent=2), mimetype='application/json')
-    resp.headers['Content-Disposition'] = f'inline; filename="{theme_id}.pbtheme.json"'
+    resp.headers['Content-Disposition'] = f'attachment; filename="{theme_id}.pbtheme.json"'
     return resp
 
 # ── Theme list API ────────────────────────────────────────────────────────────
