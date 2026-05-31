@@ -1,7 +1,7 @@
 """
-WCP Widget: Theme Studio
-Theme gallery with 12 built-in themes + custom theme editor.
-Each theme is served as a downloadable .pbtheme.json for import into Penrith Beacon MCP.
+WCP Widget: WCP Theme Studio
+Theme gallery with 15 built-in themes + custom theme editor.
+Each theme is served as a downloadable .pbtheme.json for import into any WCP dashboard.
 Port: 3740
 """
 
@@ -28,11 +28,15 @@ BUILTIN_THEMES = [
   {"id":"ayu",       "uuid":"ef5178f8-d30d-42b7-aac1-9028eae0811c","name":"Ayu Dark",         "builtin":True,"vars":{"--bg":"#0d1017","--surface":"#131721","--surface2":"#1a1f29","--border":"#2d3345","--text":"#bfbdb6","--muted":"#565b66","--accent":"#e6b450","--green":"#7fd962","--red":"#f07178","--yellow":"#e6b450","--blue":"#39bae6","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
   {"id":"cyberpunk", "uuid":"e10609cb-2da3-4f28-920c-b7fc51845755","name":"Cyberpunk",        "builtin":True,"vars":{"--bg":"#060010","--surface":"#100025","--surface2":"#1a003a","--border":"#ff2d78","--text":"#f0f0f0","--muted":"#888888","--accent":"#ff2d78","--green":"#00ff41","--red":"#ff2d78","--yellow":"#ffff00","--blue":"#00b4ff","--radius":"2px","--shadow":"0 0 20px rgba(255,45,120,.3)"}},
   {"id":"forest",    "uuid":"94153276-8395-48df-a4a8-9cadebb605e6","name":"Forest",            "builtin":True,"vars":{"--bg":"#1a2214","--surface":"#22301a","--surface2":"#2d4020","--border":"#3d5c2a","--text":"#c8d8c0","--muted":"#7a9a6a","--accent":"#5a9e3a","--green":"#5a9e3a","--red":"#c0392b","--yellow":"#d4a017","--blue":"#3a7ab8","--radius":"8px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
+  # ── Penrith Beacon WCP built-in themes (match the dashboard's native themes) ──
+  {"id":"pb-wcp-dark","uuid":"a1b2c3d4-e5f6-7890-abcd-ef1234567890","name":"Penrith Beacon WCP Dark","builtin":True,"vars":{"--bg":"#0d1117","--surface":"#161b22","--surface2":"#1c2128","--border":"#30363d","--text":"#e6edf3","--muted":"#8b949e","--accent":"#f0883e","--green":"#3fb950","--red":"#f85149","--yellow":"#d29922","--blue":"#58a6ff","--radius":"8px","--shadow":"0 4px 16px rgba(0,0,0,.45)"}},
+  {"id":"pb-wcp-light","uuid":"b2c3d4e5-f6a7-8901-bcde-f12345678901","name":"Penrith Beacon WCP Light","builtin":True,"vars":{"--bg":"#ffffff","--surface":"#f6f8fa","--surface2":"#eaeef2","--border":"#d0d7de","--text":"#1f2328","--muted":"#636c76","--accent":"#f0883e","--green":"#1a7f37","--red":"#cf222e","--yellow":"#9a6700","--blue":"#0969da","--radius":"8px","--shadow":"0 4px 8px rgba(0,0,0,.12)"}},
+  {"id":"pb-wcp-hc","uuid":"c3d4e5f6-a7b8-9012-cdef-123456789012","name":"Penrith Beacon WCP High Contrast","builtin":True,"vars":{"--bg":"#000000","--surface":"#0d0d0d","--surface2":"#1a1a1a","--border":"#ffffff","--text":"#ffffff","--muted":"#cccccc","--accent":"#ff8c00","--green":"#00ff41","--red":"#ff3333","--yellow":"#ffff00","--blue":"#00b4ff","--radius":"4px","--shadow":"none"}},
 ]
 
 WCP_MANIFEST = {
-  "wcp":"1.0.0","name":"WCP Theme Studio","version":"1.0.0",
-  "description":"Gallery of 12 beautifully crafted themes + custom theme editor. Each theme is shareable as a .pbtheme.json URL for import into Penrith Beacon MCP.",
+  "wcp":"1.1.0","name":"WCP Theme Studio","version":"1.1.0",
+  "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "widget":{"path":"/widget/","renderMode":"iframe","refreshInterval":0,"authType":"none","defaultSize":{"w":6,"h":4}},
   "pages":[{"id":"full","path":"/widget/full","title":"Theme Studio","description":"Full theme gallery with editor","window":{"width":1100,"height":700}}],
