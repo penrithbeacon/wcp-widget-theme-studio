@@ -5,7 +5,7 @@ compliant widget providing a full theme gallery and custom theme editor for WCP-
 dashboards. Ships with 12 professionally crafted built-in themes and allows unlimited
 custom themes, all shareable via URL.
 
-Designed to run alongside the **Penrith Beacon MCP Dashboard** or any WCP-compatible host.
+Designed to run alongside the **Penrith Beacon WCP Dashboard** or any WCP-compatible host.
 
 ## Quick Start
 
