@@ -1,0 +1,13 @@
+services:
+  theme-studio:
+    build: .
+    image: wcp-widget-theme-studio
+    container_name: wcp-widget-theme-studio
+    ports:
+      - "3740:3740"
+    restart: unless-stopped
+    volumes:
+      - theme_data:/app/data
+
+volumes:
+  theme_data:

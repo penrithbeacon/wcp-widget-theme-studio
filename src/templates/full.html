@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Theme Studio</title>
+<style>
+:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#f0883e;--green:#3fb950;--red:#f85149;--yellow:#d29922;--blue:#58a6ff;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.45)}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;height:100%;overflow:hidden;}
+.layout{display:grid;grid-template-columns:250px 1fr 300px;height:100vh;gap:0;}
+
+/* Left: theme list */
+.sidebar{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.sidebar-header{padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.theme-list{flex:1;overflow-y:auto;padding:8px;}
+.theme-item{display:flex;flex-direction:column;gap:4px;background:none;border:1px solid transparent;border-radius:var(--radius);padding:8px;cursor:pointer;margin-bottom:4px;transition:all .15s;}
+.theme-item:hover{background:var(--surface2);border-color:var(--border);}
+.theme-item.active{background:rgba(240,136,62,.1);border-color:var(--accent);}
+.theme-item-row{display:flex;align-items:center;gap:6px;}
+.theme-item-name{flex:1;font-size:12px;font-weight:500;text-align:left;}
+.swatches{display:flex;gap:2px;}
+.swatch{width:14px;height:14px;border-radius:3px;}
+.theme-item-actions{display:flex;gap:4px;justify-content:flex-end;}
+.btn{background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);cursor:pointer;font-size:11px;padding:3px 9px;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.btn:hover{background:var(--surface);border-color:var(--muted);}
+.btn-copy{color:var(--blue);border-color:rgba(88,166,255,.3);}
+.btn-copy:hover{border-color:var(--blue);}
+.btn-copy.done{color:var(--green);border-color:var(--green);}
+.btn-accent{background:var(--accent);border-color:var(--accent);color:#0d1117;font-weight:600;}
+.btn-danger{color:var(--red);border-color:rgba(248,81,73,.3);}
+.sidebar-footer{padding:12px;border-top:1px solid var(--border);flex-shrink:0;}
+
+/* Centre: preview */
+.preview{overflow:auto;background:var(--bg);padding:20px;display:flex;flex-direction:column;gap:16px;}
+.preview-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.prev-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
+.prev-card-title{font-weight:600;margin-bottom:8px;}
+.prev-text{color:var(--muted);font-size:12px;line-height:1.5;margin-bottom:12px;}
+.prev-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.prev-btn{background:var(--accent);border:none;border-radius:var(--radius);color:#0d1117;font-weight:600;padding:7px 16px;cursor:pointer;font-size:12px;}
+.prev-btn2{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:7px 16px;cursor:pointer;font-size:12px;}
+.prev-btn-d{background:var(--red);border:none;border-radius:var(--radius);color:#fff;font-weight:600;padding:7px 16px;cursor:pointer;font-size:12px;}
+.prev-input{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:7px 10px;font-size:12px;width:100%;margin-top:8px;}
+.badge{font-size:10px;padding:2px 8px;border-radius:20px;border:1px solid;}
+.badge-g{color:var(--green);border-color:var(--green);}
+.badge-b{color:var(--blue);border-color:var(--blue);}
+.badge-r{color:var(--red);border-color:var(--red);}
+.badge-y{color:var(--yellow);border-color:var(--yellow);}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;}
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:12px;}
+.tab{padding:6px 14px;font-size:12px;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);}
+.tab.active{border-bottom-color:var(--accent);color:var(--accent);}
+.color-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px;}
+.color-chip{height:32px;border-radius:4px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;font-size:9px;color:rgba(255,255,255,.7);}
+
+/* Right: editor */
+.editor{background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.editor-header{padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:13px;flex-shrink:0;}
+.editor-body{flex:1;overflow-y:auto;padding:14px;}
+.editor-field{margin-bottom:10px;}
+.editor-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.editor-name{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:7px 10px;}
+.var-row{display:flex;gap:6px;align-items:center;margin-bottom:7px;}
+.var-label{font-size:10px;color:var(--muted);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-radius:4px;padding:1px;background:var(--surface2);cursor:pointer;flex-shrink:0;}
+.var-hex{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:11px;padding:4px 7px;font-family:monospace;}
+.var-text{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:11px;padding:4px 7px;}
+.editor-footer{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
+.hidden{display:none!important;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+</style>
+</head>
+<body>
+<div class="layout">
+
+  <!-- LEFT: theme list -->
+  <div class="sidebar">
+    <div class="sidebar-header">🎨 Theme Studio
+      <span style="font-size:11px;color:var(--muted);font-weight:400;margin-left:auto">{{themes|length}} themes</span>
+    </div>
+    <div class="theme-list" id="theme-list">
+      {% for t in themes %}
+      <div class="theme-item{% if loop.first %} active{% endif %}" id="item-{{t.id}}" onclick="selectTheme('{{t.id}}')">
+        <div class="theme-item-row">
+          <span class="theme-item-name">{{t.name}}</span>
+          {% if not t.builtin %}<span style="font-size:9px;color:var(--accent)">custom</span>{% endif %}
+        </div>
+        <div class="swatches">
+          {% for key in ['--bg','--surface','--text','--accent','--border','--green','--red'] %}
+          <div class="swatch" style="background:{{t.vars[key]}}"></div>
+          {% endfor %}
+        </div>
+        <div class="theme-item-actions">
+          <button class="btn btn-copy" id="copy-{{t.id}}" onclick="event.stopPropagation();copyUrl('{{t.id}}')">Copy URL</button>
+          {% if not t.builtin %}
+          <button class="btn" onclick="event.stopPropagation();editTheme('{{t.id}}')">Edit</button>
+          <button class="btn btn-danger" onclick="event.stopPropagation();deleteTheme('{{t.id}}','{{t.name}}')">×</button>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="sidebar-footer">
+      <button class="btn btn-accent" style="width:100%" onclick="newTheme()">+ New Custom Theme</button>
+    </div>
+  </div>
+
+  <!-- CENTRE: preview -->
+  <div class="preview" id="preview">
+    <div>
+      <div class="preview-title" id="preview-label">Dracula</div>
+      <div class="tabs">
+        <div class="tab active">Dashboard</div>
+        <div class="tab">Settings</div>
+        <div class="tab">About</div>
+      </div>
+    </div>
+    <div class="prev-card">
+      <div class="prev-card-title">Widget Card</div>
+      <p class="prev-text">This is how content looks in this theme. Muted text, clear headings, comfortable reading experience.</p>
+      <div class="prev-row">
+        <button class="prev-btn">Primary Action</button>
+        <button class="prev-btn2">Secondary</button>
+        <button class="prev-btn-d">Danger</button>
+      </div>
+      <input class="prev-input" type="text" placeholder="Input field placeholder text…">
+    </div>
+    <div class="prev-card">
+      <div class="prev-row">
+        <span><span class="dot" style="background:var(--green)"></span>Running</span>
+        <span><span class="dot" style="background:var(--red)"></span>Stopped</span>
+        <span class="badge badge-g">Success</span>
+        <span class="badge badge-b">Widget</span>
+        <span class="badge badge-r">Error</span>
+        <span class="badge badge-y">Warning</span>
+      </div>
+    </div>
+    <div class="prev-card">
+      <div class="prev-card-title">Colour Palette</div>
+      <div class="color-grid" id="color-grid"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT: editor -->
+  <div class="editor" id="editor-panel">
+    <div class="editor-header" id="editor-title">Select a theme or create new</div>
+    <div class="editor-body" id="editor-body">
+      <p style="color:var(--muted);font-size:12px;line-height:1.6">
+        Select a theme from the list to preview it.<br><br>
+        Click <strong style="color:var(--text)">+ New Custom Theme</strong> to create your own, or click <strong style="color:var(--text)">Edit</strong> on a custom theme to modify it.
+      </p>
+    </div>
+    <div class="editor-footer hidden" id="editor-footer">
+      <button class="btn" id="btn-cancel" onclick="cancelEdit()">Cancel</button>
+      <button class="btn btn-accent" id="btn-save" onclick="saveTheme()">Save Theme</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const BASE    = window.location.origin;
+const THEMES  = {{ themes|tojson }};
+const VAR_DEFS = [
+  {k:'--bg',l:'Background',t:'color'},{k:'--surface',l:'Surface',t:'color'},
+  {k:'--surface2',l:'Surface 2',t:'color'},{k:'--border',l:'Border',t:'color'},
+  {k:'--text',l:'Text',t:'color'},{k:'--muted',l:'Muted',t:'color'},
+  {k:'--accent',l:'Accent',t:'color'},{k:'--green',l:'Green',t:'color'},
+  {k:'--red',l:'Red',t:'color'},{k:'--yellow',l:'Yellow',t:'color'},
+  {k:'--blue',l:'Blue',t:'color'},{k:'--radius',l:'Border Radius',t:'text'},
+  {k:'--shadow',l:'Box Shadow',t:'text'},
+];
+
+let currentId = THEMES[0]?.id;
+let editId    = null;
+let workVars  = {};
+
+function applyVars(vars) {
+  const root = document.documentElement;
+  Object.entries(vars).forEach(([k,v]) => root.style.setProperty(k,v));
+  updateColorGrid(vars);
+}
+
+function updateColorGrid(vars) {
+  const keys = ['--bg','--surface','--surface2','--text','--muted','--accent','--green','--red','--yellow','--blue','--border'];
+  const grid = document.getElementById('color-grid');
+  grid.innerHTML = keys.map(k => `<div class="color-chip" style="background:${vars[k]||'transparent'}">${(vars[k]||'').slice(1,4)}</div>`).join('');
+}
+
+function selectTheme(id) {
+  currentId = id;
+  document.querySelectorAll('.theme-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('item-'+id)?.classList.add('active');
+  const t = THEMES.find(x=>x.id===id);
+  if (!t) return;
+  applyVars(t.vars);
+  document.getElementById('preview-label').textContent = t.name;
+  // Hide editor if viewing built-in
+  if (t.builtin && editId === null) {
+    document.getElementById('editor-title').textContent = t.name + ' (Built-in)';
+    document.getElementById('editor-body').innerHTML = `<p style="color:var(--muted);font-size:12px;line-height:1.6">Built-in themes cannot be edited.<br><br>Click <strong style="color:var(--text)">+ New Custom Theme</strong> to create a variant based on this theme.</p>`;
+    document.getElementById('editor-footer').classList.add('hidden');
+  }
+}
+
+function copyUrl(id) {
+  const url = `${BASE}/widget/themes/${id}.njtheme.json`;
+  navigator.clipboard.writeText(url).then(() => {
+    const btn = document.getElementById('copy-'+id);
+    if (!btn) return;
+    btn.textContent = 'Copied!'; btn.classList.add('done');
+    setTimeout(()=>{ btn.textContent='Copy URL'; btn.classList.remove('done'); }, 2000);
+  });
+}
+
+function newTheme() {
+  // Pre-fill from currently selected theme
+  const base = THEMES.find(x=>x.id===currentId) || THEMES[0];
+  workVars = {...base.vars};
+  editId = null;
+  openEditor('New Custom Theme', `Based on ${base.name}`);
+}
+
+function editTheme(id) {
+  const t = THEMES.find(x=>x.id===id);
+  if (!t) return;
+  workVars = {...t.vars};
+  editId = id;
+  openEditor('Edit: '+t.name, '');
+}
+
+function openEditor(title, subtitle) {
+  document.getElementById('editor-title').textContent = title;
+  const body = document.getElementById('editor-body');
+  body.innerHTML = `
+    <div class="editor-field">
+      <div class="editor-label">Theme Name</div>
+      <input class="editor-name" id="th-name" type="text" value="${subtitle ? 'My ' + subtitle : editId ? THEMES.find(x=>x.id===editId)?.name||'' : ''}">
+    </div>
+    ${VAR_DEFS.map(d => {
+      const val = workVars[d.k] || '';
+      if (d.t === 'color') {
+        const hex = val.startsWith('#') ? val : '#888888';
+        return `<div class="var-row">
+          <span class="var-label" title="${d.k}">${d.l}</span>
+          <input type="color" id="cp-${d.k.slice(2)}" value="${hex}" oninput="syncColor('${d.k}',this.value,'tx')">
+          <input type="text" class="var-hex" id="tx-${d.k.slice(2)}" value="${val}" maxlength="25" oninput="syncColor('${d.k}',this.value,'cp')">
+        </div>`;
+      } else {
+        return `<div class="var-row">
+          <span class="var-label" title="${d.k}">${d.l}</span>
+          <input type="text" class="var-text" id="tx-${d.k.slice(2)}" value="${val}" oninput="workVars['${d.k}']=this.value;applyVars(workVars)">
+        </div>`;
+      }
+    }).join('')}`;
+  document.getElementById('editor-footer').classList.remove('hidden');
+}
+
+function syncColor(key, val, src) {
+  workVars[key] = val;
+  const k = key.slice(2);
+  if (src === 'tx' && /^#[0-9a-fA-F]{6}$/.test(val)) {
+    document.getElementById('cp-'+k) && (document.getElementById('cp-'+k).value = val);
+  } else if (src === 'cp') {
+    document.getElementById('tx-'+k) && (document.getElementById('tx-'+k).value = val);
+  }
+  applyVars(workVars);
+}
+
+async function saveTheme() {
+  const name = document.getElementById('th-name')?.value.trim();
+  if (!name) { alert('Please enter a theme name'); return; }
+  const payload = {name, vars: workVars};
+  if (editId) payload.id = editId;
+  const r = await fetch('/widget/api/custom', {
+    method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
+  });
+  const d = await r.json();
+  if (d.success) {
+    location.reload(); // Reload to show updated list
+  }
+}
+
+function cancelEdit() {
+  editId = null;
+  selectTheme(currentId);
+}
+
+async function deleteTheme(id, name) {
+  if (!confirm(`Delete "${name}"?`)) return;
+  await fetch(`/widget/api/custom/${id}`, {method:'DELETE'});
+  location.reload();
+}
+
+// Init
+if (THEMES.length) selectTheme(THEMES[0].id);
+</script>
+</body>
+</html>
