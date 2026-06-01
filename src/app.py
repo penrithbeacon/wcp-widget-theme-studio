@@ -39,7 +39,7 @@ WCP_MANIFEST = {
   "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "components":[
-    {"id":"theme-studio","name":"WCP Theme Studio","role":"widget","path":"/widget/","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":6,"h":4}}
+    {"id":"theme-studio","uuid":"e27a9086-89ee-498f-98e7-cebd7efb73c9","name":"WCP Theme Studio","role":"widget","path":"/widget/","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":6,"h":4}}
   ],
   "pages":[{"id":"full","path":"/widget/full","title":"Theme Studio","description":"Full theme gallery with editor","window":{"width":1100,"height":700}}],
   "actions":[
