@@ -3,12 +3,29 @@ WCP Widget: WCP Theme Studio
 Theme gallery with 15 built-in themes + custom theme editor.
 Each theme is served as a downloadable .pbtheme.json for import into any WCP dashboard.
 Port: 3740
+Specification: https://widgetcontextprotocol.com
 """
 
 import json, os, uuid as uuid_lib
 from flask import Flask, jsonify, render_template, request, Response
 
 app = Flask(__name__)
+
+# ── CORS ──────────────────────────────────────────────────────────────────────
+
+@app.after_request
+def add_cors_headers(response):
+    response.headers['Access-Control-Allow-Origin']  = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = (
+        'Content-Type, Wcp-Instance-Id, Wcp-Dashboard-Id, Wcp-Version'
+    )
+    return response
+
+@app.route('/widget/<path:p>', methods=['OPTIONS'])
+@app.route('/widget/', methods=['OPTIONS'])
+def cors_preflight(p=''):
+    return Response('', status=204)
 
 DATA_FILE = '/app/data/custom_themes.json'
 os.makedirs('/app/data', exist_ok=True)
@@ -35,7 +52,7 @@ BUILTIN_THEMES = [
 ]
 
 WCP_MANIFEST = {
-  "wcp":"1.3.0","name":"WCP Theme Studio","version":"1.2.0",
+  "wcp":"1.3.1","name":"WCP Theme Studio","version":"1.3.0",
   "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "components":[
@@ -65,7 +82,7 @@ def all_themes():
 
 @app.route('/widget/')
 @app.route('/widget/index.html')
-def widget(): return render_template('widget.html', themes=all_themes(), manifest=WCP_MANIFEST)
+def widget(): return render_template('widget.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=request.headers.get('Wcp-Instance-Id',''))
 
 @app.route('/widget/wcp')
 def wcp(): return jsonify(WCP_MANIFEST)
@@ -79,7 +96,7 @@ def manifest():
 def health(): return jsonify({"status":"ok","name":"WCP Theme Studio"})
 
 @app.route('/widget/full')
-def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST)
+def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=request.headers.get('Wcp-Instance-Id',''))
 
 @app.route('/widget/icon.svg')
 def icon():
