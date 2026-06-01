@@ -1,11 +1,11 @@
 # WCP Widget: Theme Studio
 
-A [Widget Context Protocol (WCP)](https://github.com/penrithbeacon/wcp-widget-theme-studio)
-compliant widget providing a full theme gallery and custom theme editor for WCP-compatible
-dashboards. Ships with 12 professionally crafted built-in themes and allows unlimited
-custom themes, all shareable via URL.
+A [Widget Context Protocol (WCP)](https://widgetcontextprotocol.com) compliant widget providing
+a full theme gallery and custom theme editor for WCP-compatible dashboards. Ships with 15
+built-in themes (12 community + 3 Penrith Beacon WCP native) and allows unlimited custom themes,
+all shareable via URL. Designed to run alongside any WCP-compatible host dashboard.
 
-Designed to run alongside the **Penrith Beacon WCP Dashboard** or any WCP-compatible host.
+**Specification:** [widgetcontextprotocol.com](https://widgetcontextprotocol.com)
 
 ## Quick Start
 
@@ -18,7 +18,7 @@ docker run -d \
   penrithbeacon/wcp-widget-theme-studio:latest
 ```
 
-Then add it to your WCP dashboard at `http://localhost:3740`.
+Then add it to your WCP dashboard at the container's network address.
 
 ## Docker Compose
 
@@ -37,14 +37,24 @@ volumes:
   theme_data:
 ```
 
+## WCP Request Headers
+
+This widget supports the WCP 1.3.1 request headers:
+
+| Header | Required | Description |
+|--------|----------|-------------|
+| `Wcp-Instance-Id` | Required | UUID identifying this widget instance |
+| `Wcp-Dashboard-Id` | Optional | UUID identifying the requesting dashboard |
+| `Wcp-Version` | Optional | Protocol version the dashboard speaks |
+
 ## WCP Endpoints
 
 | Endpoint | Description |
 |----------|-------------|
 | `GET /widget/` | Compact widget card with theme list |
-| `GET /widget/wcp` | WCP 1.0.0 manifest |
+| `GET /widget/wcp` | WCP 1.3.1 manifest |
 | `GET /widget/health` | Health check |
-| `GET /widget/icon.svg` | Widget icon |
+| `GET /widget/icon.svg` | Widget icon (SVG) |
 | `GET /widget/full` | Full Theme Studio (3-column gallery + editor) |
 | `GET /widget/themes/<id>.pbtheme.json` | Download a theme as JSON |
 | `GET /widget/api/themes` | List all themes (built-in + custom) |
@@ -77,8 +87,6 @@ Themes are shareable JSON files containing CSS custom property values:
 }
 ```
 
-Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
-
 ## Built-in Themes (15 total)
 
 **Community themes:**
@@ -101,7 +109,7 @@ Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
 **Penrith Beacon WCP native themes:**
 
 | Theme | ID |
-|-------|----||
+|-------|----|
 | Penrith Beacon WCP Dark | `pb-wcp-dark` |
 | Penrith Beacon WCP Light | `pb-wcp-light` |
 | Penrith Beacon WCP High Contrast | `pb-wcp-hc` |
@@ -110,11 +118,12 @@ Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
 
 | Property | Value |
 |----------|-------|
-| WCP Version | 1.1.0 |
-| Widget Version | 1.0.0 |
+| WCP Version | 1.3.1 |
+| Widget Version | 1.3.0 |
 | Render mode | iframe |
 | Auth | none |
-| Default card size | 4×6 |
+| Default card size | 6×4 |
+| Multi-instance | Theme storage is global by design |
 
 ## Technical Details
 
@@ -129,9 +138,8 @@ Share a theme by URL: `http://localhost:3740/widget/themes/<id>.pbtheme.json`
 | Tag | Description |
 |-----|-------------|
 | `latest` | Latest stable release |
+| `1.3.0-wcp1.3.1` | Widget v1.3.0, WCP 1.3.1 — CORS headers, multi-instance support |
 | `1.2.0-wcp1.3.0` | Widget v1.2.0, WCP 1.3.0 — mandatory components array |
-| `1.1.0-wcp1.1.0` | Widget v1.1.0, WCP protocol v1.1.0 — adds 3 Penrith Beacon WCP themes |
-<!-- removed: 1.0.0-wcp1.1.0 | Widget v1.0.0, WCP protocol v1.1.0 |
 
 ## Source
 
