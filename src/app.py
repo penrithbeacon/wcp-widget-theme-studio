@@ -6,7 +6,7 @@ Port: 3740
 Specification: https://widgetcontextprotocol.com
 """
 
-import json, os, uuid as uuid_lib
+import io, json, os, uuid as uuid_lib, zipfile
 from flask import Flask, jsonify, render_template, request, Response
 
 app = Flask(__name__)
@@ -98,12 +98,46 @@ def health(): return jsonify({"status":"ok","name":"WCP Theme Studio"})
 @app.route('/widget/full')
 def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=request.headers.get('Wcp-Instance-Id',''))
 
-@app.route('/widget/icon.svg')
-def icon():
-    svg="""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+ICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
   <path fill="#f0883e" d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.153-.926 1.616-.896.765.05 1.313.548 1.562 1.237a5.83 5.83 0 0 1 1.616-1.128c2.353-2.454 5.557-7.187 7.09-10.62.133-.3.438-.42.728-.32z"/>
 </svg>"""
-    return Response(svg, mimetype='image/svg+xml')
+
+@app.route('/widget/icon.svg')
+def icon():
+    return Response(ICON_SVG, mimetype='image/svg+xml')
+
+@app.route('/widget/api/guids')
+def api_guids():
+    return jsonify({"components": [
+        {"id": c["id"], "uuid": c["uuid"], "name": c["name"]}
+        for c in WCP_MANIFEST.get("components", [])
+    ]})
+
+@app.route('/widget/export.wcp')
+def export_wcp():
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("manifest.json", json.dumps(WCP_MANIFEST, indent=2))
+        z.writestr("icon.svg", ICON_SVG)
+        z.writestr("DOCKER.md", f"""# {WCP_MANIFEST['name']} — WCP Container
+
+## Pull
+```
+docker pull penrithbeacon/wcp-widget-theme-studio
+```
+
+## Run
+```
+docker compose up -d
+```
+
+Port: 3740 | Spec: https://widgetcontextprotocol.com
+""")
+    buf.seek(0)
+    name = WCP_MANIFEST["name"].lower().replace(" ", "-")
+    resp = Response(buf.read(), mimetype="application/zip")
+    resp.headers["Content-Disposition"] = f'attachment; filename="{name}.wcp"'
+    return resp
 
 # ── Theme file endpoint ────────────────────────────────────────────────────────
 
