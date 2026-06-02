@@ -1,6 +1,15 @@
-# wcp-widget-theme-studio
+# WCP Widget — Theme Studio
 
-WCP widget: Theme Gallery & Editor with 12 built-in themes.
+A [Widget Context Protocol (WCP)](https://widgetcontextprotocol.com) widget providing
+a full theme gallery and custom theme editor. Ships with 15 built-in themes and supports
+unlimited custom themes, all shareable via URL.
+
+**Specification:** [widgetcontextprotocol.com](https://widgetcontextprotocol.com)  
+**Part of the** [Penrith Beacon WCP](https://penrithbeacon.com) widget suite.
+
+> **WCP 1.4.0 certified.** This widget implements the full
+> [Widget Context Protocol 1.4.0](https://widgetcontextprotocol.com) specification,
+> including server UUID, Container Directory (`GET /wcp`), and all four `Wcp-*` request headers.
 
 **Port:** 3740
 

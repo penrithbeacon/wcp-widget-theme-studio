@@ -18,14 +18,23 @@ def add_cors_headers(response):
     response.headers['Access-Control-Allow-Origin']  = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST, DELETE, OPTIONS'
     response.headers['Access-Control-Allow-Headers'] = (
-        'Content-Type, Wcp-Instance-Id, Wcp-Dashboard-Id, Wcp-Version'
+        'Content-Type, Wcp-Instance-Id, Wcp-Dashboard-Id, Wcp-Version, Wcp-Widget-Id'
     )
     return response
 
 @app.route('/widget/<path:p>', methods=['OPTIONS'])
 @app.route('/widget/', methods=['OPTIONS'])
+@app.route('/wcp', methods=['OPTIONS'])
 def cors_preflight(p=''):
     return Response('', status=204)
+
+# ── Instance ID helper ────────────────────────────────────────────────────────
+
+def get_instance_id():
+    iid = request.headers.get("Wcp-Instance-Id", "").strip()
+    if not iid:
+        iid = (request.args.get("wcpInstanceId", "") or "").strip()
+    return iid
 
 DATA_FILE = '/app/data/custom_themes.json'
 os.makedirs('/app/data', exist_ok=True)
@@ -52,7 +61,7 @@ BUILTIN_THEMES = [
 ]
 
 WCP_MANIFEST = {
-  "wcp":"1.3.1","name":"WCP Theme Studio","version":"1.3.0",
+  "wcp":"1.4.0","uuid":"87a8413d-28d9-451b-b1ef-7c1763a665ec","name":"WCP Theme Studio","version":"1.3.1",
   "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "components":[
@@ -80,9 +89,24 @@ def all_themes():
 
 # ── WCP endpoints ─────────────────────────────────────────────────────────────
 
+@app.route('/wcp')
+def container_directory():
+    return jsonify({
+        "type":    "directory",
+        "wcp":     "1.4.0",
+        "widgets": [{
+            "id":          "theme-studio",
+            "uuid":        WCP_MANIFEST["uuid"],
+            "name":        WCP_MANIFEST["name"],
+            "description": WCP_MANIFEST["description"],
+            "icon":        WCP_MANIFEST["icon"],
+            "manifest":    "/widget/wcp",
+        }]
+    })
+
 @app.route('/widget/')
 @app.route('/widget/index.html')
-def widget(): return render_template('widget.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=request.headers.get('Wcp-Instance-Id',''))
+def widget(): return render_template('widget.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=get_instance_id())
 
 @app.route('/widget/wcp')
 def wcp(): return jsonify(WCP_MANIFEST)
@@ -96,7 +120,7 @@ def manifest():
 def health(): return jsonify({"status":"ok","name":"WCP Theme Studio"})
 
 @app.route('/widget/full')
-def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=request.headers.get('Wcp-Instance-Id',''))
+def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST, wcp_instance_id=get_instance_id())
 
 ICON_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
   <path fill="#f0883e" d="M15.825.12a.5.5 0 0 1 .132.584c-1.53 3.43-4.743 8.17-7.095 10.64a6.067 6.067 0 0 1-2.373 1.534c-.018.227-.06.538-.16.868-.201.659-.667 1.479-1.708 1.74a8.118 8.118 0 0 1-3.078.132 3.659 3.659 0 0 1-.562-.135 1.382 1.382 0 0 1-.466-.247.714.714 0 0 1-.204-.288.622.622 0 0 1 .004-.443c.095-.245.316-.38.461-.452.394-.197.625-.453.867-.826.095-.144.184-.297.287-.472l.117-.198c.151-.255.326-.54.546-.848.528-.739 1.153-.926 1.616-.896.765.05 1.313.548 1.562 1.237a5.83 5.83 0 0 1 1.616-1.128c2.353-2.454 5.557-7.187 7.09-10.62.133-.3.438-.42.728-.32z"/>
@@ -108,10 +132,13 @@ def icon():
 
 @app.route('/widget/api/guids')
 def api_guids():
-    return jsonify({"components": [
-        {"id": c["id"], "uuid": c["uuid"], "name": c["name"]}
-        for c in WCP_MANIFEST.get("components", [])
-    ]})
+    return jsonify({
+        "uuid": WCP_MANIFEST["uuid"],
+        "components": [
+            {"id": c["id"], "uuid": c["uuid"], "name": c["name"]}
+            for c in WCP_MANIFEST.get("components", [])
+        ]
+    })
 
 @app.route('/widget/export.wcp')
 def export_wcp():
