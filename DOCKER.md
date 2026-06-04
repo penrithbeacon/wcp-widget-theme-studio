@@ -15,7 +15,7 @@ docker run -d \
   -p 3740:3740 \
   -v theme_data:/app/data \
   --restart unless-stopped \
-  penrithbeacon/wcp-widget-theme-studio:latest
+  docker.io/penrithbeacon/wcp-widget-theme-studio:latest
 ```
 
 Then add it to your WCP dashboard at the container's network address.
@@ -25,7 +25,7 @@ Then add it to your WCP dashboard at the container's network address.
 ```yaml
 services:
   theme-studio:
-    image: penrithbeacon/wcp-widget-theme-studio:latest
+    image: docker.io/penrithbeacon/wcp-widget-theme-studio:latest
     container_name: wcp-widget-theme-studio
     ports:
       - "3740:3740"

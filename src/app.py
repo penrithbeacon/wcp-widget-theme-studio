@@ -86,7 +86,8 @@ WCP_MANIFEST = {
   "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "container":{
-    "image":            "penrithbeacon/wcp-widget-theme-studio",
+    "image":            "docker.io/penrithbeacon/wcp-widget-theme-studio",
+    "source":           {"type": "registry"},
     "tag":              "1.4.0-wcp2.0.0",
     "port":             3740,
     "volumes":          [{"name": "theme_data", "mountPath": "/app/data"}],
