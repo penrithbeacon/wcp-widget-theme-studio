@@ -8,6 +8,7 @@ services:
     restart: unless-stopped
     volumes:
       - theme_data:/app/data
+      - ./published:/app/published
 
 volumes:
   theme_data:

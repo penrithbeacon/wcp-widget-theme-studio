@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Theme Studio</title>
+<script type="application/ld+json">{{ jsonld|safe }}</script>
 <style>
   :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#f0883e;--green:#3fb950;--red:#f85149;--radius:6px}
   *{margin:0;padding:0;box-sizing:border-box;}
@@ -118,6 +119,12 @@
       window: { width: 1100, height: 700 }
     }, '*');
   }
+  window.parent?.postMessage({ type: 'wcp:ready' }, '*');
+  window.addEventListener('message', e => {
+    if (e.data?.type === 'wcp:context' && e.data.theme)
+      for (const [k, v] of Object.entries(e.data.theme))
+        document.documentElement.style.setProperty(k, v);
+  });
 </script>
 </body>
 </html>
