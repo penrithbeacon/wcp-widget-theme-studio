@@ -65,22 +65,23 @@ os.makedirs('/app/data', exist_ok=True)
 # ── Built-in themes ───────────────────────────────────────────────────────────
 
 BUILTIN_THEMES = [
-  {"id":"dracula",   "uuid":"2d9e7698-c49e-482d-87cf-a2d8c03f423d","name":"Dracula",         "builtin":True,"vars":{"--bg":"#282a36","--surface":"#343746","--surface2":"#44475a","--border":"#6272a4","--text":"#f8f8f2","--muted":"#6272a4","--accent":"#ff79c6","--green":"#50fa7b","--red":"#ff5555","--yellow":"#f1fa8c","--blue":"#8be9fd","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
-  {"id":"nord",      "uuid":"6b5bd0ad-39ac-4bcd-8a04-54959b39bef2","name":"Nord",             "builtin":True,"vars":{"--bg":"#2e3440","--surface":"#3b4252","--surface2":"#434c5e","--border":"#4c566a","--text":"#eceff4","--muted":"#d8dee9","--accent":"#88c0d0","--green":"#a3be8c","--red":"#bf616a","--yellow":"#ebcb8b","--blue":"#81a1c1","--radius":"8px","--shadow":"0 4px 12px rgba(0,0,0,.4)"}},
-  {"id":"catppuccin","uuid":"d3a11c29-4dbd-4fa6-a6de-145c13045867","name":"Catppuccin Mocha", "builtin":True,"vars":{"--bg":"#1e1e2e","--surface":"#313244","--surface2":"#45475a","--border":"#585b70","--text":"#cdd6f4","--muted":"#a6adc8","--accent":"#cba6f7","--green":"#a6e3a1","--red":"#f38ba8","--yellow":"#f9e2af","--blue":"#89b4fa","--radius":"8px","--shadow":"0 4px 20px rgba(0,0,0,.5)"}},
-  {"id":"tokyo",     "uuid":"d9ac54b8-622c-4811-b387-5fdc7d1af8aa","name":"Tokyo Night",      "builtin":True,"vars":{"--bg":"#1a1b2e","--surface":"#24253e","--surface2":"#2f3154","--border":"#414868","--text":"#c0caf5","--muted":"#9aa5ce","--accent":"#7aa2f7","--green":"#9ece6a","--red":"#f7768e","--yellow":"#e0af68","--blue":"#7dcfff","--radius":"6px","--shadow":"0 4px 20px rgba(0,0,0,.6)"}},
-  {"id":"gruvbox",   "uuid":"fddd994e-71ad-4006-9c1e-b251e6beb7ac","name":"Gruvbox Dark",     "builtin":True,"vars":{"--bg":"#282828","--surface":"#3c3836","--surface2":"#504945","--border":"#665c54","--text":"#ebdbb2","--muted":"#a89984","--accent":"#fabd2f","--green":"#b8bb26","--red":"#fb4934","--yellow":"#fabd2f","--blue":"#83a598","--radius":"4px","--shadow":"0 4px 12px rgba(0,0,0,.5)"}},
-  {"id":"monokai",   "uuid":"cc0d722b-48ac-495f-b8d2-d9f3304b97f8","name":"Monokai",          "builtin":True,"vars":{"--bg":"#272822","--surface":"#3e3d32","--surface2":"#49483e","--border":"#75715e","--text":"#f8f8f2","--muted":"#75715e","--accent":"#f92672","--green":"#a6e22e","--red":"#f92672","--yellow":"#e6db74","--blue":"#66d9ef","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
-  {"id":"onedark",   "uuid":"ab07c05a-5ff7-445d-ac86-0e5ee6ab1887","name":"One Dark",         "builtin":True,"vars":{"--bg":"#282c34","--surface":"#2c313c","--surface2":"#3e4451","--border":"#4b5263","--text":"#abb2bf","--muted":"#5c6370","--accent":"#61afef","--green":"#98c379","--red":"#e06c75","--yellow":"#e5c07b","--blue":"#61afef","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.4)"}},
-  {"id":"solarized", "uuid":"10ab0dcf-361a-4680-9d10-3d6cbd09c5c8","name":"Solarized Dark",   "builtin":True,"vars":{"--bg":"#002b36","--surface":"#073642","--surface2":"#0b4a56","--border":"#586e75","--text":"#839496","--muted":"#657b83","--accent":"#268bd2","--green":"#859900","--red":"#dc322f","--yellow":"#b58900","--blue":"#268bd2","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
-  {"id":"rosepine",  "uuid":"67637421-bd4d-460d-ba9c-6f5c462feb4e","name":"Rosé Pine",        "builtin":True,"vars":{"--bg":"#191724","--surface":"#1f1d2e","--surface2":"#26233a","--border":"#403d52","--text":"#e0def4","--muted":"#6e6a86","--accent":"#eb6f92","--green":"#31748f","--red":"#eb6f92","--yellow":"#f6c177","--blue":"#9ccfd8","--radius":"8px","--shadow":"0 4px 20px rgba(0,0,0,.5)"}},
-  {"id":"ayu",       "uuid":"ef5178f8-d30d-42b7-aac1-9028eae0811c","name":"Ayu Dark",         "builtin":True,"vars":{"--bg":"#0d1017","--surface":"#131721","--surface2":"#1a1f29","--border":"#2d3345","--text":"#bfbdb6","--muted":"#565b66","--accent":"#e6b450","--green":"#7fd962","--red":"#f07178","--yellow":"#e6b450","--blue":"#39bae6","--radius":"6px","--shadow":"0 4px 16px rgba(0,0,0,.6)"}},
-  {"id":"cyberpunk", "uuid":"e10609cb-2da3-4f28-920c-b7fc51845755","name":"Cyberpunk",        "builtin":True,"vars":{"--bg":"#060010","--surface":"#100025","--surface2":"#1a003a","--border":"#ff2d78","--text":"#f0f0f0","--muted":"#888888","--accent":"#ff2d78","--green":"#00ff41","--red":"#ff2d78","--yellow":"#ffff00","--blue":"#00b4ff","--radius":"2px","--shadow":"0 0 20px rgba(255,45,120,.3)"}},
-  {"id":"forest",    "uuid":"94153276-8395-48df-a4a8-9cadebb605e6","name":"Forest",            "builtin":True,"vars":{"--bg":"#1a2214","--surface":"#22301a","--surface2":"#2d4020","--border":"#3d5c2a","--text":"#c8d8c0","--muted":"#7a9a6a","--accent":"#5a9e3a","--green":"#5a9e3a","--red":"#c0392b","--yellow":"#d4a017","--blue":"#3a7ab8","--radius":"8px","--shadow":"0 4px 16px rgba(0,0,0,.5)"}},
-  # ── Penrith Beacon WCP built-in themes (match the dashboard's native themes) ──
-  {"id":"pb-wcp-dark","uuid":"a1b2c3d4-e5f6-7890-abcd-ef1234567890","name":"Penrith Beacon WCP Dark","builtin":True,"vars":{"--bg":"#0d1117","--surface":"#161b22","--surface2":"#1c2128","--border":"#30363d","--text":"#e6edf3","--muted":"#8b949e","--accent":"#f0883e","--green":"#3fb950","--red":"#f85149","--yellow":"#d29922","--blue":"#58a6ff","--radius":"8px","--shadow":"0 4px 16px rgba(0,0,0,.45)"}},
-  {"id":"pb-wcp-light","uuid":"b2c3d4e5-f6a7-8901-bcde-f12345678901","name":"Penrith Beacon WCP Light","builtin":True,"vars":{"--bg":"#ffffff","--surface":"#f6f8fa","--surface2":"#eaeef2","--border":"#d0d7de","--text":"#1f2328","--muted":"#636c76","--accent":"#f0883e","--green":"#1a7f37","--red":"#cf222e","--yellow":"#9a6700","--blue":"#0969da","--radius":"8px","--shadow":"0 4px 8px rgba(0,0,0,.12)"}},
-  {"id":"pb-wcp-hc","uuid":"c3d4e5f6-a7b8-9012-cdef-123456789012","name":"Penrith Beacon WCP High Contrast","builtin":True,"vars":{"--bg":"#000000","--surface":"#0d0d0d","--surface2":"#1a1a1a","--border":"#ffffff","--text":"#ffffff","--muted":"#cccccc","--accent":"#ff8c00","--green":"#00ff41","--red":"#ff3333","--yellow":"#ffff00","--blue":"#00b4ff","--radius":"4px","--shadow":"none"}},
+  # ── Penrith Beacon WCP native themes — always at the top ──────────
+  {"id":"pb-wcp-dark", "uuid":"a1b2c3d4-e5f6-7890-abcd-ef1234567890","name":"Penrith Beacon WCP Dark",          "builtin":True,"vars":{"--wcp-color-bg":"#0d1117","--wcp-color-surface":"#161b22","--wcp-color-surface-raised":"#1c2128","--wcp-color-border":"#30363d","--wcp-color-text":"#e6edf3","--wcp-color-text-muted":"#8b949e","--wcp-color-primary":"#f0883e","--wcp-color-success":"#3fb950","--wcp-color-danger":"#f85149","--wcp-color-warning":"#d29922","--wcp-color-info":"#58a6ff","--wcp-radius-md":"8px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.45)"}},
+  {"id":"pb-wcp-light","uuid":"b2c3d4e5-f6a7-8901-bcde-f12345678901","name":"Penrith Beacon WCP Light",         "builtin":True,"vars":{"--wcp-color-bg":"#ffffff","--wcp-color-surface":"#f6f8fa","--wcp-color-surface-raised":"#eaeef2","--wcp-color-border":"#d0d7de","--wcp-color-text":"#1f2328","--wcp-color-text-muted":"#636c76","--wcp-color-primary":"#f0883e","--wcp-color-success":"#1a7f37","--wcp-color-danger":"#cf222e","--wcp-color-warning":"#9a6700","--wcp-color-info":"#0969da","--wcp-radius-md":"8px","--wcp-shadow-sm":"0 4px 8px rgba(0,0,0,.12)"}},
+  {"id":"pb-wcp-hc",   "uuid":"c3d4e5f6-a7b8-9012-cdef-123456789012","name":"Penrith Beacon WCP High Contrast", "builtin":True,"vars":{"--wcp-color-bg":"#000000","--wcp-color-surface":"#0d0d0d","--wcp-color-surface-raised":"#1a1a1a","--wcp-color-border":"#ffffff","--wcp-color-text":"#ffffff","--wcp-color-text-muted":"#cccccc","--wcp-color-primary":"#ff8c00","--wcp-color-success":"#00ff41","--wcp-color-danger":"#ff3333","--wcp-color-warning":"#ffff00","--wcp-color-info":"#00b4ff","--wcp-radius-md":"4px","--wcp-shadow-sm":"none"}},
+  # ── Community themes ──────────────────────────────────────────────
+  {"id":"dracula",   "uuid":"2d9e7698-c49e-482d-87cf-a2d8c03f423d","name":"Dracula",         "builtin":True,"vars":{"--wcp-color-bg":"#282a36","--wcp-color-surface":"#343746","--wcp-color-surface-raised":"#44475a","--wcp-color-border":"#6272a4","--wcp-color-text":"#f8f8f2","--wcp-color-text-muted":"#6272a4","--wcp-color-primary":"#ff79c6","--wcp-color-success":"#50fa7b","--wcp-color-danger":"#ff5555","--wcp-color-warning":"#f1fa8c","--wcp-color-info":"#8be9fd","--wcp-radius-md":"6px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.5)"}},
+  {"id":"nord",      "uuid":"6b5bd0ad-39ac-4bcd-8a04-54959b39bef2","name":"Nord",             "builtin":True,"vars":{"--wcp-color-bg":"#2e3440","--wcp-color-surface":"#3b4252","--wcp-color-surface-raised":"#434c5e","--wcp-color-border":"#4c566a","--wcp-color-text":"#eceff4","--wcp-color-text-muted":"#d8dee9","--wcp-color-primary":"#88c0d0","--wcp-color-success":"#a3be8c","--wcp-color-danger":"#bf616a","--wcp-color-warning":"#ebcb8b","--wcp-color-info":"#81a1c1","--wcp-radius-md":"8px","--wcp-shadow-sm":"0 4px 12px rgba(0,0,0,.4)"}},
+  {"id":"catppuccin","uuid":"d3a11c29-4dbd-4fa6-a6de-145c13045867","name":"Catppuccin Mocha", "builtin":True,"vars":{"--wcp-color-bg":"#1e1e2e","--wcp-color-surface":"#313244","--wcp-color-surface-raised":"#45475a","--wcp-color-border":"#585b70","--wcp-color-text":"#cdd6f4","--wcp-color-text-muted":"#a6adc8","--wcp-color-primary":"#cba6f7","--wcp-color-success":"#a6e3a1","--wcp-color-danger":"#f38ba8","--wcp-color-warning":"#f9e2af","--wcp-color-info":"#89b4fa","--wcp-radius-md":"8px","--wcp-shadow-sm":"0 4px 20px rgba(0,0,0,.5)"}},
+  {"id":"tokyo",     "uuid":"d9ac54b8-622c-4811-b387-5fdc7d1af8aa","name":"Tokyo Night",      "builtin":True,"vars":{"--wcp-color-bg":"#1a1b2e","--wcp-color-surface":"#24253e","--wcp-color-surface-raised":"#2f3154","--wcp-color-border":"#414868","--wcp-color-text":"#c0caf5","--wcp-color-text-muted":"#9aa5ce","--wcp-color-primary":"#7aa2f7","--wcp-color-success":"#9ece6a","--wcp-color-danger":"#f7768e","--wcp-color-warning":"#e0af68","--wcp-color-info":"#7dcfff","--wcp-radius-md":"6px","--wcp-shadow-sm":"0 4px 20px rgba(0,0,0,.6)"}},
+  {"id":"gruvbox",   "uuid":"fddd994e-71ad-4006-9c1e-b251e6beb7ac","name":"Gruvbox Dark",     "builtin":True,"vars":{"--wcp-color-bg":"#282828","--wcp-color-surface":"#3c3836","--wcp-color-surface-raised":"#504945","--wcp-color-border":"#665c54","--wcp-color-text":"#ebdbb2","--wcp-color-text-muted":"#a89984","--wcp-color-primary":"#fabd2f","--wcp-color-success":"#b8bb26","--wcp-color-danger":"#fb4934","--wcp-color-warning":"#fabd2f","--wcp-color-info":"#83a598","--wcp-radius-md":"4px","--wcp-shadow-sm":"0 4px 12px rgba(0,0,0,.5)"}},
+  {"id":"monokai",   "uuid":"cc0d722b-48ac-495f-b8d2-d9f3304b97f8","name":"Monokai",          "builtin":True,"vars":{"--wcp-color-bg":"#272822","--wcp-color-surface":"#3e3d32","--wcp-color-surface-raised":"#49483e","--wcp-color-border":"#75715e","--wcp-color-text":"#f8f8f2","--wcp-color-text-muted":"#75715e","--wcp-color-primary":"#f92672","--wcp-color-success":"#a6e22e","--wcp-color-danger":"#f92672","--wcp-color-warning":"#e6db74","--wcp-color-info":"#66d9ef","--wcp-radius-md":"6px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.5)"}},
+  {"id":"onedark",   "uuid":"ab07c05a-5ff7-445d-ac86-0e5ee6ab1887","name":"One Dark",         "builtin":True,"vars":{"--wcp-color-bg":"#282c34","--wcp-color-surface":"#2c313c","--wcp-color-surface-raised":"#3e4451","--wcp-color-border":"#4b5263","--wcp-color-text":"#abb2bf","--wcp-color-text-muted":"#5c6370","--wcp-color-primary":"#61afef","--wcp-color-success":"#98c379","--wcp-color-danger":"#e06c75","--wcp-color-warning":"#e5c07b","--wcp-color-info":"#61afef","--wcp-radius-md":"6px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.4)"}},
+  {"id":"solarized", "uuid":"10ab0dcf-361a-4680-9d10-3d6cbd09c5c8","name":"Solarized Dark",   "builtin":True,"vars":{"--wcp-color-bg":"#002b36","--wcp-color-surface":"#073642","--wcp-color-surface-raised":"#0b4a56","--wcp-color-border":"#586e75","--wcp-color-text":"#839496","--wcp-color-text-muted":"#657b83","--wcp-color-primary":"#268bd2","--wcp-color-success":"#859900","--wcp-color-danger":"#dc322f","--wcp-color-warning":"#b58900","--wcp-color-info":"#268bd2","--wcp-radius-md":"6px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.6)"}},
+  {"id":"rosepine",  "uuid":"67637421-bd4d-460d-ba9c-6f5c462feb4e","name":"Rosé Pine",        "builtin":True,"vars":{"--wcp-color-bg":"#191724","--wcp-color-surface":"#1f1d2e","--wcp-color-surface-raised":"#26233a","--wcp-color-border":"#403d52","--wcp-color-text":"#e0def4","--wcp-color-text-muted":"#6e6a86","--wcp-color-primary":"#eb6f92","--wcp-color-success":"#31748f","--wcp-color-danger":"#eb6f92","--wcp-color-warning":"#f6c177","--wcp-color-info":"#9ccfd8","--wcp-radius-md":"8px","--wcp-shadow-sm":"0 4px 20px rgba(0,0,0,.5)"}},
+  {"id":"ayu",       "uuid":"ef5178f8-d30d-42b7-aac1-9028eae0811c","name":"Ayu Dark",         "builtin":True,"vars":{"--wcp-color-bg":"#0d1017","--wcp-color-surface":"#131721","--wcp-color-surface-raised":"#1a1f29","--wcp-color-border":"#2d3345","--wcp-color-text":"#bfbdb6","--wcp-color-text-muted":"#565b66","--wcp-color-primary":"#e6b450","--wcp-color-success":"#7fd962","--wcp-color-danger":"#f07178","--wcp-color-warning":"#e6b450","--wcp-color-info":"#39bae6","--wcp-radius-md":"6px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.6)"}},
+  {"id":"cyberpunk", "uuid":"e10609cb-2da3-4f28-920c-b7fc51845755","name":"Cyberpunk",        "builtin":True,"vars":{"--wcp-color-bg":"#060010","--wcp-color-surface":"#100025","--wcp-color-surface-raised":"#1a003a","--wcp-color-border":"#ff2d78","--wcp-color-text":"#f0f0f0","--wcp-color-text-muted":"#888888","--wcp-color-primary":"#ff2d78","--wcp-color-success":"#00ff41","--wcp-color-danger":"#ff2d78","--wcp-color-warning":"#ffff00","--wcp-color-info":"#00b4ff","--wcp-radius-md":"2px","--wcp-shadow-sm":"0 0 20px rgba(255,45,120,.3)"}},
+  {"id":"forest",    "uuid":"94153276-8395-48df-a4a8-9cadebb605e6","name":"Forest",            "builtin":True,"vars":{"--wcp-color-bg":"#1a2214","--wcp-color-surface":"#22301a","--wcp-color-surface-raised":"#2d4020","--wcp-color-border":"#3d5c2a","--wcp-color-text":"#c8d8c0","--wcp-color-text-muted":"#7a9a6a","--wcp-color-primary":"#5a9e3a","--wcp-color-success":"#5a9e3a","--wcp-color-danger":"#c0392b","--wcp-color-warning":"#d4a017","--wcp-color-info":"#3a7ab8","--wcp-radius-md":"8px","--wcp-shadow-sm":"0 4px 16px rgba(0,0,0,.5)"}},
 ]
 
 WCP_MANIFEST = {
@@ -96,7 +97,8 @@ WCP_MANIFEST = {
     "defaultLifecycle": "always",
   },
   "components":[
-    {"id":"theme-studio","uuid":"e27a9086-89ee-498f-98e7-cebd7efb73c9","name":"WCP Theme Studio","role":"widget","path":"/widget/","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":6,"h":4}}
+    {"id":"theme-studio",     "uuid":"e27a9086-89ee-498f-98e7-cebd7efb73c9","name":"WCP Theme Studio",      "role":"widget","path":"/widget/",     "icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":4,"h":3}},
+    {"id":"theme-studio-full","uuid":"f38b0197-9aff-5b09-a9f8-dce8f0gc84da","name":"WCP Theme Studio — Full","role":"widget","path":"/widget/full","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":10,"h":7}},
   ],
   "pages":[{"id":"full","path":"/widget/full","title":"Theme Studio","description":"Full theme gallery with editor","window":{"width":1100,"height":700}}],
   "actions":[
@@ -264,10 +266,100 @@ def get_theme_file(theme_id):
     theme = next((t for t in all_themes() if t['id'] == theme_id), None)
     if not theme: return jsonify({"error":"not found"}), 404
     payload = {"uuid": theme.get('uuid', str(uuid_lib.uuid4())),
-               "name": theme['name'], "vars": theme['vars']}
+               "name": theme['name'], "vars": _resolve_all_vars(theme['vars'])}
     resp = Response(json.dumps(payload, indent=2), mimetype='application/json')
     resp.headers['Content-Disposition'] = f'attachment; filename="{theme_id}.pbtheme.json"'
     return resp
+
+# ── Export .wcpt ──────────────────────────────────────────────────────────────
+
+@app.route('/widget/api/export-wcpt/<theme_id>')
+def export_wcpt(theme_id):
+    theme = next((t for t in all_themes() if t['id'] == theme_id), None)
+    if not theme: return jsonify({"error":"not found"}), 404
+    t_uuid = theme.get('uuid', str(uuid_lib.uuid4()))
+    t_vars = _resolve_all_vars(theme['vars'])
+    manifest = {
+        "format": "wcpt", "formatVersion": "1.0",
+        "id": str(uuid_lib.uuid4()), "collectionName": theme['name'],
+        "themeCount": 1, "author": "", "authorEmail": "", "authorUrl": "",
+        "created": __import__('datetime').datetime.utcnow().isoformat() + 'Z',
+    }
+    themes_payload = [{"id": theme['id'], "uuid": t_uuid, "name": theme['name'],
+                       "vars": t_vars, "author": "", "authorEmail": "", "authorUrl": ""}]
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr("manifest.json", json.dumps(manifest, indent=2))
+        z.writestr("themes.json", json.dumps(themes_payload, indent=2))
+    buf.seek(0)
+    safe_name = theme['name'].replace(' ', '_')
+    resp = Response(buf.read(), mimetype='application/octet-stream')
+    resp.headers['Content-Disposition'] = f'attachment; filename="{safe_name}.wcpt"'
+    return resp
+
+def _hex2rgba(h, a):
+    if not h or not h.startswith('#') or len(h) < 7: return f'rgba(0,0,0,{a})'
+    r, g, b = int(h[1:3],16), int(h[3:5],16), int(h[5:7],16)
+    return f'rgba({r},{g},{b},{a})'
+
+def _resolve_all_vars(tv):
+    s = {
+        '--bg':      tv.get('--wcp-color-bg','#0d1117'),
+        '--surface': tv.get('--wcp-color-surface','#161b22'),
+        '--surface2':tv.get('--wcp-color-surface-raised','#1c2128'),
+        '--border':  tv.get('--wcp-color-border','#30363d'),
+        '--text':    tv.get('--wcp-color-text','#e6edf3'),
+        '--muted':   tv.get('--wcp-color-text-muted','#8b949e'),
+        '--accent':  tv.get('--wcp-color-primary','#f0883e'),
+        '--green':   tv.get('--wcp-color-success','#3fb950'),
+        '--red':     tv.get('--wcp-color-danger','#f85149'),
+        '--yellow':  tv.get('--wcp-color-warning','#d29922'),
+        '--blue':    tv.get('--wcp-color-info','#58a6ff'),
+        '--radius':  tv.get('--wcp-radius-md','8px'),
+        '--shadow':  tv.get('--wcp-shadow-sm','0 4px 16px rgba(0,0,0,.45)'),
+    }
+    tokens = {
+        '--wcp-color-bg':s['--bg'],'--wcp-color-surface':s['--surface'],
+        '--wcp-color-surface-raised':s['--surface2'],'--wcp-color-surface-sunken':s['--bg'],
+        '--wcp-color-overlay':_hex2rgba(s['--bg'],0.75),
+        '--wcp-color-border':s['--border'],'--wcp-color-border-strong':_hex2rgba(s['--text'],0.25),
+        '--wcp-color-text':s['--text'],'--wcp-color-text-muted':s['--muted'],
+        '--wcp-color-text-disabled':_hex2rgba(s['--muted'],0.5),'--wcp-color-text-inverse':s['--bg'],
+        '--wcp-color-link':s['--blue'],
+        '--wcp-color-primary':s['--accent'],'--wcp-color-primary-dim':_hex2rgba(s['--accent'],0.15),
+        '--wcp-color-primary-on':'#ffffff',
+        '--wcp-color-success':s['--green'],'--wcp-color-success-surface':_hex2rgba(s['--green'],0.12),
+        '--wcp-color-warning':s['--yellow'],'--wcp-color-warning-surface':_hex2rgba(s['--yellow'],0.12),
+        '--wcp-color-danger':s['--red'],'--wcp-color-danger-surface':_hex2rgba(s['--red'],0.12),
+        '--wcp-color-info':s['--blue'],'--wcp-color-info-surface':_hex2rgba(s['--blue'],0.12),
+        '--wcp-font-family':"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+        '--wcp-font-mono':"ui-monospace,'SF Mono','Fira Code',monospace",
+        '--wcp-font-size-xs':'0.70rem','--wcp-font-size-sm':'0.80rem','--wcp-font-size-md':'0.875rem',
+        '--wcp-font-size-lg':'1rem','--wcp-font-size-xl':'1.125rem','--wcp-font-size-2xl':'1.375rem',
+        '--wcp-font-size-3xl':'1.75rem',
+        '--wcp-font-weight-normal':'400','--wcp-font-weight-medium':'500',
+        '--wcp-font-weight-semibold':'600','--wcp-font-weight-bold':'700',
+        '--wcp-line-height-tight':'1.2','--wcp-line-height-normal':'1.5','--wcp-line-height-relaxed':'1.75',
+        '--wcp-space-1':'4px','--wcp-space-2':'8px','--wcp-space-3':'12px','--wcp-space-4':'16px',
+        '--wcp-space-5':'24px','--wcp-space-6':'32px','--wcp-space-7':'48px','--wcp-space-8':'64px',
+        '--wcp-radius-sm':'4px','--wcp-radius-md':s['--radius'],'--wcp-radius-lg':'12px',
+        '--wcp-radius-xl':'16px','--wcp-radius-round':'9999px',
+        '--wcp-shadow-sm':s['--shadow'],'--wcp-shadow-md':'0 4px 12px rgba(0,0,0,.2)',
+        '--wcp-shadow-lg':'0 8px 24px rgba(0,0,0,.25)','--wcp-shadow-xl':'0 16px 40px rgba(0,0,0,.3)',
+        '--wcp-duration-fast':'100ms','--wcp-duration-normal':'200ms','--wcp-duration-slow':'350ms',
+        '--wcp-easing-standard':'ease','--wcp-easing-out':'ease-out','--wcp-easing-in':'ease-in',
+        '--wcp-easing-spring':'cubic-bezier(0.34,1.56,0.64,1)',
+        '--wcp-z-base':'0','--wcp-z-raised':'10','--wcp-z-dropdown':'1000','--wcp-z-sticky':'1100',
+        '--wcp-z-modal':'1200','--wcp-z-toast':'1300','--wcp-z-tooltip':'1400',
+        '--wcp-focus-ring-width':'2px','--wcp-focus-ring-offset':'2px',
+        '--wcp-focus-ring-color':s['--accent'],'--wcp-touch-target-min':'44px',
+        '--wcp-widget-bg':s['--surface'],'--wcp-widget-border':s['--border'],
+        '--wcp-widget-radius':s['--radius'],'--wcp-widget-padding':'16px',
+        '--wcp-widget-gap':'12px','--wcp-widget-shadow':s['--shadow'],
+    }
+    for k, v in tv.items():
+        if k.startswith('--wcp-'): tokens[k] = v
+    return tokens
 
 # ── Theme list API ────────────────────────────────────────────────────────────
 

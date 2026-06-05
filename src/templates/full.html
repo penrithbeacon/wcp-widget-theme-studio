@@ -6,75 +6,75 @@
 <title>WCP Theme Studio</title>
 <script type="application/ld+json">{{ jsonld|safe }}</script>
 <style>
-:root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#f0883e;--green:#3fb950;--red:#f85149;--yellow:#d29922;--blue:#58a6ff;--radius:8px;--shadow:0 4px 16px rgba(0,0,0,.45)}
+:root{--wcp-color-bg:#0d1117;--wcp-color-surface:#161b22;--wcp-color-surface-raised:#1c2128;--wcp-color-border:#30363d;--wcp-color-text:#e6edf3;--wcp-color-text-muted:#8b949e;--wcp-color-primary:#f0883e;--wcp-color-success:#3fb950;--wcp-color-danger:#f85149;--wcp-color-warning:#d29922;--wcp-color-info:#58a6ff;--wcp-radius-md:8px;--wcp-shadow-sm:0 4px 16px rgba(0,0,0,.45)}
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;height:100%;overflow:hidden;}
+html,body{background:var(--wcp-color-bg);color:var(--wcp-color-text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;height:100%;overflow:hidden;}
 .layout{display:grid;grid-template-columns:250px 1fr 300px;grid-template-rows:100%;height:100%;gap:0;overflow:hidden;}
 
 /* Left: theme list */
-.sidebar{background:var(--surface);border-right:1px solid var(--border);height:100%;overflow:hidden;}
-.sidebar-header{padding:12px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:14px;display:flex;flex-direction:column;gap:4px;background:var(--surface);}
+.sidebar{background:var(--wcp-color-surface);border-right:1px solid var(--wcp-color-border);height:100%;overflow:hidden;}
+.sidebar-header{padding:12px 16px;border-bottom:1px solid var(--wcp-color-border);font-weight:600;font-size:14px;display:flex;flex-direction:column;gap:4px;background:var(--wcp-color-surface);}
 .sidebar-table{height:100%;width:100%;border-collapse:collapse;table-layout:fixed;display:table;}
 .sidebar-middle{height:100%;padding:0;}
 .theme-list{overflow-y:auto;padding:8px;height:100%;display:block;box-sizing:border-box;}
-.theme-item{display:flex;flex-direction:column;gap:4px;background:none;border:1px solid transparent;border-radius:var(--radius);padding:8px;cursor:pointer;margin-bottom:4px;transition:all .15s;}
-.theme-item:hover{background:var(--surface2);border-color:var(--border);}
-.theme-item.active{background:rgba(240,136,62,.1);border-color:var(--accent);}
+.theme-item{display:flex;flex-direction:column;gap:4px;background:none;border:1px solid transparent;border-radius:var(--wcp-radius-md);padding:8px;cursor:pointer;margin-bottom:4px;transition:all .15s;}
+.theme-item:hover{background:var(--wcp-color-surface-raised);border-color:var(--wcp-color-border);}
+.theme-item.active{background:rgba(240,136,62,.1);border-color:var(--wcp-color-primary);}
 .theme-item-row{display:flex;align-items:center;gap:6px;}
 .theme-item-name{flex:1;font-size:12px;font-weight:500;text-align:left;}
 .swatches{display:flex;gap:2px;}
 .swatch{width:14px;height:14px;border-radius:3px;}
-.theme-item-actions{display:flex;gap:4px;justify-content:flex-end;}
-.btn{background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);cursor:pointer;font-size:11px;padding:3px 9px;font-family:inherit;transition:all .15s;white-space:nowrap;}
-.btn:hover{background:var(--surface);border-color:var(--muted);}
-.btn-copy{color:var(--blue);border-color:rgba(88,166,255,.3);}
-.btn-copy:hover{border-color:var(--blue);}
-.btn-copy.done{color:var(--green);border-color:var(--green);}
-.btn-accent{background:var(--accent);border-color:var(--accent);color:#0d1117;font-weight:600;}
-.btn-danger{color:var(--red);border-color:rgba(248,81,73,.3);}
-.sidebar-footer{padding:12px;border-top:1px solid var(--border);background:var(--surface);}
+.theme-item-actions{display:flex;gap:4px;flex-wrap:wrap;}
+.btn{background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-text);cursor:pointer;font-size:11px;padding:3px 9px;font-family:inherit;transition:all .15s;white-space:nowrap;}
+.btn:hover{background:var(--wcp-color-surface);border-color:var(--wcp-color-text-muted);}
+.btn-copy{color:var(--wcp-color-info);border-color:rgba(88,166,255,.3);}
+.btn-copy:hover{border-color:var(--wcp-color-info);}
+.btn-copy.done{color:var(--wcp-color-success);border-color:var(--wcp-color-success);}
+.btn-accent{background:var(--wcp-color-primary);border-color:var(--wcp-color-primary);color:#0d1117;font-weight:600;}
+.btn-danger{color:var(--wcp-color-danger);border-color:rgba(248,81,73,.3);}
+.sidebar-footer{padding:12px;border-top:1px solid var(--wcp-color-border);background:var(--wcp-color-surface);}
 
 /* Centre: preview */
-.preview{overflow:auto;background:var(--bg);padding:0;display:flex;flex-direction:column;gap:0;min-height:0;height:100%;}
-.preview-sticky{position:sticky;top:0;z-index:20;background:var(--bg);padding:16px 20px 0;border-bottom:1px solid var(--border);}
+.preview{overflow:auto;background:var(--wcp-color-bg);padding:0;display:flex;flex-direction:column;gap:0;min-height:0;height:100%;}
+.preview-sticky{position:sticky;top:0;z-index:20;background:var(--wcp-color-bg);padding:16px 20px 0;border-bottom:1px solid var(--wcp-color-border);}
 .preview-scroll{padding:16px 20px 80px;display:flex;flex-direction:column;gap:16px;}
-.preview-title{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
-.prev-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);}
+.preview-title{font-size:11px;color:var(--wcp-color-text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
+.prev-card{background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:16px;box-shadow:var(--wcp-shadow-sm);}
 .prev-card-title{font-weight:600;margin-bottom:8px;}
-.prev-text{color:var(--muted);font-size:12px;line-height:1.5;margin-bottom:12px;}
+.prev-text{color:var(--wcp-color-text-muted);font-size:12px;line-height:1.5;margin-bottom:12px;}
 .prev-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-.prev-btn{background:var(--accent);border:none;border-radius:var(--radius);color:#0d1117;font-weight:600;padding:7px 16px;cursor:pointer;font-size:12px;}
-.prev-btn2{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:7px 16px;cursor:pointer;font-size:12px;}
-.prev-btn-d{background:var(--red);border:none;border-radius:var(--radius);color:#fff;font-weight:600;padding:7px 16px;cursor:pointer;font-size:12px;}
-.prev-input{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);padding:7px 10px;font-size:12px;width:100%;margin-top:8px;}
+.prev-btn{background:var(--wcp-color-primary);border:none;border-radius:var(--wcp-radius-md);color:#0d1117;font-weight:600;padding:7px 16px;cursor:pointer;font-size:12px;}
+.prev-btn2{background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);color:var(--wcp-color-text);padding:7px 16px;cursor:pointer;font-size:12px;}
+.prev-btn-d{background:var(--wcp-color-danger);border:none;border-radius:var(--wcp-radius-md);color:#fff;font-weight:600;padding:7px 16px;cursor:pointer;font-size:12px;}
+.prev-input{background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);color:var(--wcp-color-text);padding:7px 10px;font-size:12px;width:100%;margin-top:8px;}
 .badge{font-size:10px;padding:2px 8px;border-radius:20px;border:1px solid;}
-.badge-g{color:var(--green);border-color:var(--green);}
-.badge-b{color:var(--blue);border-color:var(--blue);}
-.badge-r{color:var(--red);border-color:var(--red);}
-.badge-y{color:var(--yellow);border-color:var(--yellow);}
+.badge-g{color:var(--wcp-color-success);border-color:var(--wcp-color-success);}
+.badge-b{color:var(--wcp-color-info);border-color:var(--wcp-color-info);}
+.badge-r{color:var(--wcp-color-danger);border-color:var(--wcp-color-danger);}
+.badge-y{color:var(--wcp-color-warning);border-color:var(--wcp-color-warning);}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;}
-.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:12px;}
-.tab{padding:6px 14px;font-size:12px;cursor:pointer;border-bottom:2px solid transparent;color:var(--muted);}
-.tab.active{border-bottom-color:var(--accent);color:var(--accent);}
+.tabs{display:flex;border-bottom:1px solid var(--wcp-color-border);margin-bottom:12px;}
+.tab{padding:6px 14px;font-size:12px;cursor:pointer;border-bottom:2px solid transparent;color:var(--wcp-color-text-muted);}
+.tab.active{border-bottom-color:var(--wcp-color-primary);color:var(--wcp-color-primary);}
 .color-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:8px;}
 .color-chip{height:32px;border-radius:4px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;font-size:9px;color:rgba(255,255,255,.7);}
 
 /* Right: editor */
-.editor{background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;min-height:0;height:100%;}
-.editor-header{padding:14px 16px;border-bottom:1px solid var(--border);font-weight:600;font-size:13px;flex-shrink:0;}
+.editor{background:var(--wcp-color-surface);border-left:1px solid var(--wcp-color-border);display:flex;flex-direction:column;overflow:hidden;min-height:0;height:100%;}
+.editor-header{padding:14px 16px;border-bottom:1px solid var(--wcp-color-border);font-weight:600;font-size:13px;flex-shrink:0;}
 .editor-body{flex:1;overflow-y:auto;padding:14px;}
 .editor-field{margin-bottom:10px;}
-.editor-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
-.editor-name{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;padding:7px 10px;}
+.editor-label{font-size:10px;color:var(--wcp-color-text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+.editor-name{width:100%;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:6px;color:var(--wcp-color-text);font-size:13px;padding:7px 10px;}
 .var-row{display:flex;gap:6px;align-items:center;margin-bottom:7px;}
-.var-label{font-size:10px;color:var(--muted);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-radius:4px;padding:1px;background:var(--surface2);cursor:pointer;flex-shrink:0;}
-.var-hex{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:11px;padding:4px 7px;font-family:monospace;}
-.var-text{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:11px;padding:4px 7px;}
-.editor-footer{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
+.var-label{font-size:10px;color:var(--wcp-color-text-muted);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border);border-radius:4px;padding:1px;background:var(--wcp-color-surface-raised);cursor:pointer;flex-shrink:0;}
+.var-hex{flex:1;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-text);font-size:11px;padding:4px 7px;font-family:monospace;}
+.var-text{flex:1;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-text);font-size:11px;padding:4px 7px;}
+.editor-footer{padding:12px 14px;border-top:1px solid var(--wcp-color-border);display:flex;gap:8px;flex-shrink:0;}
 .hidden{display:none!important;}
 ::-webkit-scrollbar{width:5px;}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb{background:var(--wcp-color-border);border-radius:3px;}
 </style>
 </head>
 <body>
@@ -85,9 +85,9 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
     <tr><td class="sidebar-header">
       <div style="display:flex;align-items:center;width:100%;gap:6px;">
         <span>🎨 WCP Theme Studio</span>
-        <button onclick="showStudioAbout()" style="margin-left:auto;background:none;border:1px solid var(--border);border-radius:10px;color:var(--muted);cursor:pointer;font-size:11px;padding:2px 10px;font-family:inherit;white-space:nowrap;">About</button>
+        <button onclick="showStudioAbout()" style="margin-left:auto;background:none;border:1px solid var(--wcp-color-border);border-radius:10px;color:var(--wcp-color-text-muted);cursor:pointer;font-size:11px;padding:2px 10px;font-family:inherit;white-space:nowrap;">About</button>
       </div>
-      <div style="font-size:11px;color:var(--muted);font-weight:400;">{{themes|length}} themes</div>
+      <div style="font-size:11px;color:var(--wcp-color-text-muted);font-weight:400;">{{themes|length}} themes</div>
     </td></tr>
     <tr class="sidebar-middle"><td class="sidebar-middle">
     <div class="theme-list" id="theme-list">
@@ -95,20 +95,23 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
       <div class="theme-item{% if loop.first %} active{% endif %}" id="item-{{t.id}}" onclick="selectTheme('{{t.id}}')">
         <div class="theme-item-row">
           <span class="theme-item-name">{{t.name}}</span>
-          {% if not t.builtin %}<span style="font-size:9px;color:var(--accent)">custom</span>{% endif %}
+          {% if not t.builtin %}<span style="font-size:9px;color:var(--wcp-color-primary)">custom</span>{% endif %}
         </div>
         <div class="swatches">
-          {% for key in ['--bg','--surface','--text','--accent','--border','--green','--red'] %}
+          {% for key in ['--wcp-color-bg','--wcp-color-surface','--wcp-color-text','--wcp-color-primary','--wcp-color-border','--wcp-color-success','--wcp-color-danger'] %}
           <div class="swatch" style="background:{{t.vars[key]}}"></div>
           {% endfor %}
         </div>
         <div class="theme-item-actions">
           <button class="btn btn-copy" id="copy-{{t.id}}" onclick="event.stopPropagation();copyUrl('{{t.id}}')">Copy URL</button>
-          <button class="btn" id="add-{{t.id}}" style="color:var(--accent);border-color:rgba(240,136,62,.4)" onclick="event.stopPropagation();addToDashboard('{{t.id}}',this)">Add to Dashboard</button>
+          <button class="btn" id="add-{{t.id}}" style="color:var(--wcp-color-primary);border-color:rgba(240,136,62,.4)" onclick="event.stopPropagation();addToDashboard('{{t.id}}',this)">Add to Dashboard</button>
           {% if not t.builtin %}
           <button class="btn" onclick="event.stopPropagation();editTheme('{{t.id}}')">Edit</button>
           <button class="btn btn-danger" onclick="event.stopPropagation();deleteTheme('{{t.id}}','{{t.name}}')">×</button>
           {% endif %}
+        </div>
+        <div class="theme-item-actions" style="margin-top:4px">
+          <button class="btn" style="color:var(--wcp-color-success);border-color:rgba(63,185,80,.4);width:100%" onclick="event.stopPropagation();exportWcpt('{{t.id}}',this)">Export .wcpt</button>
         </div>
       </div>
       {% endfor %}
@@ -116,6 +119,8 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
     </td></tr>
     <tr><td class="sidebar-footer">
       <button class="btn btn-accent" style="width:100%" onclick="newTheme()">+ New Custom Theme</button>
+      <button class="btn" style="width:100%;margin-top:6px;color:var(--wcp-color-info);border-color:rgba(88,166,255,.3)" onclick="importWcpt()">Import .wcpt</button>
+      <input type="file" id="wcpt-file-input" accept=".wcpt" style="display:none" onchange="handleWcptFile(this)">
     </td></tr>
   </table></div>
 
@@ -125,168 +130,156 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
     <div class="preview-sticky">
       <div class="preview-title" id="preview-label">Dracula</div>
       <div class="tabs">
-        <div class="tab active" onclick="switchTab('dashboard',this)">Dashboard</div>
-        <div class="tab" onclick="switchTab('settings',this)">Demo</div>
+        <div class="tab active" onclick="switchTab('settings',this)">Demo</div>
         <div class="tab" onclick="switchTab('about',this)">About</div>
       </div>
     </div>
     <!-- Scrollable content -->
     <div class="preview-scroll">
-    <!-- Tab: Dashboard -->
-    <div id="tab-dashboard">
-      <div class="prev-card">
-        <div class="prev-card-title">Widget Card</div>
-        <p class="prev-text">This is how content looks in this theme. Muted text, clear headings, comfortable reading experience.</p>
-        <div class="prev-row">
-          <button class="prev-btn">Primary Action</button>
-          <button class="prev-btn2">Secondary</button>
-          <button class="prev-btn-d">Danger</button>
-        </div>
-        <input class="prev-input" type="text" placeholder="Input field placeholder text…">
+    <!-- Tab: Demo -->
+    <div id="tab-settings">
+      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--wcp-color-primary);margin-bottom:16px">
+        🎨 <strong>WCP Token Reference</strong> — live preview of all 78 design tokens. All components use <code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px">--wcp-*</code> variables exclusively.
       </div>
-      <div class="prev-card">
-        <div class="prev-row">
-          <span><span class="dot" style="background:var(--green)"></span>Running</span>
-          <span><span class="dot" style="background:var(--red)"></span>Stopped</span>
-          <span class="badge badge-g">Success</span>
-          <span class="badge badge-b">Widget</span>
-          <span class="badge badge-r">Error</span>
-          <span class="badge badge-y">Warning</span>
-        </div>
-      </div>
-      <div class="prev-card">
+      <div class="prev-card" style="margin-bottom:16px">
         <div class="prev-card-title">Colour Palette</div>
         <div class="color-grid" id="color-grid"></div>
       </div>
-    </div>
 
-    <!-- Tab: Demo -->
-    <div id="tab-settings" style="display:none">
-      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--accent);margin-bottom:16px">
-        🎨 <strong>Design System Reference</strong> — all components are visual previews only, not interactive.
+      <!-- ── Surfaces ─────────────────────────────────────────────── -->
+      <div class="preview-title">Surfaces &amp; Borders</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:6px">
+        <div style="background:var(--wcp-color-bg);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">bg</div>
+        <div style="background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">surface</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">raised</div>
+        <div style="background:var(--wcp-color-surface-sunken);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">sunken</div>
+        <div style="background:var(--wcp-color-overlay);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">overlay</div>
+      </div>
+      <div style="display:flex;gap:6px;margin-bottom:16px">
+        <div style="flex:1;border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px;font-size:9px;color:var(--wcp-color-text-muted);text-align:center">border</div>
+        <div style="flex:1;border:2px solid var(--wcp-color-border-strong);border-radius:var(--wcp-radius-sm);padding:8px;font-size:9px;color:var(--wcp-color-text-muted);text-align:center">border-strong</div>
       </div>
 
-      <!-- Masthead -->
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Masthead</div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 16px;display:flex;align-items:center;gap:12px;margin-bottom:16px;">
-        <div style="width:22px;height:22px;border-radius:5px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <svg width="12" height="12" viewBox="0 0 28 28" fill="#0d1117"><rect x="4" y="14" width="4" height="8" rx="1"/><rect x="11" y="9" width="4" height="13" rx="1"/><rect x="18" y="4" width="4" height="18" rx="1"/></svg>
-        </div>
-        <span style="font-weight:600;font-size:13px">Penrith Beacon MCP Dashboard</span>
-        <div style="flex:1"></div>
-        <span style="font-size:11px;color:var(--muted)">Updated 14:32</span>
-        <div style="background:var(--accent);color:#0d1117;border-radius:6px;padding:5px 12px;font-size:12px;font-weight:600;">⟳ Refresh All</div>
-        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;">⚙</div>
+      <!-- ── Text ────────────────────────────────────────────────── -->
+      <div class="preview-title">Text Colours</div>
+      <div class="prev-card" style="margin-bottom:16px">
+        <div style="font-size:15px;font-weight:700;color:var(--wcp-color-text);margin-bottom:4px">Primary text — heading</div>
+        <div style="font-size:12px;color:var(--wcp-color-text-muted);margin-bottom:4px">Muted text — supporting detail and metadata</div>
+        <div style="font-size:12px;color:var(--wcp-color-text-disabled);margin-bottom:4px">Disabled text — inactive controls</div>
+        <div style="font-size:12px;color:var(--wcp-color-link)">Link colour — https://widgetcontextprotocol.com</div>
       </div>
 
-      <!-- Breadcrumb + Mode Toggle -->
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Breadcrumb & Mode Toggle</div>
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
-        <div style="font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;">
-          <span style="cursor:pointer;color:var(--blue)">Root</span>
-          <span>›</span>
-          <span style="cursor:pointer;color:var(--blue)">Shopping</span>
-          <span>›</span>
-          <span style="color:var(--text)">Groceries</span>
-        </div>
-        <div style="display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;">
-          <div style="background:var(--accent);color:#0d1117;padding:4px 12px;font-size:11px;font-weight:600;">Single</div>
-          <div style="background:none;color:var(--muted);padding:4px 12px;font-size:11px;">Multiple</div>
-        </div>
+      <!-- ── Brand ───────────────────────────────────────────────── -->
+      <div class="preview-title">Brand &amp; Primary</div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+        <div style="background:var(--wcp-color-primary);color:var(--wcp-color-primary-on);border-radius:var(--wcp-radius-md);padding:7px 18px;font-size:12px;font-weight:600">Primary button</div>
+        <div style="background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:var(--wcp-radius-md);padding:7px 18px;font-size:12px;font-weight:600;color:var(--wcp-color-primary)">Primary dim bg</div>
+        <div style="width:18px;height:18px;border-radius:var(--wcp-radius-sm);background:var(--wcp-color-focus-ring-color,var(--wcp-color-primary));outline:var(--wcp-focus-ring-width) solid var(--wcp-color-primary);outline-offset:var(--wcp-focus-ring-offset)"></div>
+        <span style="font-size:11px;color:var(--wcp-color-text-muted)">← focus ring</span>
       </div>
 
-      <!-- Folder Sidebar -->
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Folder Sidebar</div>
-      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;">
-        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);background:rgba(240,136,62,.1);">
-          <span style="color:var(--accent)">📁</span>
-          <span style="font-size:13px;font-weight:500;color:var(--accent)">Root</span>
+      <!-- ── Status ──────────────────────────────────────────────── -->
+      <div class="preview-title">Status — Colour &amp; Surface</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
+        <div style="background:var(--wcp-color-success-surface);border:1px solid var(--wcp-color-success);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+          <span style="color:var(--wcp-color-success);font-size:13px">✓</span>
+          <span style="font-size:12px;color:var(--wcp-color-success);font-weight:600">Success</span>
+          <span style="font-size:11px;color:var(--wcp-color-text-muted)">success-surface + success</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 24px;border-bottom:1px solid rgba(48,54,61,.4);">
-          <span>📁</span><span style="font-size:12px;color:var(--text)">Shopping</span>
-          <span style="margin-left:auto;font-size:10px;color:var(--muted)">▶</span>
+        <div style="background:var(--wcp-color-warning-surface);border:1px solid var(--wcp-color-warning);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+          <span style="color:var(--wcp-color-warning);font-size:13px">⚠</span>
+          <span style="font-size:12px;color:var(--wcp-color-warning);font-weight:600">Warning</span>
+          <span style="font-size:11px;color:var(--wcp-color-text-muted)">warning-surface + warning</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 40px;border-bottom:1px solid rgba(48,54,61,.4);background:rgba(88,166,255,.05);">
-          <span>📁</span><span style="font-size:12px;color:var(--blue)">Groceries</span>
+        <div style="background:var(--wcp-color-danger-surface);border:1px solid var(--wcp-color-danger);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+          <span style="color:var(--wcp-color-danger);font-size:13px">✗</span>
+          <span style="font-size:12px;color:var(--wcp-color-danger);font-weight:600">Danger</span>
+          <span style="font-size:11px;color:var(--wcp-color-text-muted)">danger-surface + danger</span>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 24px;border-bottom:1px solid rgba(48,54,61,.4);">
-          <span>📁</span><span style="font-size:12px;color:var(--text)">Widgets</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;padding:7px 12px 7px 24px;">
-          <span>📁</span><span style="font-size:12px;color:var(--text)">TikTok</span>
-        </div>
-      </div>
-
-      <!-- Cards (flush, no radius, no gap) -->
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Pinboard Cards (flush tiles)</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;margin-bottom:16px;">
-        <!-- Link card -->
-        <div style="background:var(--surface);border:1px solid var(--border);display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:6px;padding:8px 10px;border-bottom:1px solid var(--border);">
-            <span style="font-size:12px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Penrith Beacon MCP Dashboard</span>
-            <span style="font-size:15px;color:var(--muted);">⋮</span>
-          </div>
-          <div style="padding:8px 10px;font-size:11px;color:var(--muted);flex:1;">Developer dashboard</div>
-          <div style="padding:6px 8px;border-top:1px solid var(--border);display:flex;gap:5px;">
-            <div style="background:var(--accent);color:#0d1117;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:600;">Open</div>
-            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:3px 8px;font-size:10px;color:var(--text);">↗ Browser</div>
-          </div>
-        </div>
-        <!-- Widget card -->
-        <div style="background:var(--surface);border:1px solid var(--border);border-left:none;display:flex;flex-direction:column;">
-          <div style="background:var(--surface2);border-bottom:1px solid var(--border);padding:6px 10px;font-size:11px;font-weight:600;">⚡ Weather Ticker</div>
-          <div style="padding:10px;font-size:10px;color:var(--muted);flex:1;line-height:1.6;">
-            📍 Penrith, England<br>
-            📅 Sun 1 Jun · 🕐 14:32<br>
-            ⛅ 18°C · Partly Cloudy
-          </div>
-        </div>
-        <!-- Snippet card -->
-        <div style="background:var(--surface);border:1px solid var(--border);border-left:none;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;border-bottom:1px solid var(--border);font-size:11px;font-weight:600;">
-            <span>📄 Welcome Notice</span>
-            <span style="margin-left:auto;font-size:15px;color:var(--muted);">⋮</span>
-          </div>
-          <div style="padding:10px;flex:1;">
-            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:4px">Hello! 👋</div>
-            <div style="font-size:10px;color:var(--muted);line-height:1.5;">Your HTML snippet renders in a sandboxed iframe here.</div>
-          </div>
+        <div style="background:var(--wcp-color-info-surface);border:1px solid var(--wcp-color-info);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+          <span style="color:var(--wcp-color-info);font-size:13px">ℹ</span>
+          <span style="font-size:12px;color:var(--wcp-color-info);font-weight:600">Info</span>
+          <span style="font-size:11px;color:var(--wcp-color-text-muted)">info-surface + info</span>
         </div>
       </div>
 
-      <!-- Modals -->
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Modal Dialogs</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-        <!-- Alert modal -->
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center;box-shadow:var(--shadow);">
-          <div style="font-size:13px;color:var(--text);margin-bottom:16px;">Pinboard settings saved.</div>
-          <div style="background:var(--accent);color:#0d1117;border-radius:6px;padding:7px 24px;font-size:12px;font-weight:600;display:inline-block;">OK</div>
-        </div>
-        <!-- Add link modal -->
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);">
-          <div style="font-weight:600;font-size:13px;margin-bottom:12px;">Add Link</div>
-          <div style="margin-bottom:8px;">
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;">Title</div>
-            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:6px 8px;font-size:11px;color:var(--muted);">e.g. Google</div>
-          </div>
-          <div style="margin-bottom:12px;">
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;margin-bottom:3px;">URL</div>
-            <div style="background:var(--surface2);border:1px solid var(--accent);border-radius:5px;padding:6px 8px;font-size:11px;color:var(--text);">https://example.com</div>
-          </div>
-          <div style="display:flex;justify-content:flex-end;gap:8px;">
-            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 12px;font-size:11px;color:var(--text);">Cancel</div>
-            <div style="background:var(--accent);color:#0d1117;border-radius:5px;padding:5px 12px;font-size:11px;font-weight:600;">Add</div>
-          </div>
+      <!-- ── Typography ──────────────────────────────────────────── -->
+      <div class="preview-title">Typography Scale</div>
+      <div class="prev-card" style="margin-bottom:16px">
+        <div style="font-size:var(--wcp-font-size-3xl);font-weight:var(--wcp-font-weight-bold);color:var(--wcp-color-text);line-height:var(--wcp-line-height-tight);margin-bottom:4px">3XL · Display</div>
+        <div style="font-size:var(--wcp-font-size-2xl);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);line-height:var(--wcp-line-height-tight);margin-bottom:4px">2XL · Page Heading</div>
+        <div style="font-size:var(--wcp-font-size-xl);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);margin-bottom:4px">XL · Section Heading</div>
+        <div style="font-size:var(--wcp-font-size-lg);color:var(--wcp-color-text);margin-bottom:4px">LG · Body comfortable</div>
+        <div style="font-size:var(--wcp-font-size-md);color:var(--wcp-color-text);margin-bottom:4px">MD · Body default</div>
+        <div style="font-size:var(--wcp-font-size-sm);color:var(--wcp-color-text-muted);margin-bottom:4px">SM · Secondary</div>
+        <div style="font-size:var(--wcp-font-size-xs);color:var(--wcp-color-text-muted)">XS · Labels &amp; captions</div>
+        <div style="font-size:var(--wcp-font-size-sm);font-family:var(--wcp-font-mono);color:var(--wcp-color-text-muted);margin-top:6px;background:var(--wcp-color-surface-raised);padding:4px 8px;border-radius:var(--wcp-radius-sm)">mono · code snippet example</div>
+      </div>
+
+      <!-- ── Spacing ──────────────────────────────────────────────── -->
+      <div class="preview-title">Spacing Scale</div>
+      <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:16px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-1)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">1</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-2)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">2</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-3)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">3</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-4)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">4</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-5)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">5</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-6)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">6</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-7)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">7</span></div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-8)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">8</span></div>
+      </div>
+
+      <!-- ── Shape ───────────────────────────────────────────────── -->
+      <div class="preview-title">Shape — Border Radius</div>
+      <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:4px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">sm</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">md</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:12px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">lg</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:16px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">xl</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:9999px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">round</div>
+      </div>
+
+      <!-- ── Shadow ──────────────────────────────────────────────── -->
+      <div class="preview-title">Shadow — Elevation</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;padding:8px 0">
+        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-sm)">sm</div>
+        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-md)">md</div>
+        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-lg)">lg</div>
+        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-xl)">xl</div>
+      </div>
+
+      <!-- ── Widget Defaults ─────────────────────────────────────── -->
+      <div class="preview-title">Widget Card (using --wcp-widget-* tokens)</div>
+      <div style="background:var(--wcp-widget-bg);border:1px solid var(--wcp-widget-border);border-radius:var(--wcp-widget-radius);padding:var(--wcp-widget-padding);box-shadow:var(--wcp-widget-shadow);margin-bottom:16px">
+        <div style="font-size:var(--wcp-font-size-lg);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);margin-bottom:var(--wcp-widget-gap)">Widget Default Card</div>
+        <div style="font-size:var(--wcp-font-size-sm);color:var(--wcp-color-text-muted);line-height:var(--wcp-line-height-normal)">This card uses only <code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:var(--wcp-radius-sm);font-family:var(--wcp-font-mono)">--wcp-widget-*</code> tokens for its chrome, and the type scale for its text.</div>
+        <div style="display:flex;gap:var(--wcp-widget-gap);margin-top:var(--wcp-widget-gap);flex-wrap:wrap">
+          <div style="background:var(--wcp-color-primary);color:var(--wcp-color-primary-on);border-radius:var(--wcp-radius-md);padding:6px 14px;font-size:var(--wcp-font-size-sm);font-weight:var(--wcp-font-weight-semibold)">Action</div>
+          <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:6px 14px;font-size:var(--wcp-font-size-sm);color:var(--wcp-color-text)">Secondary</div>
         </div>
       </div>
 
-      <!-- Status messages -->
-      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Status & Notifications</div>
-      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;">
-        <div style="background:rgba(63,185,80,.1);border:1px solid var(--green);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--green);">✓ Theme imported successfully</div>
-        <div style="background:rgba(248,81,73,.08);border:1px solid var(--red);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--red);">✗ Could not reach server</div>
-        <div style="background:rgba(214,153,34,.08);border:1px solid var(--yellow);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--yellow);">⚠ Widget container unavailable</div>
-        <div style="background:rgba(88,166,255,.08);border:1px solid var(--blue);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--blue);">ℹ WCP manifest loaded successfully</div>
+      <!-- ── Motion ─────────────────────────────────────────────── -->
+      <div class="preview-title">Motion Tokens</div>
+      <div class="prev-card" style="margin-bottom:16px">
+        <div style="font-size:11px;color:var(--wcp-color-text-muted);line-height:1.7">
+          <div><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-duration-fast</code> · 100ms · micro-interactions</div>
+          <div><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-duration-normal</code> · 200ms · standard transitions</div>
+          <div><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-duration-slow</code> · 350ms · complex transitions</div>
+          <div style="margin-top:4px"><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-easing-spring</code> · cubic-bezier(0.34,1.56,0.64,1) · bouncy</div>
+        </div>
+      </div>
+
+      <!-- ── Z-Index ─────────────────────────────────────────────── -->
+      <div class="preview-title">Z-Index Layers</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">base</span> · 0</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">raised</span> · 10</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">dropdown</span> · 1000</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">sticky</span> · 1100</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">modal</span> · 1200</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">toast</span> · 1300</div>
+        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">tooltip</span> · 1400</div>
       </div>
     </div>
 
@@ -294,26 +287,26 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
     <div id="tab-about" style="display:none">
       <div class="prev-card" id="about-content">
         <div class="prev-card-title" style="margin-bottom:8px">About This Theme</div>
-        <div id="about-body" style="font-size:12px;line-height:1.7;color:var(--muted)">
+        <div id="about-body" style="font-size:12px;line-height:1.7;color:var(--wcp-color-text-muted)">
           Select a theme to see its details and attribution.
         </div>
       </div>
       <div class="prev-card">
         <div class="prev-card-title" style="margin-bottom:8px">Theme Sources</div>
-        <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:10px">These themes are inspired by beloved developer colour schemes from the open source community. Each represents years of refinement by dedicated creators.</p>
-        <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted)">
-          <span>🧛 <strong style="color:var(--text)">Dracula</strong> — Zeno Rocha · <a href="https://draculatheme.com" style="color:var(--blue)">draculatheme.com</a></span>
-          <span>🧊 <strong style="color:var(--text)">Nord</strong> — Arctic Ice Studio · <a href="https://nordtheme.com" style="color:var(--blue)">nordtheme.com</a></span>
-          <span>🐱 <strong style="color:var(--text)">Catppuccin</strong> — Community · <a href="https://catppuccin.com" style="color:var(--blue)">catppuccin.com</a></span>
-          <span>🌃 <strong style="color:var(--text)">Tokyo Night</strong> — enkia · GitHub</span>
-          <span>🪵 <strong style="color:var(--text)">Gruvbox</strong> — Pavel Pertsev · GitHub</span>
-          <span>🎨 <strong style="color:var(--text)">Monokai</strong> — Wimer Hazenberg · <a href="https://monokai.pro" style="color:var(--blue)">monokai.pro</a></span>
-          <span>⬛ <strong style="color:var(--text)">One Dark</strong> — Atom / GitHub</span>
-          <span>☀️ <strong style="color:var(--text)">Solarized</strong> — Ethan Schoonover · <a href="https://ethanschoonover.com/solarized" style="color:var(--blue)">ethanschoonover.com</a></span>
-          <span>🌹 <strong style="color:var(--text)">Rosé Pine</strong> — Emilia Dunfelt · <a href="https://rosepinetheme.com" style="color:var(--blue)">rosepinetheme.com</a></span>
-          <span>🌅 <strong style="color:var(--text)">Ayu</strong> — Ike Ku · GitHub</span>
-          <span>🤖 <strong style="color:var(--text)">Cyberpunk</strong> — Original design</span>
-          <span>🌲 <strong style="color:var(--text)">Forest</strong> — Original design</span>
+        <p style="font-size:12px;color:var(--wcp-color-text-muted);line-height:1.7;margin-bottom:10px">These themes are inspired by beloved developer colour schemes from the open source community. Each represents years of refinement by dedicated creators.</p>
+        <div style="display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--wcp-color-text-muted)">
+          <span>🧛 <strong style="color:var(--wcp-color-text)">Dracula</strong> — Zeno Rocha · <a href="https://draculatheme.com" style="color:var(--wcp-color-info)">draculatheme.com</a></span>
+          <span>🧊 <strong style="color:var(--wcp-color-text)">Nord</strong> — Arctic Ice Studio · <a href="https://nordtheme.com" style="color:var(--wcp-color-info)">nordtheme.com</a></span>
+          <span>🐱 <strong style="color:var(--wcp-color-text)">Catppuccin</strong> — Community · <a href="https://catppuccin.com" style="color:var(--wcp-color-info)">catppuccin.com</a></span>
+          <span>🌃 <strong style="color:var(--wcp-color-text)">Tokyo Night</strong> — enkia · GitHub</span>
+          <span>🪵 <strong style="color:var(--wcp-color-text)">Gruvbox</strong> — Pavel Pertsev · GitHub</span>
+          <span>🎨 <strong style="color:var(--wcp-color-text)">Monokai</strong> — Wimer Hazenberg · <a href="https://monokai.pro" style="color:var(--wcp-color-info)">monokai.pro</a></span>
+          <span>⬛ <strong style="color:var(--wcp-color-text)">One Dark</strong> — Atom / GitHub</span>
+          <span>☀️ <strong style="color:var(--wcp-color-text)">Solarized</strong> — Ethan Schoonover · <a href="https://ethanschoonover.com/solarized" style="color:var(--wcp-color-info)">ethanschoonover.com</a></span>
+          <span>🌹 <strong style="color:var(--wcp-color-text)">Rosé Pine</strong> — Emilia Dunfelt · <a href="https://rosepinetheme.com" style="color:var(--wcp-color-info)">rosepinetheme.com</a></span>
+          <span>🌅 <strong style="color:var(--wcp-color-text)">Ayu</strong> — Ike Ku · GitHub</span>
+          <span>🤖 <strong style="color:var(--wcp-color-text)">Cyberpunk</strong> — Original design</span>
+          <span>🌲 <strong style="color:var(--wcp-color-text)">Forest</strong> — Original design</span>
         </div>
       </div>
     </div>
@@ -327,9 +320,9 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--border);border-r
       <button class="btn" id="btn-view-json" style="font-size:11px;display:none" onclick="showThemeJson()">{ } JSON</button>
     </div>
     <div class="editor-body" id="editor-body">
-      <p style="color:var(--muted);font-size:12px;line-height:1.6">
+      <p style="color:var(--wcp-color-text-muted);font-size:12px;line-height:1.6">
         Select a theme from the list to preview it.<br><br>
-        Click <strong style="color:var(--text)">+ New Custom Theme</strong> to create your own, or click <strong style="color:var(--text)">Edit</strong> on a custom theme to modify it.
+        Click <strong style="color:var(--wcp-color-text)">+ New Custom Theme</strong> to create your own, or click <strong style="color:var(--wcp-color-text)">Edit</strong> on a custom theme to modify it.
       </p>
     </div>
     <div class="editor-footer hidden" id="editor-footer">
@@ -354,13 +347,85 @@ function wcpFetch(url, opts) {
 const BASE    = window.location.origin;
 const THEMES  = {{ themes|tojson }};
 const VAR_DEFS = [
-  {k:'--bg',l:'Background',t:'color'},{k:'--surface',l:'Surface',t:'color'},
-  {k:'--surface2',l:'Surface 2',t:'color'},{k:'--border',l:'Border',t:'color'},
-  {k:'--text',l:'Text',t:'color'},{k:'--muted',l:'Muted',t:'color'},
-  {k:'--accent',l:'Accent',t:'color'},{k:'--green',l:'Green',t:'color'},
-  {k:'--red',l:'Red',t:'color'},{k:'--yellow',l:'Yellow',t:'color'},
-  {k:'--blue',l:'Blue',t:'color'},{k:'--radius',l:'Border Radius',t:'text'},
-  {k:'--shadow',l:'Box Shadow',t:'text'},
+  {s:'Surfaces'},
+  {k:'--wcp-color-bg',              l:'Background',        t:'color'},
+  {k:'--wcp-color-surface',         l:'Surface',           t:'color'},
+  {k:'--wcp-color-surface-raised',  l:'Surface Raised',    t:'color'},
+  {k:'--wcp-color-surface-sunken',  l:'Surface Sunken',    t:'color'},
+  {k:'--wcp-color-overlay',         l:'Overlay',           t:'color'},
+  {s:'Borders'},
+  {k:'--wcp-color-border',          l:'Border',            t:'color'},
+  {k:'--wcp-color-border-strong',   l:'Border Strong',     t:'color'},
+  {s:'Text'},
+  {k:'--wcp-color-text',            l:'Text',              t:'color'},
+  {k:'--wcp-color-text-muted',      l:'Text Muted',        t:'color'},
+  {k:'--wcp-color-text-disabled',   l:'Text Disabled',     t:'color'},
+  {k:'--wcp-color-text-inverse',    l:'Text Inverse',      t:'color'},
+  {k:'--wcp-color-link',            l:'Link',              t:'color'},
+  {s:'Brand'},
+  {k:'--wcp-color-primary',         l:'Primary',           t:'color'},
+  {k:'--wcp-color-primary-dim',     l:'Primary Dim',       t:'color'},
+  {k:'--wcp-color-primary-on',      l:'On Primary',        t:'color'},
+  {s:'Status'},
+  {k:'--wcp-color-success',         l:'Success',           t:'color'},
+  {k:'--wcp-color-success-surface', l:'Success Surface',   t:'color'},
+  {k:'--wcp-color-warning',         l:'Warning',           t:'color'},
+  {k:'--wcp-color-warning-surface', l:'Warning Surface',   t:'color'},
+  {k:'--wcp-color-danger',          l:'Danger',            t:'color'},
+  {k:'--wcp-color-danger-surface',  l:'Danger Surface',    t:'color'},
+  {k:'--wcp-color-info',            l:'Info',              t:'color'},
+  {k:'--wcp-color-info-surface',    l:'Info Surface',      t:'color'},
+  {s:'Typography'},
+  {k:'--wcp-font-family',           l:'Font Family',       t:'text'},
+  {k:'--wcp-font-mono',             l:'Font Mono',         t:'text'},
+  {k:'--wcp-font-size-xs',          l:'Size XS',           t:'text'},
+  {k:'--wcp-font-size-sm',          l:'Size SM',           t:'text'},
+  {k:'--wcp-font-size-md',          l:'Size MD',           t:'text'},
+  {k:'--wcp-font-size-lg',          l:'Size LG',           t:'text'},
+  {k:'--wcp-font-size-xl',          l:'Size XL',           t:'text'},
+  {k:'--wcp-font-size-2xl',         l:'Size 2XL',          t:'text'},
+  {k:'--wcp-font-size-3xl',         l:'Size 3XL',          t:'text'},
+  {k:'--wcp-font-weight-normal',    l:'Weight Normal',     t:'text'},
+  {k:'--wcp-font-weight-medium',    l:'Weight Medium',     t:'text'},
+  {k:'--wcp-font-weight-semibold',  l:'Weight Semibold',   t:'text'},
+  {k:'--wcp-font-weight-bold',      l:'Weight Bold',       t:'text'},
+  {k:'--wcp-line-height-tight',     l:'Line Height Tight', t:'text'},
+  {k:'--wcp-line-height-normal',    l:'Line Height Normal',t:'text'},
+  {k:'--wcp-line-height-relaxed',   l:'Line Height Relaxed',t:'text'},
+  {s:'Spacing'},
+  {k:'--wcp-space-1',l:'Space 1 (4px)',  t:'text'},{k:'--wcp-space-2',l:'Space 2 (8px)',  t:'text'},
+  {k:'--wcp-space-3',l:'Space 3 (12px)', t:'text'},{k:'--wcp-space-4',l:'Space 4 (16px)', t:'text'},
+  {k:'--wcp-space-5',l:'Space 5 (24px)', t:'text'},{k:'--wcp-space-6',l:'Space 6 (32px)', t:'text'},
+  {k:'--wcp-space-7',l:'Space 7 (48px)', t:'text'},{k:'--wcp-space-8',l:'Space 8 (64px)', t:'text'},
+  {s:'Shape'},
+  {k:'--wcp-radius-sm',   l:'Radius SM',   t:'text'},{k:'--wcp-radius-md',   l:'Radius MD',   t:'text'},
+  {k:'--wcp-radius-lg',   l:'Radius LG',   t:'text'},{k:'--wcp-radius-xl',   l:'Radius XL',   t:'text'},
+  {k:'--wcp-radius-round',l:'Radius Round',t:'text'},
+  {s:'Shadow'},
+  {k:'--wcp-shadow-sm',l:'Shadow SM',t:'text'},{k:'--wcp-shadow-md',l:'Shadow MD',t:'text'},
+  {k:'--wcp-shadow-lg',l:'Shadow LG',t:'text'},{k:'--wcp-shadow-xl',l:'Shadow XL',t:'text'},
+  {s:'Motion'},
+  {k:'--wcp-duration-fast',   l:'Duration Fast',    t:'text'},{k:'--wcp-duration-normal',l:'Duration Normal',t:'text'},
+  {k:'--wcp-duration-slow',   l:'Duration Slow',    t:'text'},
+  {k:'--wcp-easing-standard', l:'Easing Standard',  t:'text'},{k:'--wcp-easing-out',    l:'Easing Out',    t:'text'},
+  {k:'--wcp-easing-in',       l:'Easing In',        t:'text'},{k:'--wcp-easing-spring', l:'Easing Spring', t:'text'},
+  {s:'Z-Index Layers'},
+  {k:'--wcp-z-base',    l:'Z Base',    t:'text'},{k:'--wcp-z-raised',   l:'Z Raised',   t:'text'},
+  {k:'--wcp-z-dropdown',l:'Z Dropdown',t:'text'},{k:'--wcp-z-sticky',   l:'Z Sticky',   t:'text'},
+  {k:'--wcp-z-modal',   l:'Z Modal',   t:'text'},{k:'--wcp-z-toast',    l:'Z Toast',    t:'text'},
+  {k:'--wcp-z-tooltip', l:'Z Tooltip', t:'text'},
+  {s:'Focus & Accessibility'},
+  {k:'--wcp-focus-ring-width', l:'Ring Width',    t:'text'},
+  {k:'--wcp-focus-ring-offset',l:'Ring Offset',   t:'text'},
+  {k:'--wcp-focus-ring-color', l:'Ring Color',    t:'color'},
+  {k:'--wcp-touch-target-min', l:'Touch Target',  t:'text'},
+  {s:'Widget Defaults'},
+  {k:'--wcp-widget-bg',     l:'Widget BG',      t:'color'},
+  {k:'--wcp-widget-border', l:'Widget Border',  t:'color'},
+  {k:'--wcp-widget-radius', l:'Widget Radius',  t:'text'},
+  {k:'--wcp-widget-padding',l:'Widget Padding', t:'text'},
+  {k:'--wcp-widget-gap',    l:'Widget Gap',     t:'text'},
+  {k:'--wcp-widget-shadow', l:'Widget Shadow',  t:'text'},
 ];
 
 const THEME_ABOUT = {
@@ -382,8 +447,65 @@ let currentId = THEMES[0]?.id;
 let editId    = null;
 let workVars  = {};
 
+// Inline token resolver — mirrors dashboard's resolveWcpTokens / buildWcpTokens.
+// Takes a theme's vars (--wcp-* format) and returns the full ~78-token set.
+function _resolveAllVars(themeVars) {
+  const v = themeVars;
+  function h(hex, a) {
+    if (!hex || !hex.startsWith('#') || hex.length < 7) return `rgba(0,0,0,${a})`;
+    const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return `rgba(${r},${g},${b},${a})`;
+  }
+  const bg=v['--wcp-color-bg']||'#0d1117', su=v['--wcp-color-surface']||'#161b22',
+        sr=v['--wcp-color-surface-raised']||'#1c2128', bo=v['--wcp-color-border']||'#30363d',
+        tx=v['--wcp-color-text']||'#e6edf3', mu=v['--wcp-color-text-muted']||'#8b949e',
+        pr=v['--wcp-color-primary']||'#f0883e', sc=v['--wcp-color-success']||'#3fb950',
+        wa=v['--wcp-color-warning']||'#d29922', da=v['--wcp-color-danger']||'#f85149',
+        inf=v['--wcp-color-info']||'#58a6ff',  ra=v['--wcp-radius-md']||'8px',
+        sh=v['--wcp-shadow-sm']||'0 4px 16px rgba(0,0,0,.45)';
+  const derived = {
+    '--wcp-color-bg':bg,'--wcp-color-surface':su,'--wcp-color-surface-raised':sr,
+    '--wcp-color-surface-sunken':bg,'--wcp-color-overlay':h(bg,0.75),
+    '--wcp-color-border':bo,'--wcp-color-border-strong':h(tx,0.25),
+    '--wcp-color-text':tx,'--wcp-color-text-muted':mu,
+    '--wcp-color-text-disabled':h(mu,0.5),'--wcp-color-text-inverse':bg,
+    '--wcp-color-link':inf,
+    '--wcp-color-primary':pr,'--wcp-color-primary-dim':h(pr,0.15),'--wcp-color-primary-on':'#ffffff',
+    '--wcp-color-success':sc,'--wcp-color-success-surface':h(sc,0.12),
+    '--wcp-color-warning':wa,'--wcp-color-warning-surface':h(wa,0.12),
+    '--wcp-color-danger':da,'--wcp-color-danger-surface':h(da,0.12),
+    '--wcp-color-info':inf,'--wcp-color-info-surface':h(inf,0.12),
+    '--wcp-font-family':"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
+    '--wcp-font-mono':"ui-monospace,'SF Mono','Fira Code',monospace",
+    '--wcp-font-size-xs':'0.70rem','--wcp-font-size-sm':'0.80rem','--wcp-font-size-md':'0.875rem',
+    '--wcp-font-size-lg':'1rem','--wcp-font-size-xl':'1.125rem',
+    '--wcp-font-size-2xl':'1.375rem','--wcp-font-size-3xl':'1.75rem',
+    '--wcp-font-weight-normal':'400','--wcp-font-weight-medium':'500',
+    '--wcp-font-weight-semibold':'600','--wcp-font-weight-bold':'700',
+    '--wcp-line-height-tight':'1.2','--wcp-line-height-normal':'1.5','--wcp-line-height-relaxed':'1.75',
+    '--wcp-space-1':'4px','--wcp-space-2':'8px','--wcp-space-3':'12px','--wcp-space-4':'16px',
+    '--wcp-space-5':'24px','--wcp-space-6':'32px','--wcp-space-7':'48px','--wcp-space-8':'64px',
+    '--wcp-radius-sm':'4px','--wcp-radius-md':ra,'--wcp-radius-lg':'12px',
+    '--wcp-radius-xl':'16px','--wcp-radius-round':'9999px',
+    '--wcp-shadow-sm':sh,'--wcp-shadow-md':'0 4px 12px rgba(0,0,0,.2)',
+    '--wcp-shadow-lg':'0 8px 24px rgba(0,0,0,.25)','--wcp-shadow-xl':'0 16px 40px rgba(0,0,0,.3)',
+    '--wcp-duration-fast':'100ms','--wcp-duration-normal':'200ms','--wcp-duration-slow':'350ms',
+    '--wcp-easing-standard':'ease','--wcp-easing-out':'ease-out',
+    '--wcp-easing-in':'ease-in','--wcp-easing-spring':'cubic-bezier(0.34,1.56,0.64,1)',
+    '--wcp-z-base':'0','--wcp-z-raised':'10','--wcp-z-dropdown':'1000',
+    '--wcp-z-sticky':'1100','--wcp-z-modal':'1200','--wcp-z-toast':'1300','--wcp-z-tooltip':'1400',
+    '--wcp-focus-ring-width':'2px','--wcp-focus-ring-offset':'2px',
+    '--wcp-focus-ring-color':pr,'--wcp-touch-target-min':'44px',
+    '--wcp-widget-bg':su,'--wcp-widget-border':bo,'--wcp-widget-radius':ra,
+    '--wcp-widget-padding':'16px','--wcp-widget-gap':'12px','--wcp-widget-shadow':sh,
+  };
+  // Explicit values in themeVars override derived ones
+  Object.entries(themeVars).forEach(([k,v2]) => { if (k.startsWith('--wcp-')) derived[k] = v2; });
+  return derived;
+}
+
 function switchTab(tab, el) {
-  ['dashboard','settings','about'].forEach(t => {
+  ['settings','about'].forEach(t => {
     const panel = document.getElementById('tab-'+t);
     if (panel) panel.style.display = t === tab ? '' : 'none';
   });
@@ -392,13 +514,18 @@ function switchTab(tab, el) {
 }
 
 function applyVars(vars) {
+  const resolved = _resolveAllVars(vars);
   const root = document.documentElement;
-  Object.entries(vars).forEach(([k,v]) => root.style.setProperty(k,v));
-  updateColorGrid(vars);
+  Object.entries(resolved).forEach(([k,v]) => root.style.setProperty(k,v));
+  updateColorGrid(resolved);
+  // Broadcast theme up to the host (dashboard/kiosk) so the entire window adopts it
+  if (window.parent && window.parent !== window) {
+    try { window.parent.postMessage({ type: 'wcp:theme-apply', vars: resolved }, '*'); } catch {}
+  }
 }
 
 function updateColorGrid(vars) {
-  const keys = ['--bg','--surface','--surface2','--text','--muted','--accent','--green','--red','--yellow','--blue','--border'];
+  const keys = ['--wcp-color-bg','--wcp-color-surface','--wcp-color-surface-raised','--wcp-color-text','--wcp-color-text-muted','--wcp-color-primary','--wcp-color-success','--wcp-color-danger','--wcp-color-warning','--wcp-color-info','--wcp-color-border'];
   const grid = document.getElementById('color-grid');
   grid.innerHTML = keys.map(k => `<div class="color-chip" style="background:${vars[k]||'transparent'}">${(vars[k]||'').slice(1,4)}</div>`).join('');
 }
@@ -421,14 +548,14 @@ function selectTheme(id) {
   const aboutBody = document.getElementById('about-body');
   if (aboutBody && info) {
     aboutBody.innerHTML = `<p style="font-size:20px;margin-bottom:8px">${info.emoji}</p>
-      <p style="color:var(--text);font-weight:600;margin-bottom:6px">${t.name}</p>
+      <p style="color:var(--wcp-color-text);font-weight:600;margin-bottom:6px">${t.name}</p>
       <p style="margin-bottom:10px">${info.desc}</p>
-      ${info.url ? `<a href="${info.url}" style="color:var(--blue);font-size:11px">${info.url}</a>` : '<span style="font-size:11px">Original design for Penrith Beacon MCP</span>'}`;
+      ${info.url ? `<a href="${info.url}" style="color:var(--wcp-color-info);font-size:11px">${info.url}</a>` : '<span style="font-size:11px">Original design for Penrith Beacon MCP</span>'}`;
   }
   // Hide editor if viewing built-in
   if (t.builtin && editId === null) {
     document.getElementById('editor-title').textContent = t.name + ' (Built-in)';
-    document.getElementById('editor-body').innerHTML = `<p style="color:var(--muted);font-size:12px;line-height:1.6">Built-in themes cannot be edited.<br><br>Click <strong style="color:var(--text)">+ New Custom Theme</strong> to create a variant based on this theme.</p>`;
+    document.getElementById('editor-body').innerHTML = `<p style="color:var(--wcp-color-text-muted);font-size:12px;line-height:1.6">Built-in themes cannot be edited.<br><br>Click <strong style="color:var(--wcp-color-text)">+ New Custom Theme</strong> to create a variant based on this theme.</p>`;
     document.getElementById('editor-footer').classList.add('hidden');
   }
 }
@@ -456,15 +583,32 @@ async function addToDashboard(id, btn) {
   btn.textContent = '…'; btn.disabled = true;
   try {
     if (window.parent !== window) {
+      // Embedded in the dashboard as a widget — use postMessage
       window.parent.postMessage({ type: 'wcp:import-theme', url }, '*');
       btn.textContent = 'Added!';
     } else {
-      const r = await fetch('http://localhost:3737/api/theme-auto-import', {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ url }),
-      });
-      const d = await r.json();
-      btn.textContent = d.success ? 'Added!' : 'Error';
+      // Running as a standalone browser tab — try to reach the dashboard by
+      // scanning downward from port 3736 (default) to 3726.
+      let added = false;
+      for (let port = 3736; port >= 3726; port--) {
+        try {
+          const r = await fetch(`http://localhost:${port}/api/theme-auto-import`, {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ url }),
+          });
+          if (r.ok) {
+            const d = await r.json();
+            if (d.success) { btn.textContent = 'Added!'; added = true; break; }
+          }
+        } catch {}
+      }
+      if (!added) {
+        // Dashboard not found — show the URL for manual import
+        btn.textContent = 'Copy URL →';
+        navigator.clipboard?.writeText(url).catch(()=>{});
+        setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 3000);
+        return;
+      }
     }
   } catch { btn.textContent = 'Error'; }
   setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2000);
@@ -478,10 +622,111 @@ function fallbackCopy(text) {
   document.body.removeChild(ta);
 }
 
+// ── Export .wcpt ────────────────────────────────────────────────────────────
+async function exportWcpt(id, btn) {
+  const t = THEMES.find(x => x.id === id);
+  if (!t) return;
+  const orig = btn.textContent;
+  btn.textContent = '…'; btn.disabled = true;
+  try {
+    const r = await fetch(`${BASE}/widget/api/export-wcpt/${encodeURIComponent(id)}`);
+    if (!r.ok) throw new Error('Export failed');
+    const blob = await r.blob();
+    const fname = `${t.name.replace(/[^a-zA-Z0-9 _-]/g, '')}.wcpt`;
+    // Ask the host (dashboard/Electron) to save via postMessage if embedded
+    if (window.parent !== window) {
+      // Convert blob to base64 for postMessage transfer
+      const reader = new FileReader();
+      reader.onload = () => {
+        window.parent.postMessage({
+          type: 'wcp:download-file',
+          data: reader.result,
+          filename: fname,
+          mime: 'application/octet-stream'
+        }, '*');
+      };
+      reader.readAsDataURL(blob);
+      btn.textContent = 'Exported!';
+    } else {
+      // Standalone browser — use blob URL download
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = fname;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(a.href);
+      btn.textContent = 'Exported!';
+    }
+  } catch { btn.textContent = 'Error'; }
+  setTimeout(() => { btn.textContent = orig; btn.disabled = false; }, 2500);
+}
+
+// ── Import .wcpt ────────────────────────────────────────────────────────────
+function importWcpt() {
+  document.getElementById('wcpt-file-input').click();
+}
+
+async function handleWcptFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = ''; // reset for re-import
+  try {
+    const buf = await file.arrayBuffer();
+    let imported = [];
+    // Try dashboard server to parse the .wcpt
+    for (let port = 3736; port >= 3726; port--) {
+      try {
+        const r = await fetch(`http://localhost:${port}/api/import/parse`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/octet-stream', 'X-Filename': file.name || 'import.wcpt' },
+          body: buf,
+        });
+        if (r.ok) {
+          const d = await r.json();
+          if (d.success && d.themes && d.themes.length) {
+            imported = d.themes;
+            break;
+          }
+        }
+      } catch {}
+    }
+    if (!imported.length) {
+      alert('No themes found in the .wcpt file, or the dashboard server is not reachable.');
+      return;
+    }
+    // Add each imported theme as a custom theme in the Theme Studio
+    let added = 0;
+    for (const t of imported) {
+      // Skip if already exists
+      if (THEMES.find(x => x.uuid === t.uuid || x.name === t.name)) continue;
+      const newId = 'imp-' + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+      const theme = { id: newId, uuid: t.uuid || null, name: t.name, vars: t.vars, builtin: false };
+      // Save to Theme Studio backend
+      const r = await fetch(`${BASE}/widget/api/custom`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(theme),
+      });
+      if (r.ok) {
+        THEMES.push(theme);
+        added++;
+      }
+    }
+    if (added) {
+      // Re-render sidebar by reloading
+      location.reload();
+    } else {
+      alert('All themes in this file are already in the Theme Studio.');
+    }
+  } catch (e) {
+    alert('Failed to import: ' + e.message);
+  }
+}
+
 function newTheme() {
-  // Pre-fill from currently selected theme
   const base = THEMES.find(x=>x.id===currentId) || THEMES[0];
-  workVars = {...base.vars};
+  // Pre-populate ALL resolved tokens so the editor shows full values
+  workVars = _resolveAllVars(base.vars);
   editId = null;
   openEditor('New Custom Theme', `Based on ${base.name}`);
 }
@@ -489,7 +734,8 @@ function newTheme() {
 function editTheme(id) {
   const t = THEMES.find(x=>x.id===id);
   if (!t) return;
-  workVars = {...t.vars};
+  // Pre-populate ALL resolved tokens
+  workVars = _resolveAllVars(t.vars);
   editId = id;
   openEditor('Edit: '+t.name, '');
 }
@@ -503,18 +749,20 @@ function openEditor(title, subtitle) {
       <input class="editor-name" id="th-name" type="text" value="${subtitle ? 'My ' + subtitle : editId ? THEMES.find(x=>x.id===editId)?.name||'' : ''}">
     </div>
     ${VAR_DEFS.map(d => {
+      if (d.s) return `<div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--wcp-color-primary);margin:10px 0 4px;padding-top:8px;border-top:1px solid var(--wcp-color-border)">${d.s}</div>`;
       const val = workVars[d.k] || '';
+      const kid = d.k.replace(/^--/, '').replace(/[^a-z0-9]/g, '-');
       if (d.t === 'color') {
         const hex = val.startsWith('#') ? val : '#888888';
         return `<div class="var-row">
           <span class="var-label" title="${d.k}">${d.l}</span>
-          <input type="color" id="cp-${d.k.slice(2)}" value="${hex}" oninput="syncColor('${d.k}',this.value,'tx')">
-          <input type="text" class="var-hex" id="tx-${d.k.slice(2)}" value="${val}" maxlength="25" oninput="syncColor('${d.k}',this.value,'cp')">
+          <input type="color" id="cp-${kid}" value="${hex}" oninput="syncColor('${d.k}',this.value,'tx')">
+          <input type="text" class="var-hex" id="tx-${kid}" value="${val}" maxlength="25" oninput="syncColor('${d.k}',this.value,'cp')">
         </div>`;
       } else {
         return `<div class="var-row">
           <span class="var-label" title="${d.k}">${d.l}</span>
-          <input type="text" class="var-text" id="tx-${d.k.slice(2)}" value="${val}" oninput="workVars['${d.k}']=this.value;applyVars(workVars)">
+          <input type="text" class="var-text" id="tx-${kid}" value="${val}" oninput="workVars['${d.k}']=this.value;applyVars(workVars)">
         </div>`;
       }
     }).join('')}`;
@@ -523,11 +771,11 @@ function openEditor(title, subtitle) {
 
 function syncColor(key, val, src) {
   workVars[key] = val;
-  const k = key.slice(2);
+  const kid = key.replace(/^--/, '').replace(/[^a-z0-9]/g, '-');
   if (src === 'tx' && /^#[0-9a-fA-F]{6}$/.test(val)) {
-    document.getElementById('cp-'+k) && (document.getElementById('cp-'+k).value = val);
+    document.getElementById('cp-'+kid) && (document.getElementById('cp-'+kid).value = val);
   } else if (src === 'cp') {
-    document.getElementById('tx-'+k) && (document.getElementById('tx-'+k).value = val);
+    document.getElementById('tx-'+kid) && (document.getElementById('tx-'+kid).value = val);
   }
   applyVars(workVars);
 }
@@ -551,10 +799,27 @@ function cancelEdit() {
   selectTheme(currentId);
 }
 
-async function deleteTheme(id, name) {
-  if (!confirm(`Delete "${name}"?`)) return;
-  await fetch(`/widget/api/custom/${id}`, {method:'DELETE'});
-  location.reload();
+function deleteTheme(id, name) {
+  // Use inline modal — native confirm() is blocked by iframe sandbox
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:2000;display:flex;align-items:center;justify-content:center;';
+  overlay.innerHTML = `
+    <div style="background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:24px;width:320px;box-shadow:var(--wcp-shadow-lg);" onclick="event.stopPropagation()">
+      <div style="font-size:14px;font-weight:600;color:var(--wcp-color-text);margin-bottom:8px">Delete Theme</div>
+      <div style="font-size:12px;color:var(--wcp-color-text-muted);margin-bottom:20px">Delete <strong style="color:var(--wcp-color-text)">${name}</strong>? This cannot be undone.</div>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button id="_del-cancel" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);color:var(--wcp-color-text);font-family:inherit;font-size:12px;padding:6px 14px;cursor:pointer;">Cancel</button>
+        <button id="_del-confirm" style="background:var(--wcp-color-danger);border:none;border-radius:var(--wcp-radius-sm);color:#fff;font-family:inherit;font-size:12px;font-weight:600;padding:6px 14px;cursor:pointer;">Delete</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', () => overlay.remove());
+  document.getElementById('_del-cancel').addEventListener('click', () => overlay.remove());
+  document.getElementById('_del-confirm').addEventListener('click', async () => {
+    overlay.remove();
+    await fetch(`/widget/api/custom/${id}`, {method:'DELETE'});
+    location.reload();
+  });
 }
 
 function _copyText(text, btn) {
@@ -583,7 +848,7 @@ let _jsonModalPayload = null; // set before modal opens, buttons read from here
 function showThemeJson() {
   const t = THEMES.find(x => x.id === currentId);
   if (!t) return;
-  const payload = { uuid: t.uuid || null, name: t.name, vars: t.vars };
+  const payload = { uuid: t.uuid || null, name: t.name, vars: _resolveAllVars(t.vars) };
   const json = JSON.stringify(payload, null, 2);
   const filename = t.id + '.pbtheme.json';
   _jsonModalPayload = { json, filename };
@@ -594,18 +859,18 @@ function showThemeJson() {
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
 
   const box = document.createElement('div');
-  box.style.cssText = 'background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;width:500px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow);';
+  box.style.cssText = 'background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:20px;width:500px;max-width:95vw;max-height:80vh;display:flex;flex-direction:column;gap:12px;box-shadow:var(--wcp-shadow-sm);';
   box.addEventListener('click', e => e.stopPropagation());
 
   box.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;">
       <strong style="font-size:14px;">{ } ${t.name}.pbtheme.json</strong>
-      <button id="_json-close" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
+      <button id="_json-close" style="background:none;border:none;color:var(--wcp-color-text-muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
     </div>
-    <pre style="flex:1;overflow:auto;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:11px;line-height:1.6;color:var(--text);white-space:pre-wrap;">${escaped}</pre>
+    <pre style="flex:1;overflow:auto;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:6px;padding:14px;font-size:11px;line-height:1.6;color:var(--wcp-color-text);white-space:pre-wrap;">${escaped}</pre>
     <div style="display:flex;justify-content:flex-end;gap:8px;">
-      <button id="_json-copy-btn" style="background:var(--surface2);border:1px solid var(--border);border-radius:5px;color:var(--blue);cursor:pointer;font-size:12px;padding:6px 14px;">Copy JSON</button>
-      <button id="_json-dl-btn" style="background:var(--accent);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;">Download</button>
+      <button id="_json-copy-btn" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-info);cursor:pointer;font-size:12px;padding:6px 14px;">Copy JSON</button>
+      <button id="_json-dl-btn" style="background:var(--wcp-color-primary);border:none;border-radius:5px;color:#0d1117;cursor:pointer;font-size:12px;font-weight:600;padding:6px 14px;">Download</button>
     </div>`;
 
   overlay.appendChild(box);
@@ -625,16 +890,16 @@ function showStudioAbout() {
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
   overlay.innerHTML = `
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;width:420px;max-width:95vw;box-shadow:var(--shadow);" onclick="event.stopPropagation()">
+    <div style="background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:24px;width:420px;max-width:95vw;box-shadow:var(--wcp-shadow-sm);" onclick="event.stopPropagation()">
       <div style="text-align:center;margin-bottom:16px;">
         <div style="font-size:36px;margin-bottom:8px;">🎨</div>
         <div style="font-weight:600;font-size:16px;margin-bottom:4px;">WCP Theme Studio</div>
-        <div style="font-size:12px;color:var(--muted);">WCP Widget · Port 3740 · v1.1.0</div>
+        <div style="font-size:12px;color:var(--wcp-color-text-muted);">WCP Widget · Port 3740 · v1.1.0</div>
       </div>
-      <p style="font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:14px;">A WCP-compliant theme gallery and editor for <strong style="color:var(--text)">Penrith Beacon WCP</strong>. Includes 15 built-in themes (12 community + 3 Penrith Beacon WCP native) and a full custom theme editor. Each theme is shareable as a <code style="background:var(--surface2);padding:1px 5px;border-radius:3px;">.pbtheme.json</code> URL.</p>
-      <p style="font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:16px;">Built-in themes are inspired by beloved open source colour schemes from the developer community. Full attribution in the About tab.</p>
+      <p style="font-size:12px;color:var(--wcp-color-text-muted);line-height:1.7;margin-bottom:14px;">A WCP-compliant theme gallery and editor for <strong style="color:var(--wcp-color-text)">Penrith Beacon WCP</strong>. Includes 15 built-in themes (12 community + 3 Penrith Beacon WCP native) and a full custom theme editor. Each theme is shareable as a <code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;">.pbtheme.json</code> URL.</p>
+      <p style="font-size:11px;color:var(--wcp-color-text-muted);line-height:1.6;margin-bottom:16px;">Built-in themes are inspired by beloved open source colour schemes from the developer community. Full attribution in the About tab.</p>
       <div style="display:flex;justify-content:center;">
-        <button onclick="this.closest('.overlay-root').remove()" style="background:var(--accent);border:none;border-radius:6px;color:#0d1117;font-weight:600;padding:8px 24px;cursor:pointer;font-size:13px;">Close</button>
+        <button onclick="this.closest('.overlay-root').remove()" style="background:var(--wcp-color-primary);border:none;border-radius:6px;color:#0d1117;font-weight:600;padding:8px 24px;cursor:pointer;font-size:13px;">Close</button>
       </div>
     </div>`;
   overlay.className = 'overlay-root';
@@ -645,11 +910,15 @@ function showStudioAbout() {
 // Init
 if (THEMES.length) selectTheme(THEMES[0].id);
 
+function _applyThemeVars(vars) {
+  for (const [k, v] of Object.entries(vars))
+    document.documentElement.style.setProperty(k, v);
+}
 window.parent?.postMessage({ type: 'wcp:ready' }, '*');
+window.parent?.postMessage({ type: 'wcp:request-theme' }, '*');
 window.addEventListener('message', e => {
-  if (e.data?.type === 'wcp:context' && e.data.theme)
-    for (const [k, v] of Object.entries(e.data.theme))
-      document.documentElement.style.setProperty(k, v);
+  if (e.data?.type === 'wcp:context' && e.data.theme) _applyThemeVars(e.data.theme);
+  if (e.data?.type === 'wcp:theme' && e.data.vars)    _applyThemeVars(e.data.vars);
 });
 </script>
 </body>

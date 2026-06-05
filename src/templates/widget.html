@@ -7,24 +7,24 @@
 <style>
   :root{--bg:#0d1117;--surface:#161b22;--surface2:#1c2128;--border:#30363d;--text:#e6edf3;--muted:#8b949e;--accent:#f0883e;--green:#3fb950;--red:#f85149;--radius:6px}
   *{margin:0;padding:0;box-sizing:border-box;}
-  html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12px;height:100%;overflow:hidden;}
+  html,body{background:var(--wcp-color-bg);color:var(--wcp-color-text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12px;height:100%;overflow:hidden;}
   .wrap{display:flex;flex-direction:column;height:100vh;padding:6px;}
   .toolbar{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-bottom:6px;}
   .toolbar-title{font-weight:600;font-size:13px;flex:1;}
-  .btn{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);cursor:pointer;font-size:11px;padding:4px 10px;font-family:inherit;white-space:nowrap;}
-  .btn:hover{background:var(--surface);border-color:var(--muted);}
-  .btn-accent{background:var(--accent);border-color:var(--accent);color:#0d1117;font-weight:600;}
+  .btn{background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);color:var(--wcp-color-text);cursor:pointer;font-size:11px;padding:4px 10px;font-family:inherit;white-space:nowrap;}
+  .btn:hover{background:var(--wcp-color-surface);border-color:var(--wcp-color-text-muted);}
+  .btn-accent{background:var(--wcp-color-primary);border-color:var(--wcp-color-primary);color:#0d1117;font-weight:600;}
   .list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:4px;}
-  .theme-row{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:5px 8px;}
-  .theme-row:hover{border-color:var(--muted);}
+  .theme-row{display:flex;align-items:center;gap:6px;background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:5px 8px;}
+  .theme-row:hover{border-color:var(--wcp-color-text-muted);}
   .swatches{display:flex;gap:2px;flex-shrink:0;}
   .swatch{width:12px;height:12px;border-radius:2px;flex-shrink:0;}
   .theme-name{flex:1;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .copy-btn{background:none;border:1px solid var(--border);border-radius:4px;color:var(--muted);cursor:pointer;font-size:10px;padding:2px 7px;flex-shrink:0;}
-  .copy-btn:hover{color:var(--accent);border-color:var(--accent);}
-  .copy-btn.copied{color:var(--green);border-color:var(--green);}
+  .copy-btn{background:none;border:1px solid var(--wcp-color-border);border-radius:4px;color:var(--wcp-color-text-muted);cursor:pointer;font-size:10px;padding:2px 7px;flex-shrink:0;}
+  .copy-btn:hover{color:var(--wcp-color-primary);border-color:var(--wcp-color-primary);}
+  .copy-btn.copied{color:var(--wcp-color-success);border-color:var(--wcp-color-success);}
   ::-webkit-scrollbar{width:4px;}
-  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+  ::-webkit-scrollbar-thumb{background:var(--wcp-color-border);border-radius:2px;}
 </style>
 </head>
 <body>
@@ -45,7 +45,7 @@
       </div>
       <span class="theme-name">{{t.name}}</span>
       <button class="copy-btn" onclick="copyUrl('{{t.id}}',this)">Copy URL</button>
-      <button class="copy-btn" style="color:var(--accent);border-color:rgba(240,136,62,.4)" onclick="addToDashboard('{{t.id}}',this)">Add to Dashboard</button>
+      <button class="copy-btn" style="color:var(--wcp-color-primary);border-color:rgba(240,136,62,.4)" onclick="addToDashboard('{{t.id}}',this)">Add to Dashboard</button>
     </div>
     {% endfor %}
   </div>
