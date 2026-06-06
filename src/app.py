@@ -208,7 +208,9 @@ def manifest():
     return jsonify({k:m[k] for k in ['wcp','name','version','description','icon','health','widget']})
 
 @app.route('/widget/health')
-def health(): return jsonify({"status":"ok","name":"WCP Theme Studio"})
+def health():
+    return jsonify({"status": "ok", "name": "WCP Theme Studio",
+                    "container": os.environ.get("CONTAINER_NAME", "unknown")})
 
 @app.route('/widget/full')
 def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST, jsonld=WIDGET_JSONLD,
