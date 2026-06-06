@@ -132,6 +132,7 @@ Themes are shareable JSON files containing CSS custom property values:
 ## Technical Details
 
 - **Base image:** `python:3.12-slim`
+- **Platforms:** `linux/amd64`, `linux/arm64`
 - **Port:** `3740`
 - **Dependencies:** Flask
 - **Persistent storage:** Named Docker volume `theme_data` stores custom themes
@@ -141,11 +142,13 @@ Themes are shareable JSON files containing CSS custom property values:
 
 | Tag | Description |
 |-----|-------------|
-| `latest` | Latest stable release |
+| `latest` | Latest stable release — multi-arch (`linux/amd64`, `linux/arm64`) |
 | `1.4.0-wcp2.0.0` | Widget v1.4.0, WCP 2.0.0 — container block, manifest image source |
 | `1.3.1-wcp1.4.0` | Widget v1.3.1, WCP 2.0.0 — server UUID, Container Directory, Wcp-Widget-Id |
 | `1.3.0-wcp1.3.1` | Widget v1.3.0, WCP 1.3.1 — CORS headers, multi-instance support |
 | `1.2.0-wcp1.3.0` | Widget v1.2.0, WCP 1.3.0 — mandatory components array |
+
+> **Platform history:** `latest` was rebuilt as a multi-arch image on 2026-06-05, adding `linux/amd64` support (Synology NAS, Intel/AMD servers). All version-specific tags (`1.2.0-wcp1.3.0` through `1.4.0-wcp2.0.0`) were originally built on Apple Silicon and are `linux/arm64` only.
 
 ## Source
 
