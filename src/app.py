@@ -85,13 +85,13 @@ BUILTIN_THEMES = [
 ]
 
 WCP_MANIFEST = {
-  "wcp":"2.1.0","uuid":"87a8413d-28d9-451b-b1ef-7c1763a665ec","name":"WCP Theme Studio","version":"1.5.0",
+  "wcp":"2.1.0","uuid":"87a8413d-28d9-451b-b1ef-7c1763a665ec","name":"WCP Theme Studio","version":"1.6.0",
   "description":"Gallery of 15 built-in themes + custom theme editor. Includes the 3 Penrith Beacon WCP native themes. Each theme shareable as a .pbtheme.json URL.",
   "icon":"/widget/icon.svg","health":"/widget/health",
   "container":{
     "image":            "docker.io/penrithbeacon/wcp-widget-theme-studio",
     "source":           {"type": "registry"},
-    "tag":              "1.5.0-wcp2.1.0",
+    "tag":              "1.6.0-wcp2.1.0",
     "port":             3740,
     "volumes":          [{"name": "theme_data", "mountPath": "/app/data"}],
     "defaultLifecycle": "always",

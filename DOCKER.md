@@ -143,6 +143,8 @@ Themes are shareable JSON files containing CSS custom property values:
 | Tag | Description |
 |-----|-------------|
 | `latest` | Latest stable release — multi-arch (`linux/amd64`, `linux/arm64`) |
+| `1.6.0-wcp2.1.0` | Widget v1.6.0, WCP 2.1.0 — `/widget/health` returns `container` name |
+| `1.5.0-wcp2.1.0` | Widget v1.5.0, WCP 2.1.0 — WCP 2.1.0 upgrade, orchestration ID context |
 | `1.4.0-wcp2.0.0` | Widget v1.4.0, WCP 2.0.0 — container block, manifest image source |
 | `1.3.1-wcp1.4.0` | Widget v1.3.1, WCP 2.0.0 — server UUID, Container Directory, Wcp-Widget-Id |
 | `1.3.0-wcp1.3.1` | Widget v1.3.0, WCP 1.3.1 — CORS headers, multi-instance support |
