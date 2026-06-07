@@ -514,13 +514,15 @@ function switchTab(tab, el) {
   if (el) el.classList.add('active');
 }
 
+let _themeInitDone = false;
 function applyVars(vars) {
   const resolved = _resolveAllVars(vars);
   const root = document.documentElement;
   Object.entries(resolved).forEach(([k,v]) => root.style.setProperty(k,v));
   updateColorGrid(resolved);
   // Broadcast theme up to the host (dashboard/kiosk) so the entire window adopts it
-  if (window.parent && window.parent !== window) {
+  // But NOT on initial load — wait for user interaction to avoid overriding the host's active theme
+  if (_themeInitDone && window.parent && window.parent !== window) {
     try { window.parent.postMessage({ type: 'wcp:theme-apply', vars: resolved }, '*'); } catch {}
   }
 }
@@ -910,6 +912,7 @@ function showStudioAbout() {
 
 // Init
 if (THEMES.length) selectTheme(THEMES[0].id);
+_themeInitDone = true;
 
 function _applyThemeVars(vars) {
   for (const [k, v] of Object.entries(vars))
