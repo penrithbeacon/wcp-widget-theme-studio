@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WCP Theme Studio — Guide</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:var(--wcp-font-family, -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif);
+  font-size:var(--wcp-font-size-md, 14px);line-height:var(--wcp-font-line-height, 1.5);
+  background:var(--wcp-color-bg, #0d1117);color:var(--wcp-color-text, #e6edf3);}
+
+/* Themed scrollbars */
+*::-webkit-scrollbar{width:8px;height:8px;}
+*::-webkit-scrollbar-track{background:var(--wcp-color-surface, #161b22);}
+*::-webkit-scrollbar-thumb{background:var(--wcp-color-border, #30363d);border-radius:4px;}
+*::-webkit-scrollbar-thumb:hover{background:var(--wcp-color-text-muted, #8b949e);}
+*{scrollbar-color:var(--wcp-color-border, #30363d) var(--wcp-color-surface, #161b22);scrollbar-width:thin;}
+
+/* Layout: sidebar TOC + main content */
+.guide-layout{display:grid;grid-template-columns:200px 1fr;height:100%;overflow:hidden;}
+
+/* Sidebar / Table of Contents */
+.guide-toc{background:var(--wcp-color-surface, #161b22);border-right:1px solid var(--wcp-color-border, #30363d);
+  overflow-y:auto;padding:var(--wcp-space-md, 16px) 0;position:sticky;top:0;height:100%;}
+.guide-toc h2{font-size:var(--wcp-font-size-sm, 12px);font-weight:600;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--wcp-color-text-muted, #8b949e);padding:0 var(--wcp-space-md, 16px);
+  margin-bottom:var(--wcp-space-sm, 8px);}
+.guide-toc a{display:block;padding:6px var(--wcp-space-md, 16px);color:var(--wcp-color-text-muted, #8b949e);
+  text-decoration:none;font-size:var(--wcp-font-size-sm, 12px);border-left:2px solid transparent;
+  transition:all .15s;}
+.guide-toc a:hover{color:var(--wcp-color-text, #e6edf3);background:var(--wcp-color-surface-raised, #1c2128);}
+.guide-toc a.active{color:var(--wcp-color-primary, #f0883e);border-left-color:var(--wcp-color-primary, #f0883e);
+  background:var(--wcp-color-surface-raised, #1c2128);}
+
+/* Main content area */
+.guide-content{overflow-y:auto;padding:var(--wcp-space-xl, 32px) var(--wcp-space-xxl, 48px);
+  max-width:900px;}
+
+/* Typography */
+h1{font-size:28px;font-weight:700;margin-bottom:var(--wcp-space-sm, 8px);color:var(--wcp-color-text, #e6edf3);}
+h2{font-size:22px;font-weight:600;margin-top:var(--wcp-space-xxl, 48px);margin-bottom:var(--wcp-space-md, 16px);
+  color:var(--wcp-color-text, #e6edf3);padding-bottom:var(--wcp-space-xs, 4px);
+  border-bottom:1px solid var(--wcp-color-border, #30363d);}
+h3{font-size:16px;font-weight:600;margin-top:var(--wcp-space-lg, 24px);margin-bottom:var(--wcp-space-sm, 8px);
+  color:var(--wcp-color-text, #e6edf3);}
+h4{font-size:14px;font-weight:600;margin-top:var(--wcp-space-md, 16px);margin-bottom:var(--wcp-space-xs, 4px);
+  color:var(--wcp-color-text-muted, #8b949e);text-transform:uppercase;letter-spacing:.03em;}
+p{margin-bottom:var(--wcp-space-md, 16px);color:var(--wcp-color-text, #e6edf3);}
+.subtitle{font-size:var(--wcp-font-size-md, 14px);color:var(--wcp-color-text-muted, #8b949e);margin-bottom:var(--wcp-space-lg, 24px);}
+
+/* Code blocks */
+pre{background:var(--wcp-color-surface-raised, #1c2128);border:1px solid var(--wcp-color-border, #30363d);
+  border-radius:var(--wcp-radius-md, 8px);padding:var(--wcp-space-md, 16px);overflow-x:auto;
+  margin-bottom:var(--wcp-space-md, 16px);font-size:12px;line-height:1.6;}
+code{font-family:'SF Mono',Consolas,'Liberation Mono',Menlo,monospace;font-size:12px;}
+p code, li code, td code{background:var(--wcp-color-surface-raised, #1c2128);
+  padding:2px 6px;border-radius:var(--wcp-radius-sm, 4px);color:var(--wcp-color-primary, #f0883e);}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;margin-bottom:var(--wcp-space-lg, 24px);font-size:13px;}
+th{text-align:left;padding:10px 12px;background:var(--wcp-color-surface, #161b22);
+  border:1px solid var(--wcp-color-border, #30363d);font-weight:600;color:var(--wcp-color-text, #e6edf3);}
+td{padding:8px 12px;border:1px solid var(--wcp-color-border, #30363d);color:var(--wcp-color-text, #e6edf3);}
+tr:nth-child(even) td{background:var(--wcp-color-surface, #161b22);}
+
+/* Lists */
+ul,ol{margin-bottom:var(--wcp-space-md, 16px);padding-left:var(--wcp-space-lg, 24px);}
+li{margin-bottom:var(--wcp-space-xs, 4px);}
+
+/* Callout boxes */
+.callout{background:var(--wcp-color-surface, #161b22);border:1px solid var(--wcp-color-border, #30363d);
+  border-left:3px solid var(--wcp-color-primary, #f0883e);border-radius:var(--wcp-radius-md, 8px);
+  padding:var(--wcp-space-md, 16px);margin-bottom:var(--wcp-space-lg, 24px);}
+.callout.tip{border-left-color:var(--wcp-color-success, #3fb950);}
+.callout.warning{border-left-color:var(--wcp-color-warning, #d29922);}
+.callout strong{display:block;margin-bottom:var(--wcp-space-xs, 4px);}
+
+/* ASCII diagram */
+.diagram{background:var(--wcp-color-surface, #161b22);border:1px solid var(--wcp-color-border, #30363d);
+  border-radius:var(--wcp-radius-md, 8px);padding:var(--wcp-space-md, 16px) var(--wcp-space-lg, 24px);
+  font-family:'SF Mono',Consolas,monospace;font-size:12px;line-height:1.8;
+  margin-bottom:var(--wcp-space-lg, 24px);white-space:pre;overflow-x:auto;
+  color:var(--wcp-color-text-muted, #8b949e);}
+
+/* FAQ details */
+details{background:var(--wcp-color-surface, #161b22);border:1px solid var(--wcp-color-border, #30363d);
+  border-radius:var(--wcp-radius-md, 8px);margin-bottom:var(--wcp-space-sm, 8px);overflow:hidden;}
+details summary{padding:var(--wcp-space-sm, 8px) var(--wcp-space-md, 16px);cursor:pointer;font-weight:500;
+  color:var(--wcp-color-text, #e6edf3);transition:background .15s;}
+details summary:hover{background:var(--wcp-color-surface-raised, #1c2128);}
+details[open] summary{border-bottom:1px solid var(--wcp-color-border, #30363d);}
+details .answer{padding:var(--wcp-space-md, 16px);}
+
+/* Swatch demos */
+.swatch-row{display:flex;gap:var(--wcp-space-sm, 8px);align-items:center;margin-bottom:var(--wcp-space-sm, 8px);}
+.swatch{width:24px;height:24px;border-radius:var(--wcp-radius-sm, 4px);border:1px solid var(--wcp-color-border, #30363d);}
+
+/* Section anchors */
+[id]{scroll-margin-top:var(--wcp-space-lg, 24px);}
+</style>
+</head>
+<body>
+<div class="guide-layout">
+
+<!-- Sidebar: Table of Contents -->
+<nav class="guide-toc">
+  <h2>Contents</h2>
+  <a href="#introduction">Introduction</a>
+  <a href="#quick-start">Quick Start</a>
+  <a href="#token-reference">Token Reference</a>
+  <a href="#naming-rationale">Naming Rationale</a>
+  <a href="#ui-mapping">UI Mapping</a>
+  <a href="#import-export">Import &amp; Export</a>
+  <a href="#tips">Tips &amp; Best Practices</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
+<!-- Main content -->
+<main class="guide-content">
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="introduction">
+<h1>WCP Theme Studio Guide</h1>
+<p class="subtitle">The definitive reference for creating, editing, and distributing themes across all WCP widgets and applications.</p>
+
+<p>The <strong>WCP Theme Studio</strong> is the official theming tool for the Widget Context Protocol ecosystem. It ships with 15 built-in themes — including the 3 Penrith Beacon native themes — and a full editor for creating custom themes from scratch.</p>
+
+<p>Every WCP widget receives its visual identity through <strong>81 CSS custom properties</strong> injected into the iframe's <code>:root</code> element by the host dashboard. These tokens control everything from colours and typography to spacing, shadows, and motion. The Theme Studio lets you edit all of these visually, preview them in real time, and export them for use across any orchestration.</p>
+
+<div class="callout">
+<strong>How themes work</strong>
+When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block setting all 81 <code>--wcp-*</code> variables on <code>:root</code>. The widget's CSS references these variables (with fallbacks), so it automatically adapts to any theme without code changes.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="quick-start">
+<h2>Quick Start: Creating Your First Theme</h2>
+
+<h3>The Three Panels</h3>
+<p>The Theme Studio Full editor is organised into three panels:</p>
+<ul>
+  <li><strong>Left panel</strong> — Theme list. Browse the 15 built-in themes and any custom themes you've created. Click a theme to preview it.</li>
+  <li><strong>Centre panel</strong> — Live preview. Shows a Demo tab (sample UI elements rendered with the current theme) and an About tab (theme metadata). Switch between them using the tab buttons.</li>
+  <li><strong>Right panel</strong> — Theme editor. When you select a theme and click Edit (or create a new one), this panel shows all editable fields organised by category.</li>
+</ul>
+
+<h3>Step 1: Browse Themes</h3>
+<p>Click any theme in the left panel to see it rendered in the preview. The colour swatches next to each name give a quick visual summary of that theme's palette.</p>
+
+<h3>Step 2: Create a New Theme</h3>
+<ol>
+  <li>Click <strong>"+ New Custom Theme"</strong> at the bottom of the left panel.</li>
+  <li>A new untitled theme appears with default values (cloned from the current Penrith Beacon WCP Dark theme).</li>
+  <li>The right panel immediately opens in edit mode — start changing colours.</li>
+</ol>
+
+<h3>Step 3: Edit Colours &amp; Properties</h3>
+<p>The editor organises all 81 tokens into sections. Each field shows a colour picker (for colour tokens) or a text input (for size, font, shadow tokens). Changes preview instantly in the centre panel.</p>
+
+<h4>Editor Sections</h4>
+<table>
+  <tr><th>Section</th><th>What it controls</th><th>Key tokens</th></tr>
+  <tr><td>Surfaces</td><td>Background layers and depth</td><td><code>bg</code>, <code>surface</code>, <code>surface-raised</code>, <code>surface-sunken</code>, <code>overlay</code></td></tr>
+  <tr><td>Borders</td><td>Dividers and outlines</td><td><code>border</code>, <code>border-muted</code></td></tr>
+  <tr><td>Text</td><td>Typography colours</td><td><code>text</code>, <code>text-muted</code>, <code>text-disabled</code>, <code>text-inverse</code>, <code>link</code></td></tr>
+  <tr><td>Brand</td><td>Primary action colour</td><td><code>primary</code>, <code>primary-dim</code>, <code>primary-on</code></td></tr>
+  <tr><td>Status</td><td>Semantic colours</td><td><code>success</code>, <code>success-on</code>, <code>success-surface</code>, <code>warning</code>, <code>danger</code>, <code>info</code> (+ variants)</td></tr>
+  <tr><td>Typography</td><td>Font family, sizes, weights</td><td><code>font-family</code>, <code>font-size-*</code>, <code>font-weight-*</code>, <code>font-line-height</code></td></tr>
+  <tr><td>Spacing</td><td>Consistent padding/margins</td><td><code>space-xxs</code> through <code>space-xxl</code></td></tr>
+  <tr><td>Shape</td><td>Border radius scale</td><td><code>radius-xs</code> through <code>radius-full</code></td></tr>
+  <tr><td>Shadow</td><td>Elevation and depth</td><td><code>shadow-xs</code> through <code>shadow-xl</code></td></tr>
+  <tr><td>Motion</td><td>Animation timing</td><td><code>duration-*</code>, <code>easing-*</code></td></tr>
+  <tr><td>Z-Index</td><td>Stacking layers</td><td><code>z-base</code> through <code>z-max</code></td></tr>
+  <tr><td>Focus</td><td>Accessibility rings</td><td><code>focus-ring-color</code>, <code>focus-ring-width</code>, <code>focus-ring-offset</code>, <code>focus-ring-style</code></td></tr>
+  <tr><td>Widget Defaults</td><td>Widget-level sizing</td><td><code>widget-padding</code>, <code>widget-gap</code>, <code>widget-radius</code>, <code>widget-border</code>, <code>widget-shadow</code>, <code>widget-bg</code></td></tr>
+</table>
+
+<h3>Step 4: Save Your Theme</h3>
+<p>Click <strong>Save</strong> in the editor footer. Your custom theme is now stored locally in the container and appears in the theme list with a pencil icon. You can rename it by editing the Name field at the top of the editor.</p>
+
+<h3>Step 5: Apply to Your Dashboard</h3>
+<p>Click the <strong>"Add to Dashboard"</strong> button next to any theme in the list. This sends the theme to the host dashboard via WCP postMessage, applying it immediately to all widgets in the current orchestration.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="token-reference">
+<h2>The 81 WCP Tokens — Complete Reference</h2>
+
+<p>Every token follows the naming pattern: <code>--wcp-{category}-{role}</code>. The prefix <code>--wcp-</code> prevents collisions with host or third-party CSS. The category groups tokens by purpose, and the role names the specific function.</p>
+
+<h3>Surfaces (5 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
+  <tr><td><code>--wcp-color-bg</code></td><td>Page/app background — deepest layer</td><td>#0d1117</td></tr>
+  <tr><td><code>--wcp-color-surface</code></td><td>Cards, panels — one layer above bg</td><td>#161b22</td></tr>
+  <tr><td><code>--wcp-color-surface-raised</code></td><td>Inputs, nested elements — elevated above surface</td><td>#1c2128</td></tr>
+  <tr><td><code>--wcp-color-surface-sunken</code></td><td>Recessed wells, code blocks</td><td>#090c10</td></tr>
+  <tr><td><code>--wcp-color-overlay</code></td><td>Semi-transparent modal backdrop</td><td>rgba(0,0,0,.6)</td></tr>
+</table>
+
+<h3>Borders (2 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
+  <tr><td><code>--wcp-color-border</code></td><td>Standard dividers and outlines</td><td>#30363d</td></tr>
+  <tr><td><code>--wcp-color-border-muted</code></td><td>Subtle separators (less prominent)</td><td>#21262d</td></tr>
+</table>
+
+<h3>Text (5 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
+  <tr><td><code>--wcp-color-text</code></td><td>Primary body text, headings, labels</td><td>#e6edf3</td></tr>
+  <tr><td><code>--wcp-color-text-muted</code></td><td>Secondary text, timestamps, descriptions</td><td>#8b949e</td></tr>
+  <tr><td><code>--wcp-color-text-disabled</code></td><td>Greyed-out, non-interactive text</td><td>rgba(230,237,243,.4)</td></tr>
+  <tr><td><code>--wcp-color-text-inverse</code></td><td>Text on coloured solid backgrounds</td><td>#0d1117</td></tr>
+  <tr><td><code>--wcp-color-link</code></td><td>Clickable text / hyperlinks</td><td>#58a6ff</td></tr>
+</table>
+
+<h3>Brand (3 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
+  <tr><td><code>--wcp-color-primary</code></td><td>Brand/accent colour — buttons, active states</td><td>#f0883e</td></tr>
+  <tr><td><code>--wcp-color-primary-dim</code></td><td>Subdued version for hover/backgrounds</td><td>rgba(240,136,62,.15)</td></tr>
+  <tr><td><code>--wcp-color-primary-on</code></td><td>Text on primary-coloured backgrounds</td><td>#ffffff</td></tr>
+</table>
+
+<h3>Status (9 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
+  <tr><td><code>--wcp-color-success</code></td><td>Positive actions (launch, confirm, save)</td><td>#3fb950</td></tr>
+  <tr><td><code>--wcp-color-success-on</code></td><td>Text on success backgrounds</td><td>#ffffff</td></tr>
+  <tr><td><code>--wcp-color-success-surface</code></td><td>Subtle success tint for badges/banners</td><td>rgba(63,185,80,.1)</td></tr>
+  <tr><td><code>--wcp-color-warning</code></td><td>Caution states</td><td>#d29922</td></tr>
+  <tr><td><code>--wcp-color-warning-on</code></td><td>Text on warning backgrounds</td><td>#ffffff</td></tr>
+  <tr><td><code>--wcp-color-warning-surface</code></td><td>Subtle warning tint</td><td>rgba(210,153,34,.1)</td></tr>
+  <tr><td><code>--wcp-color-danger</code></td><td>Destructive actions, errors</td><td>#f85149</td></tr>
+  <tr><td><code>--wcp-color-danger-on</code></td><td>Text on danger backgrounds</td><td>#ffffff</td></tr>
+  <tr><td><code>--wcp-color-info</code></td><td>Informational highlights</td><td>#58a6ff</td></tr>
+</table>
+
+<h3>Typography (6 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-font-family</code></td><td>Base font stack</td><td>-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif</td></tr>
+  <tr><td><code>--wcp-font-size-sm</code></td><td>Small text (labels, captions)</td><td>12px</td></tr>
+  <tr><td><code>--wcp-font-size-md</code></td><td>Body text</td><td>14px</td></tr>
+  <tr><td><code>--wcp-font-size-lg</code></td><td>Subheadings</td><td>16px</td></tr>
+  <tr><td><code>--wcp-font-weight-normal</code></td><td>Regular weight</td><td>400</td></tr>
+  <tr><td><code>--wcp-font-line-height</code></td><td>Base line height</td><td>1.5</td></tr>
+</table>
+
+<h3>Spacing (8 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-space-xxs</code></td><td>Tightest (icon gaps)</td><td>2px</td></tr>
+  <tr><td><code>--wcp-space-xs</code></td><td>Extra small</td><td>4px</td></tr>
+  <tr><td><code>--wcp-space-sm</code></td><td>Small (list item padding)</td><td>8px</td></tr>
+  <tr><td><code>--wcp-space-md</code></td><td>Medium (card padding)</td><td>16px</td></tr>
+  <tr><td><code>--wcp-space-lg</code></td><td>Large (section gaps)</td><td>24px</td></tr>
+  <tr><td><code>--wcp-space-xl</code></td><td>Extra large</td><td>32px</td></tr>
+  <tr><td><code>--wcp-space-xxl</code></td><td>Largest (page margins)</td><td>48px</td></tr>
+  <tr><td><code>--wcp-space-xxxl</code></td><td>Maximum spacing</td><td>64px</td></tr>
+</table>
+
+<h3>Shape (5 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-radius-xs</code></td><td>Subtle rounding (tags)</td><td>2px</td></tr>
+  <tr><td><code>--wcp-radius-sm</code></td><td>Small (buttons, inputs)</td><td>4px</td></tr>
+  <tr><td><code>--wcp-radius-md</code></td><td>Medium (cards, dialogs)</td><td>8px</td></tr>
+  <tr><td><code>--wcp-radius-lg</code></td><td>Large (panels)</td><td>12px</td></tr>
+  <tr><td><code>--wcp-radius-full</code></td><td>Pill/circle</td><td>9999px</td></tr>
+</table>
+
+<h3>Shadow (4 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
+  <tr><td><code>--wcp-shadow-xs</code></td><td>Subtle lift (buttons)</td><td>0 1px 2px rgba(0,0,0,.3)</td></tr>
+  <tr><td><code>--wcp-shadow-sm</code></td><td>Cards, dropdowns</td><td>0 4px 16px rgba(0,0,0,.45)</td></tr>
+  <tr><td><code>--wcp-shadow-md</code></td><td>Floating panels</td><td>0 8px 24px rgba(0,0,0,.5)</td></tr>
+  <tr><td><code>--wcp-shadow-xl</code></td><td>Modals, popovers</td><td>0 16px 48px rgba(0,0,0,.6)</td></tr>
+</table>
+
+<h3>Motion (7 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-duration-fast</code></td><td>Micro-interactions (hover, focus)</td><td>100ms</td></tr>
+  <tr><td><code>--wcp-duration-normal</code></td><td>Standard transitions</td><td>200ms</td></tr>
+  <tr><td><code>--wcp-duration-slow</code></td><td>Page transitions, reveals</td><td>400ms</td></tr>
+  <tr><td><code>--wcp-easing-default</code></td><td>General purpose</td><td>cubic-bezier(.4,0,.2,1)</td></tr>
+  <tr><td><code>--wcp-easing-in</code></td><td>Entering (accelerate)</td><td>cubic-bezier(.4,0,1,1)</td></tr>
+  <tr><td><code>--wcp-easing-out</code></td><td>Exiting (decelerate)</td><td>cubic-bezier(0,0,.2,1)</td></tr>
+  <tr><td><code>--wcp-easing-bounce</code></td><td>Playful spring</td><td>cubic-bezier(.68,-.55,.27,1.55)</td></tr>
+</table>
+
+<h3>Z-Index Layers (8 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-z-base</code></td><td>Default content</td><td>0</td></tr>
+  <tr><td><code>--wcp-z-raised</code></td><td>Raised cards</td><td>1</td></tr>
+  <tr><td><code>--wcp-z-dropdown</code></td><td>Dropdowns, selects</td><td>100</td></tr>
+  <tr><td><code>--wcp-z-sticky</code></td><td>Sticky headers</td><td>200</td></tr>
+  <tr><td><code>--wcp-z-overlay</code></td><td>Modal backdrops</td><td>300</td></tr>
+  <tr><td><code>--wcp-z-modal</code></td><td>Modal dialogs</td><td>400</td></tr>
+  <tr><td><code>--wcp-z-popover</code></td><td>Tooltips, popovers</td><td>500</td></tr>
+  <tr><td><code>--wcp-z-max</code></td><td>Toast notifications</td><td>9999</td></tr>
+</table>
+
+<h3>Focus &amp; Accessibility (4 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-focus-ring-color</code></td><td>Focus outline colour</td><td>rgba(88,166,255,.6)</td></tr>
+  <tr><td><code>--wcp-focus-ring-width</code></td><td>Focus outline thickness</td><td>2px</td></tr>
+  <tr><td><code>--wcp-focus-ring-offset</code></td><td>Gap between element and ring</td><td>2px</td></tr>
+  <tr><td><code>--wcp-focus-ring-style</code></td><td>Full shorthand for outline</td><td>2px solid rgba(88,166,255,.6)</td></tr>
+</table>
+
+<h3>Widget Defaults (6 tokens)</h3>
+<table>
+  <tr><th>Token</th><th>Role</th><th>Default</th></tr>
+  <tr><td><code>--wcp-widget-padding</code></td><td>Inner padding of widget frame</td><td>16px</td></tr>
+  <tr><td><code>--wcp-widget-gap</code></td><td>Gap between widget elements</td><td>12px</td></tr>
+  <tr><td><code>--wcp-widget-radius</code></td><td>Widget corner radius</td><td>8px</td></tr>
+  <tr><td><code>--wcp-widget-border</code></td><td>Widget border shorthand</td><td>1px solid var(--wcp-color-border)</td></tr>
+  <tr><td><code>--wcp-widget-shadow</code></td><td>Widget box shadow</td><td>var(--wcp-shadow-sm)</td></tr>
+  <tr><td><code>--wcp-widget-bg</code></td><td>Widget background (usually same as surface)</td><td>var(--wcp-color-surface)</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="naming-rationale">
+<h2>Token Design Rationale</h2>
+
+<p>The 81 tokens aren't random — they follow deliberate patterns that make choosing the right token intuitive once you understand the underlying model.</p>
+
+<h3>The Surface Stack</h3>
+<p>Think of your UI as layers stacked on a desk. Each layer is visually distinct from the one below it:</p>
+
+<div class="diagram">┌──────────────────────────────── bg (deepest) ────────────────────┐
+│                                                                    │
+│   ┌────────────────────── surface (card) ────────────────────┐    │
+│   │                                                           │    │
+│   │   ┌──────────── surface-raised (input) ────────────┐     │    │
+│   │   │                                                  │     │    │
+│   │   │   text content lives here                       │     │    │
+│   │   │                                                  │     │    │
+│   │   └──────────────────────────────────────────────────┘     │    │
+│   │                                                           │    │
+│   └───────────────────────────────────────────────────────────┘    │
+│                                                                    │
+└────────────────────────────────────────────────────────────────────┘</div>
+
+<ul>
+  <li><strong><code>bg</code></strong> — The page itself. The deepest, darkest (or lightest) layer.</li>
+  <li><strong><code>surface</code></strong> — A card or panel sitting on the page. One step up in visual elevation.</li>
+  <li><strong><code>surface-raised</code></strong> — An input field, nested panel, or interactive element inside a card. Another step up.</li>
+  <li><strong><code>surface-sunken</code></strong> — A recessed well (code block background, inset area). One step <em>below</em> surface.</li>
+  <li><strong><code>overlay</code></strong> — A semi-transparent backdrop covering everything beneath a modal or dialog.</li>
+</ul>
+
+<div class="callout tip">
+<strong>Rule of thumb</strong>
+If you're placing element A on top of element B, use the next surface level up. Page → surface. Card → surface-raised. Never skip levels.
+</div>
+
+<h3>The Text Hierarchy</h3>
+<p>Five text tokens cover every legibility need:</p>
+<table>
+  <tr><th>Token</th><th>When to use</th><th>Visual weight</th></tr>
+  <tr><td><code>text</code></td><td>Headings, body copy, labels — anything the user <em>must</em> read</td><td>Full contrast</td></tr>
+  <tr><td><code>text-muted</code></td><td>Timestamps, secondary info, descriptions — readable but subdued</td><td>~60% contrast</td></tr>
+  <tr><td><code>text-disabled</code></td><td>Greyed-out controls — signals "not interactive"</td><td>~40% contrast</td></tr>
+  <tr><td><code>text-inverse</code></td><td>Text on a solid coloured background (usually same hue as <code>bg</code>)</td><td>Full contrast (reversed)</td></tr>
+  <tr><td><code>link</code></td><td>Clickable text — must be distinguishable from <code>text</code></td><td>Blue/accent</td></tr>
+</table>
+
+<h3>The "-on" Pattern</h3>
+<p>Whenever a token defines a <em>coloured surface</em> (like a button background), there's a matching <code>-on</code> token for text that sits on that surface. The theme author sets both to guarantee legibility regardless of the chosen palette.</p>
+
+<table>
+  <tr><th>Background token</th><th>Text-on token</th><th>Typical use</th></tr>
+  <tr><td><code>--wcp-color-primary</code></td><td><code>--wcp-color-primary-on</code></td><td>Brand action buttons</td></tr>
+  <tr><td><code>--wcp-color-success</code></td><td><code>--wcp-color-success-on</code></td><td>Launch / confirm / save buttons</td></tr>
+</table>
+
+<div class="callout warning">
+<strong>Don't forget the -on tokens!</strong>
+If you set <code>--wcp-color-success</code> to a light colour (e.g. <code>#90EE90</code>), white text becomes illegible. Set <code>--wcp-color-success-on</code> to a dark colour like <code>#1a3a1a</code> to maintain contrast.
+</div>
+
+<h3>Status Colour Variants</h3>
+<p>Each status colour (success, warning, danger, info) can have up to three variants:</p>
+
+<table>
+  <tr><th>Variant</th><th>Purpose</th><th>Example use</th></tr>
+  <tr><td><code>--wcp-color-success</code></td><td>The colour itself</td><td>Button background, icon colour, inline indicator</td></tr>
+  <tr><td><code>--wcp-color-success-on</code></td><td>Text legible on that colour</td><td>Button label text</td></tr>
+  <tr><td><code>--wcp-color-success-surface</code></td><td>Subtle tinted background</td><td>Status badge, notification banner background</td></tr>
+</table>
+
+<p>This three-variant pattern gives widget developers everything they need for rich status UIs without hard-coding colours.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="ui-mapping">
+<h2>Mapping Tokens to UI Elements</h2>
+
+<p>This table shows which tokens control which parts of a typical WCP widget. Use it when building widgets or when editing themes to understand what each change affects.</p>
+
+<table>
+  <tr><th>UI Element</th><th>Background</th><th>Text</th><th>Border</th><th>Editor Section</th></tr>
+  <tr><td>Page / app background</td><td><code>bg</code></td><td><code>text</code></td><td>—</td><td>Surfaces</td></tr>
+  <tr><td>Card / panel</td><td><code>surface</code></td><td><code>text</code></td><td><code>border</code></td><td>Surfaces / Borders</td></tr>
+  <tr><td>Card hover state</td><td><code>surface-raised</code></td><td><code>text</code></td><td><code>primary</code></td><td>Surfaces / Brand</td></tr>
+  <tr><td>Input field</td><td><code>surface-raised</code></td><td><code>text</code></td><td><code>border</code></td><td>Surfaces / Borders</td></tr>
+  <tr><td>Primary action button</td><td><code>primary</code></td><td><code>primary-on</code></td><td>—</td><td>Brand</td></tr>
+  <tr><td>Success / Launch button</td><td><code>success</code></td><td><code>success-on</code></td><td>—</td><td>Status</td></tr>
+  <tr><td>Danger / Delete button</td><td><code>danger</code></td><td><code>danger-on</code></td><td>—</td><td>Status</td></tr>
+  <tr><td>Status badge</td><td><code>success-surface</code></td><td><code>success</code></td><td>—</td><td>Status</td></tr>
+  <tr><td>Secondary / muted text</td><td>—</td><td><code>text-muted</code></td><td>—</td><td>Text</td></tr>
+  <tr><td>Disabled control</td><td>—</td><td><code>text-disabled</code></td><td><code>border-muted</code></td><td>Text / Borders</td></tr>
+  <tr><td>Hyperlink</td><td>—</td><td><code>link</code></td><td>—</td><td>Text</td></tr>
+  <tr><td>Scrollbar</td><td><code>surface</code></td><td>—</td><td><code>border</code></td><td>Surfaces / Borders</td></tr>
+  <tr><td>Modal backdrop</td><td><code>overlay</code></td><td>—</td><td>—</td><td>Surfaces</td></tr>
+</table>
+
+<div class="callout tip">
+<strong>Practical workflow</strong>
+Open the Theme Studio editor alongside your application (on a separate stave tab or in a split). Change a colour in the editor, apply the theme, and observe which elements update — this is the fastest way to learn the mapping.
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="import-export">
+<h2>Import &amp; Export</h2>
+
+<h3>Exporting a Theme</h3>
+<p>There are several ways to share a theme:</p>
+<ul>
+  <li><strong>Copy URL</strong> — Click the "Copy URL" button next to any theme. This copies a URL like <code>http://localhost:3740/widget/api/theme/dracula</code> that returns the theme as JSON. Any WCP dashboard can import from this URL.</li>
+  <li><strong>Add to Dashboard</strong> — Sends the theme directly to the host dashboard via WCP postMessage. The theme is applied immediately.</li>
+  <li><strong>Export as .wcpt</strong> — For distribution, use the WCP export format. The dashboard's export system can package themes as <code>.wcpt</code> files (WCP Theme archives).</li>
+</ul>
+
+<h3>Importing a Theme</h3>
+<ul>
+  <li><strong>Import .wcpt</strong> — Click "Import .wcpt" at the bottom of the left panel. Select a <code>.wcpt</code> file — the theme is added to your custom themes list.</li>
+  <li><strong>From URL</strong> — In the dashboard settings, paste a theme URL. The dashboard fetches the JSON and applies it.</li>
+  <li><strong>From another Theme Studio</strong> — If you run Theme Studio containers on multiple machines, each serves its themes as URLs. Copy a URL from one and import it on another.</li>
+</ul>
+
+<h3>Theme JSON Format</h3>
+<p>A theme is a JSON object with the following structure:</p>
+<pre><code>{
+  "id": "my-custom-theme",
+  "uuid": "unique-uuid-here",
+  "name": "My Custom Theme",
+  "builtin": false,
+  "vars": {
+    "--wcp-color-bg": "#0d1117",
+    "--wcp-color-surface": "#161b22",
+    "--wcp-color-surface-raised": "#1c2128",
+    "--wcp-color-border": "#30363d",
+    "--wcp-color-text": "#e6edf3",
+    "--wcp-color-text-muted": "#8b949e",
+    "--wcp-color-primary": "#f0883e",
+    "--wcp-color-success": "#3fb950",
+    "--wcp-color-danger": "#f85149",
+    "--wcp-color-warning": "#d29922",
+    "--wcp-color-info": "#58a6ff"
+  }
+}</code></pre>
+<p>The <code>vars</code> object contains only the tokens the theme author explicitly sets. The dashboard's <code>buildWcpTokens()</code> function derives the remaining tokens (e.g. <code>-dim</code>, <code>-surface</code>, <code>-on</code> variants) from these seed values automatically.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="tips">
+<h2>Tips &amp; Best Practices</h2>
+
+<h3>For Theme Authors</h3>
+<ul>
+  <li><strong>Always set both <code>-on</code> tokens.</strong> If you change <code>primary</code> or <code>success</code> to something light, update <code>primary-on</code> / <code>success-on</code> to a dark colour. The preview panel's Demo tab shows buttons — check them.</li>
+  <li><strong>Test with the Demo tab.</strong> It renders sample buttons, cards, inputs, badges, and text in your theme. If anything looks wrong, adjust the corresponding token.</li>
+  <li><strong>Keep surface layers distinct.</strong> Ensure there's visible contrast between <code>bg</code>, <code>surface</code>, and <code>surface-raised</code>. If they're too similar, cards blend into the page.</li>
+  <li><strong>Don't skip surface levels.</strong> Put cards on <code>surface</code>, inputs on <code>surface-raised</code>. Jumping from <code>bg</code> straight to <code>surface-raised</code> breaks the visual hierarchy.</li>
+  <li><strong>Use <code>text-muted</code> generously.</strong> Not everything needs full-contrast <code>text</code>. Timestamps, descriptions, and secondary labels should use <code>text-muted</code> to create visual hierarchy.</li>
+</ul>
+
+<h3>For Widget Developers</h3>
+<ul>
+  <li><strong>Always use fallback values.</strong> Write <code>var(--wcp-color-bg, #0d1117)</code> not just <code>var(--wcp-color-bg)</code>. If a token isn't injected, your widget still renders correctly.</li>
+  <li><strong>Never hard-code colours.</strong> Every colour in your CSS should reference a <code>--wcp-*</code> token. Hard-coded colours break when themes change.</li>
+  <li><strong>Use the surface stack for depth.</strong> Your widget's outermost container uses <code>bg</code> or <code>widget-bg</code>. Cards inside use <code>surface</code>. Inputs inside cards use <code>surface-raised</code>.</li>
+  <li><strong>Respect <code>widget-*</code> tokens for framing.</strong> Use <code>widget-padding</code>, <code>widget-gap</code>, and <code>widget-radius</code> for your widget's outer frame. This ensures consistent spacing across all widgets in an orchestration.</li>
+  <li><strong>Test with multiple themes.</strong> The 15 built-in themes cover a wide range (light, dark, high contrast, warm, cool). If your widget looks good in all 15, it'll work with any custom theme.</li>
+</ul>
+
+<h3>Common Mistakes</h3>
+<table>
+  <tr><th>Mistake</th><th>What happens</th><th>Fix</th></tr>
+  <tr><td>Using <code>text</code> on a <code>primary</code> background</td><td>Illegible — text colour is designed for <code>bg</code>/<code>surface</code></td><td>Use <code>primary-on</code> instead</td></tr>
+  <tr><td>Forgetting <code>success-on</code> when changing <code>success</code></td><td>White text on light green</td><td>Set <code>success-on</code> to a dark colour</td></tr>
+  <tr><td>Using <code>surface-raised</code> for the page background</td><td>No visual depth — cards can't elevate above it</td><td>Start with <code>bg</code>, build up</td></tr>
+  <tr><td>Hard-coding <code>#ffffff</code> for text</td><td>Invisible on light themes</td><td>Use <code>var(--wcp-color-text)</code></td></tr>
+  <tr><td>Ignoring <code>border-muted</code></td><td>All borders same weight — no visual hierarchy</td><td>Use <code>border-muted</code> for subtle separators</td></tr>
+</table>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section id="faq">
+<h2>Frequently Asked Questions</h2>
+
+<details>
+  <summary>How many tokens does a theme need to define?</summary>
+  <div class="answer">
+    <p>A minimal theme only needs 11-13 colour tokens (the ones in the Surfaces, Border, Text, Brand, and Status sections). The dashboard's <code>buildWcpTokens()</code> function automatically derives the remaining tokens — <code>-dim</code>, <code>-surface</code>, <code>-on</code> variants, disabled states, etc. — from your seed values.</p>
+    <p>However, you <em>can</em> override any of the 81 tokens explicitly for full control.</p>
+  </div>
+</details>
+
+<details>
+  <summary>What's the difference between <code>primary</code> and <code>success</code>?</summary>
+  <div class="answer">
+    <p><code>primary</code> is your brand colour — used for the main action button, active tab indicators, selected states. It represents "this is the primary action."</p>
+    <p><code>success</code> is semantic — it means "positive outcome." Used for launch buttons, save confirmations, online indicators. It's typically green but doesn't have to be.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Can I use different fonts in my theme?</summary>
+  <div class="answer">
+    <p>Yes — set <code>--wcp-font-family</code> to any font stack. However, the font must be available on the user's system or loaded by your widget. WCP doesn't provide a font-loading mechanism, so stick to system fonts or web-safe stacks for maximum compatibility.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Why do some built-in themes only set ~13 values in their <code>vars</code>?</summary>
+  <div class="answer">
+    <p>The theme's <code>vars</code> object contains only the values the author explicitly chose. Everything else is calculated by the dashboard's token resolution engine. For example, if you set <code>--wcp-color-success</code> to <code>#3fb950</code>, the engine automatically generates <code>success-surface</code> as <code>rgba(63,185,80,.1)</code> and <code>success-on</code> as <code>#ffffff</code> (unless you override them).</p>
+  </div>
+</details>
+
+<details>
+  <summary>How do I make a high-contrast theme?</summary>
+  <div class="answer">
+    <p>Maximise the difference between <code>bg</code> and <code>text</code>. Use pure black (<code>#000000</code>) for <code>bg</code> and pure white (<code>#ffffff</code>) for <code>text</code>. Set borders to full white. Remove shadows (<code>none</code>) and reduce radius values. See the built-in "Penrith Beacon WCP High Contrast" theme as a reference.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Can themes change spacing and shadows?</summary>
+  <div class="answer">
+    <p>Yes — themes can set any of the 81 tokens, including spacing (<code>--wcp-space-*</code>), shadows (<code>--wcp-shadow-*</code>), radius (<code>--wcp-radius-*</code>), and motion (<code>--wcp-duration-*</code>, <code>--wcp-easing-*</code>). A "compact" theme might halve all spacing values. A "flat" theme might set all shadows to <code>none</code>.</p>
+  </div>
+</details>
+
+<details>
+  <summary>What happens if a widget doesn't use a token?</summary>
+  <div class="answer">
+    <p>Nothing — unused tokens are simply ignored. The host still injects all 81 tokens, but a simple widget might only reference 5-10 of them. There's no performance cost for unused tokens.</p>
+  </div>
+</details>
+
+<details>
+  <summary>How do I test my theme across multiple widgets?</summary>
+  <div class="answer">
+    <p>Create an orchestration with several different widgets on the same stave. Apply your theme and check each widget. The Demo tab in the Theme Studio preview also covers the most common UI patterns, so if it looks good there, it'll likely look good everywhere.</p>
+  </div>
+</details>
+</section>
+
+<!-- Version footer -->
+<p style="margin-top:48px;padding-top:16px;border-top:1px solid var(--wcp-color-border,#30363d);font-size:11px;color:var(--wcp-color-text-muted,#8b949e);">
+  WCP Theme Studio Guide v1.0 &mdash; Widget Context Protocol 2.2.0 &mdash; <a href="https://widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff);">widgetcontextprotocol.com</a>
+</p>
+
+</main>
+</div>
+
+<script>
+// Highlight active TOC link on scroll
+const sections = document.querySelectorAll('section[id]');
+const tocLinks = document.querySelectorAll('.guide-toc a');
+const content = document.querySelector('.guide-content');
+
+content.addEventListener('scroll', () => {
+  let current = '';
+  for (const section of sections) {
+    if (section.offsetTop - content.scrollTop <= 60) {
+      current = section.id;
+    }
+  }
+  tocLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+});
+
+// Smooth scroll for TOC links
+tocLinks.forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      content.scrollTo({ top: target.offsetTop - 20, behavior: 'smooth' });
+    }
+  });
+});
+
+// Mark first section as active initially
+if (tocLinks.length) tocLinks[0].classList.add('active');
+</script>
+</body>
+</html>

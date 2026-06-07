@@ -99,6 +99,7 @@ WCP_MANIFEST = {
   "components":[
     {"id":"theme-studio",     "uuid":"e27a9086-89ee-498f-98e7-cebd7efb73c9","name":"WCP Theme Studio",      "role":"widget","path":"/widget/",     "icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":4,"h":3}},
     {"id":"theme-studio-full","uuid":"f38b0197-9aff-5b09-a9f8-dce8f0gc84da","name":"WCP Theme Studio — Full","role":"widget","path":"/widget/full","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":10,"h":7}},
+    {"id":"theme-studio-guide","uuid":"a49c2e18-73d1-4f5b-b8a2-9e6d0f7c5b31","name":"WCP Theme Studio — Guide","role":"widget","path":"/widget/guide","icon":"/widget/icon.svg","renderMode":"iframe","defaultSize":{"w":12,"h":6}},
   ],
   "pages":[{"id":"full","path":"/widget/full","title":"Theme Studio","description":"Full theme gallery with editor","window":{"width":1100,"height":700}}],
   "actions":[
@@ -214,6 +215,11 @@ def health():
 
 @app.route('/widget/full')
 def full(): return render_template('full.html', themes=all_themes(), manifest=WCP_MANIFEST, jsonld=WIDGET_JSONLD,
+    wcp_instance_id=get_instance_id(),
+    wcp_orchestration_id=get_orchestration_id(), wcp_application_id=get_application_id())
+
+@app.route('/widget/guide')
+def guide(): return render_template('guide.html', manifest=WCP_MANIFEST, jsonld=WIDGET_JSONLD,
     wcp_instance_id=get_instance_id(),
     wcp_orchestration_id=get_orchestration_id(), wcp_application_id=get_application_id())
 
