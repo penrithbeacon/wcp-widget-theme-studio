@@ -305,35 +305,35 @@ def _hex2rgba(h, a):
     return f'rgba({r},{g},{b},{a})'
 
 def _resolve_all_vars(tv):
-    s = {
-        '--bg':      tv.get('--wcp-color-bg','#0d1117'),
-        '--surface': tv.get('--wcp-color-surface','#161b22'),
-        '--surface2':tv.get('--wcp-color-surface-raised','#1c2128'),
-        '--border':  tv.get('--wcp-color-border','#30363d'),
-        '--text':    tv.get('--wcp-color-text','#e6edf3'),
-        '--muted':   tv.get('--wcp-color-text-muted','#8b949e'),
-        '--accent':  tv.get('--wcp-color-primary','#f0883e'),
-        '--green':   tv.get('--wcp-color-success','#3fb950'),
-        '--red':     tv.get('--wcp-color-danger','#f85149'),
-        '--yellow':  tv.get('--wcp-color-warning','#d29922'),
-        '--blue':    tv.get('--wcp-color-info','#58a6ff'),
-        '--radius':  tv.get('--wcp-radius-md','8px'),
-        '--shadow':  tv.get('--wcp-shadow-sm','0 4px 16px rgba(0,0,0,.45)'),
-    }
+    # All keys use --wcp-* names directly — no old seed names.
+    bg  = tv.get('--wcp-color-bg','#0d1117')
+    sur = tv.get('--wcp-color-surface','#161b22')
+    sr2 = tv.get('--wcp-color-surface-raised','#1c2128')
+    bdr = tv.get('--wcp-color-border','#30363d')
+    txt = tv.get('--wcp-color-text','#e6edf3')
+    mut = tv.get('--wcp-color-text-muted','#8b949e')
+    acc = tv.get('--wcp-color-primary','#f0883e')
+    grn = tv.get('--wcp-color-success','#3fb950')
+    red = tv.get('--wcp-color-danger','#f85149')
+    yel = tv.get('--wcp-color-warning','#d29922')
+    blu = tv.get('--wcp-color-info','#58a6ff')
+    rad = tv.get('--wcp-radius-md','8px')
+    shd = tv.get('--wcp-shadow-sm','0 4px 16px rgba(0,0,0,.45)')
     tokens = {
-        '--wcp-color-bg':s['--bg'],'--wcp-color-surface':s['--surface'],
-        '--wcp-color-surface-raised':s['--surface2'],'--wcp-color-surface-sunken':s['--bg'],
-        '--wcp-color-overlay':_hex2rgba(s['--bg'],0.75),
-        '--wcp-color-border':s['--border'],'--wcp-color-border-strong':_hex2rgba(s['--text'],0.25),
-        '--wcp-color-text':s['--text'],'--wcp-color-text-muted':s['--muted'],
-        '--wcp-color-text-disabled':_hex2rgba(s['--muted'],0.5),'--wcp-color-text-inverse':s['--bg'],
-        '--wcp-color-link':s['--blue'],
-        '--wcp-color-primary':s['--accent'],'--wcp-color-primary-dim':_hex2rgba(s['--accent'],0.15),
-        '--wcp-color-primary-on':'#ffffff',
-        '--wcp-color-success':s['--green'],'--wcp-color-success-surface':_hex2rgba(s['--green'],0.12),
-        '--wcp-color-warning':s['--yellow'],'--wcp-color-warning-surface':_hex2rgba(s['--yellow'],0.12),
-        '--wcp-color-danger':s['--red'],'--wcp-color-danger-surface':_hex2rgba(s['--red'],0.12),
-        '--wcp-color-info':s['--blue'],'--wcp-color-info-surface':_hex2rgba(s['--blue'],0.12),
+        '--wcp-color-bg':bg,'--wcp-color-surface':sur,
+        '--wcp-color-surface-raised':sr2,'--wcp-color-surface-sunken':bg,
+        '--wcp-color-overlay':_hex2rgba(bg,0.75),
+        '--wcp-color-border':bdr,'--wcp-color-border-strong':_hex2rgba(txt,0.25),
+        '--wcp-color-text':txt,'--wcp-color-text-muted':mut,
+        '--wcp-color-text-disabled':_hex2rgba(mut,0.5),'--wcp-color-text-inverse':bg,
+        '--wcp-color-link':blu,
+        '--wcp-color-primary':acc,'--wcp-color-primary-dim':_hex2rgba(acc,0.15),
+        '--wcp-color-primary-on':tv.get('--wcp-color-primary-on','#ffffff'),
+        '--wcp-color-success':grn,'--wcp-color-success-on':tv.get('--wcp-color-success-on','#ffffff'),
+        '--wcp-color-success-surface':_hex2rgba(grn,0.12),
+        '--wcp-color-warning':yel,'--wcp-color-warning-surface':_hex2rgba(yel,0.12),
+        '--wcp-color-danger':red,'--wcp-color-danger-surface':_hex2rgba(red,0.12),
+        '--wcp-color-info':blu,'--wcp-color-info-surface':_hex2rgba(blu,0.12),
         '--wcp-font-family':"-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif",
         '--wcp-font-mono':"ui-monospace,'SF Mono','Fira Code',monospace",
         '--wcp-font-size-xs':'0.70rem','--wcp-font-size-sm':'0.80rem','--wcp-font-size-md':'0.875rem',
@@ -344,9 +344,9 @@ def _resolve_all_vars(tv):
         '--wcp-line-height-tight':'1.2','--wcp-line-height-normal':'1.5','--wcp-line-height-relaxed':'1.75',
         '--wcp-space-1':'4px','--wcp-space-2':'8px','--wcp-space-3':'12px','--wcp-space-4':'16px',
         '--wcp-space-5':'24px','--wcp-space-6':'32px','--wcp-space-7':'48px','--wcp-space-8':'64px',
-        '--wcp-radius-sm':'4px','--wcp-radius-md':s['--radius'],'--wcp-radius-lg':'12px',
+        '--wcp-radius-sm':'4px','--wcp-radius-md':rad,'--wcp-radius-lg':'12px',
         '--wcp-radius-xl':'16px','--wcp-radius-round':'9999px',
-        '--wcp-shadow-sm':s['--shadow'],'--wcp-shadow-md':'0 4px 12px rgba(0,0,0,.2)',
+        '--wcp-shadow-sm':shd,'--wcp-shadow-md':'0 4px 12px rgba(0,0,0,.2)',
         '--wcp-shadow-lg':'0 8px 24px rgba(0,0,0,.25)','--wcp-shadow-xl':'0 16px 40px rgba(0,0,0,.3)',
         '--wcp-duration-fast':'100ms','--wcp-duration-normal':'200ms','--wcp-duration-slow':'350ms',
         '--wcp-easing-standard':'ease','--wcp-easing-out':'ease-out','--wcp-easing-in':'ease-in',
@@ -354,10 +354,10 @@ def _resolve_all_vars(tv):
         '--wcp-z-base':'0','--wcp-z-raised':'10','--wcp-z-dropdown':'1000','--wcp-z-sticky':'1100',
         '--wcp-z-modal':'1200','--wcp-z-toast':'1300','--wcp-z-tooltip':'1400',
         '--wcp-focus-ring-width':'2px','--wcp-focus-ring-offset':'2px',
-        '--wcp-focus-ring-color':s['--accent'],'--wcp-touch-target-min':'44px',
-        '--wcp-widget-bg':s['--surface'],'--wcp-widget-border':s['--border'],
-        '--wcp-widget-radius':s['--radius'],'--wcp-widget-padding':'16px',
-        '--wcp-widget-gap':'12px','--wcp-widget-shadow':s['--shadow'],
+        '--wcp-focus-ring-color':acc,'--wcp-touch-target-min':'44px',
+        '--wcp-widget-bg':sur,'--wcp-widget-border':bdr,
+        '--wcp-widget-radius':rad,'--wcp-widget-padding':'16px',
+        '--wcp-widget-gap':'12px','--wcp-widget-shadow':shd,
     }
     for k, v in tv.items():
         if k.startswith('--wcp-'): tokens[k] = v
