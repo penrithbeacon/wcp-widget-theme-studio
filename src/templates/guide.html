@@ -152,7 +152,7 @@ When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block 
 <h3>Step 2: Create a New Theme</h3>
 <ol>
   <li>Click <strong>"+ New Custom Theme"</strong> at the bottom of the left panel.</li>
-  <li>A new untitled theme appears with default values (cloned from the current Penrith Beacon WCP Dark theme).</li>
+  <li>A new untitled theme appears, cloned from whichever theme you had selected at the time you pressed the button.</li>
   <li>The right panel immediately opens in edit mode — start changing colours.</li>
 </ol>
 
@@ -180,8 +180,10 @@ When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block 
 <h3>Step 4: Save Your Theme</h3>
 <p>Click <strong>Save</strong> in the editor footer. Your custom theme is now stored locally in the container and appears in the theme list with a pencil icon. You can rename it by editing the Name field at the top of the editor.</p>
 
-<h3>Step 5: Apply to Your Dashboard</h3>
+<h3>Step 5: Apply or Export Your Theme</h3>
 <p>Click the <strong>"Add to Dashboard"</strong> button next to any theme in the list. This sends the theme to the host dashboard via WCP postMessage, applying it immediately to all widgets in the current orchestration.</p>
+
+<p>You can also <strong>export the theme as a <code>.wcpt</code> file</strong> — a portable WCP Theme archive that can be imported into any application with a theme import mechanism. The Penrith Beacon Design Studio, Orchestration Manager, and Kiosk all support <code>.wcpt</code> import. This capability enables developers building their own WCP-powered applications to offer theme import in their own UIs — users create themes in the Theme Studio, export as <code>.wcpt</code>, and import them wherever they're needed.</p>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
