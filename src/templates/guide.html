@@ -163,18 +163,18 @@ When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block 
 <table>
   <tr><th>Section</th><th>What it controls</th><th>Key tokens</th></tr>
   <tr><td>Surfaces</td><td>Background layers and depth</td><td><code>bg</code>, <code>surface</code>, <code>surface-raised</code>, <code>surface-sunken</code>, <code>overlay</code></td></tr>
-  <tr><td>Borders</td><td>Dividers and outlines</td><td><code>border</code>, <code>border-muted</code></td></tr>
+  <tr><td>Borders</td><td>Dividers and outlines</td><td><code>border</code>, <code>border-strong</code></td></tr>
   <tr><td>Text</td><td>Typography colours</td><td><code>text</code>, <code>text-muted</code>, <code>text-disabled</code>, <code>text-inverse</code>, <code>link</code></td></tr>
   <tr><td>Brand</td><td>Primary action colour</td><td><code>primary</code>, <code>primary-dim</code>, <code>primary-on</code></td></tr>
-  <tr><td>Status</td><td>Semantic colours</td><td><code>success</code>, <code>success-on</code>, <code>success-surface</code>, <code>warning</code>, <code>danger</code>, <code>info</code> (+ variants)</td></tr>
-  <tr><td>Typography</td><td>Font family, sizes, weights</td><td><code>font-family</code>, <code>font-size-*</code>, <code>font-weight-*</code>, <code>font-line-height</code></td></tr>
-  <tr><td>Spacing</td><td>Consistent padding/margins</td><td><code>space-xxs</code> through <code>space-xxl</code></td></tr>
-  <tr><td>Shape</td><td>Border radius scale</td><td><code>radius-xs</code> through <code>radius-full</code></td></tr>
-  <tr><td>Shadow</td><td>Elevation and depth</td><td><code>shadow-xs</code> through <code>shadow-xl</code></td></tr>
+  <tr><td>Status</td><td>Semantic colours</td><td><code>success</code>, <code>success-on</code>, <code>success-surface</code>, <code>warning</code>, <code>warning-surface</code>, <code>danger</code>, <code>danger-surface</code>, <code>info</code>, <code>info-surface</code></td></tr>
+  <tr><td>Typography</td><td>Font families, sizes, weights, line heights</td><td><code>font-family</code>, <code>font-mono</code>, <code>font-size-xs</code>–<code>3xl</code>, <code>font-weight-*</code>, <code>line-height-*</code></td></tr>
+  <tr><td>Spacing</td><td>Consistent padding/margins</td><td><code>space-1</code> through <code>space-8</code></td></tr>
+  <tr><td>Shape</td><td>Border radius scale</td><td><code>radius-sm</code> through <code>radius-round</code></td></tr>
+  <tr><td>Shadow</td><td>Elevation and depth</td><td><code>shadow-sm</code> through <code>shadow-xl</code></td></tr>
   <tr><td>Motion</td><td>Animation timing</td><td><code>duration-*</code>, <code>easing-*</code></td></tr>
-  <tr><td>Z-Index</td><td>Stacking layers</td><td><code>z-base</code> through <code>z-max</code></td></tr>
-  <tr><td>Focus</td><td>Accessibility rings</td><td><code>focus-ring-color</code>, <code>focus-ring-width</code>, <code>focus-ring-offset</code>, <code>focus-ring-style</code></td></tr>
-  <tr><td>Widget Defaults</td><td>Widget-level sizing</td><td><code>widget-padding</code>, <code>widget-gap</code>, <code>widget-radius</code>, <code>widget-border</code>, <code>widget-shadow</code>, <code>widget-bg</code></td></tr>
+  <tr><td>Z-Index</td><td>Stacking layers</td><td><code>z-base</code> through <code>z-tooltip</code></td></tr>
+  <tr><td>Focus</td><td>Accessibility</td><td><code>focus-ring-width</code>, <code>focus-ring-offset</code>, <code>focus-ring-color</code>, <code>touch-target-min</code></td></tr>
+  <tr><td>Widget Defaults</td><td>Widget-level sizing</td><td><code>widget-bg</code>, <code>widget-border</code>, <code>widget-radius</code>, <code>widget-padding</code>, <code>widget-gap</code>, <code>widget-shadow</code></td></tr>
 </table>
 
 <h3>Step 4: Save Your Theme</h3>
@@ -206,7 +206,7 @@ When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block 
 <table>
   <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
   <tr><td><code>--wcp-color-border</code></td><td>Standard dividers and outlines</td><td>#30363d</td></tr>
-  <tr><td><code>--wcp-color-border-muted</code></td><td>Subtle separators (less prominent)</td><td>#21262d</td></tr>
+  <tr><td><code>--wcp-color-border-strong</code></td><td>Prominent separators and outlines (higher contrast)</td><td>rgba(230,237,243,.25)</td></tr>
 </table>
 
 <h3>Text (5 tokens)</h3>
@@ -232,56 +232,66 @@ When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block 
   <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
   <tr><td><code>--wcp-color-success</code></td><td>Positive actions (launch, confirm, save)</td><td>#3fb950</td></tr>
   <tr><td><code>--wcp-color-success-on</code></td><td>Text on success backgrounds</td><td>#ffffff</td></tr>
-  <tr><td><code>--wcp-color-success-surface</code></td><td>Subtle success tint for badges/banners</td><td>rgba(63,185,80,.1)</td></tr>
+  <tr><td><code>--wcp-color-success-surface</code></td><td>Subtle success tint for badges/banners</td><td>rgba(63,185,80,.12)</td></tr>
   <tr><td><code>--wcp-color-warning</code></td><td>Caution states</td><td>#d29922</td></tr>
-  <tr><td><code>--wcp-color-warning-on</code></td><td>Text on warning backgrounds</td><td>#ffffff</td></tr>
-  <tr><td><code>--wcp-color-warning-surface</code></td><td>Subtle warning tint</td><td>rgba(210,153,34,.1)</td></tr>
+  <tr><td><code>--wcp-color-warning-surface</code></td><td>Subtle warning tint</td><td>rgba(210,153,34,.12)</td></tr>
   <tr><td><code>--wcp-color-danger</code></td><td>Destructive actions, errors</td><td>#f85149</td></tr>
-  <tr><td><code>--wcp-color-danger-on</code></td><td>Text on danger backgrounds</td><td>#ffffff</td></tr>
+  <tr><td><code>--wcp-color-danger-surface</code></td><td>Subtle danger tint</td><td>rgba(248,81,73,.12)</td></tr>
   <tr><td><code>--wcp-color-info</code></td><td>Informational highlights</td><td>#58a6ff</td></tr>
+  <tr><td><code>--wcp-color-info-surface</code></td><td>Subtle info tint</td><td>rgba(88,166,255,.12)</td></tr>
 </table>
 
-<h3>Typography (6 tokens)</h3>
+<h3>Typography (16 tokens)</h3>
 <table>
   <tr><th>Token</th><th>Role</th><th>Default</th></tr>
-  <tr><td><code>--wcp-font-family</code></td><td>Base font stack</td><td>-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif</td></tr>
-  <tr><td><code>--wcp-font-size-sm</code></td><td>Small text (labels, captions)</td><td>12px</td></tr>
-  <tr><td><code>--wcp-font-size-md</code></td><td>Body text</td><td>14px</td></tr>
-  <tr><td><code>--wcp-font-size-lg</code></td><td>Subheadings</td><td>16px</td></tr>
+  <tr><td><code>--wcp-font-family</code></td><td>Base font stack</td><td>-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif</td></tr>
+  <tr><td><code>--wcp-font-mono</code></td><td>Monospace font stack (code, data)</td><td>ui-monospace, 'SF Mono', 'Fira Code', monospace</td></tr>
+  <tr><td><code>--wcp-font-size-xs</code></td><td>Extra small (fine print, badges)</td><td>0.70rem</td></tr>
+  <tr><td><code>--wcp-font-size-sm</code></td><td>Small (labels, captions)</td><td>0.80rem</td></tr>
+  <tr><td><code>--wcp-font-size-md</code></td><td>Body text</td><td>0.875rem</td></tr>
+  <tr><td><code>--wcp-font-size-lg</code></td><td>Comfortable body, subheadings</td><td>1rem</td></tr>
+  <tr><td><code>--wcp-font-size-xl</code></td><td>Section headings</td><td>1.125rem</td></tr>
+  <tr><td><code>--wcp-font-size-2xl</code></td><td>Page headings</td><td>1.375rem</td></tr>
+  <tr><td><code>--wcp-font-size-3xl</code></td><td>Display / hero text</td><td>1.75rem</td></tr>
   <tr><td><code>--wcp-font-weight-normal</code></td><td>Regular weight</td><td>400</td></tr>
-  <tr><td><code>--wcp-font-line-height</code></td><td>Base line height</td><td>1.5</td></tr>
+  <tr><td><code>--wcp-font-weight-medium</code></td><td>Medium weight</td><td>500</td></tr>
+  <tr><td><code>--wcp-font-weight-semibold</code></td><td>Semibold (headings, labels)</td><td>600</td></tr>
+  <tr><td><code>--wcp-font-weight-bold</code></td><td>Bold (display, emphasis)</td><td>700</td></tr>
+  <tr><td><code>--wcp-line-height-tight</code></td><td>Compact (headings, dense UI)</td><td>1.2</td></tr>
+  <tr><td><code>--wcp-line-height-normal</code></td><td>Standard body text rhythm</td><td>1.5</td></tr>
+  <tr><td><code>--wcp-line-height-relaxed</code></td><td>Generous (long-form readability)</td><td>1.75</td></tr>
 </table>
 
 <h3>Spacing (8 tokens)</h3>
 <table>
   <tr><th>Token</th><th>Role</th><th>Default</th></tr>
-  <tr><td><code>--wcp-space-xxs</code></td><td>Tightest (icon gaps)</td><td>2px</td></tr>
-  <tr><td><code>--wcp-space-xs</code></td><td>Extra small</td><td>4px</td></tr>
-  <tr><td><code>--wcp-space-sm</code></td><td>Small (list item padding)</td><td>8px</td></tr>
-  <tr><td><code>--wcp-space-md</code></td><td>Medium (card padding)</td><td>16px</td></tr>
-  <tr><td><code>--wcp-space-lg</code></td><td>Large (section gaps)</td><td>24px</td></tr>
-  <tr><td><code>--wcp-space-xl</code></td><td>Extra large</td><td>32px</td></tr>
-  <tr><td><code>--wcp-space-xxl</code></td><td>Largest (page margins)</td><td>48px</td></tr>
-  <tr><td><code>--wcp-space-xxxl</code></td><td>Maximum spacing</td><td>64px</td></tr>
+  <tr><td><code>--wcp-space-1</code></td><td>Tightest (icon gaps)</td><td>4px</td></tr>
+  <tr><td><code>--wcp-space-2</code></td><td>Small (inline spacing)</td><td>8px</td></tr>
+  <tr><td><code>--wcp-space-3</code></td><td>Compact (list item padding)</td><td>12px</td></tr>
+  <tr><td><code>--wcp-space-4</code></td><td>Medium (card padding, form gaps)</td><td>16px</td></tr>
+  <tr><td><code>--wcp-space-5</code></td><td>Comfortable (section gaps)</td><td>24px</td></tr>
+  <tr><td><code>--wcp-space-6</code></td><td>Large (panel margins)</td><td>32px</td></tr>
+  <tr><td><code>--wcp-space-7</code></td><td>Extra large (page sections)</td><td>48px</td></tr>
+  <tr><td><code>--wcp-space-8</code></td><td>Maximum (page margins)</td><td>64px</td></tr>
 </table>
 
 <h3>Shape (5 tokens)</h3>
 <table>
   <tr><th>Token</th><th>Role</th><th>Default</th></tr>
-  <tr><td><code>--wcp-radius-xs</code></td><td>Subtle rounding (tags)</td><td>2px</td></tr>
-  <tr><td><code>--wcp-radius-sm</code></td><td>Small (buttons, inputs)</td><td>4px</td></tr>
+  <tr><td><code>--wcp-radius-sm</code></td><td>Small (buttons, inputs, tags)</td><td>4px</td></tr>
   <tr><td><code>--wcp-radius-md</code></td><td>Medium (cards, dialogs)</td><td>8px</td></tr>
-  <tr><td><code>--wcp-radius-lg</code></td><td>Large (panels)</td><td>12px</td></tr>
-  <tr><td><code>--wcp-radius-full</code></td><td>Pill/circle</td><td>9999px</td></tr>
+  <tr><td><code>--wcp-radius-lg</code></td><td>Large (panels, modals)</td><td>12px</td></tr>
+  <tr><td><code>--wcp-radius-xl</code></td><td>Extra large (hero cards, popovers)</td><td>16px</td></tr>
+  <tr><td><code>--wcp-radius-round</code></td><td>Pill/circle</td><td>9999px</td></tr>
 </table>
 
 <h3>Shadow (4 tokens)</h3>
 <table>
   <tr><th>Token</th><th>Role</th><th>Default (Dark)</th></tr>
-  <tr><td><code>--wcp-shadow-xs</code></td><td>Subtle lift (buttons)</td><td>0 1px 2px rgba(0,0,0,.3)</td></tr>
-  <tr><td><code>--wcp-shadow-sm</code></td><td>Cards, dropdowns</td><td>0 4px 16px rgba(0,0,0,.45)</td></tr>
-  <tr><td><code>--wcp-shadow-md</code></td><td>Floating panels</td><td>0 8px 24px rgba(0,0,0,.5)</td></tr>
-  <tr><td><code>--wcp-shadow-xl</code></td><td>Modals, popovers</td><td>0 16px 48px rgba(0,0,0,.6)</td></tr>
+  <tr><td><code>--wcp-shadow-sm</code></td><td>Subtle lift (cards, buttons)</td><td>0 4px 16px rgba(0,0,0,.45)</td></tr>
+  <tr><td><code>--wcp-shadow-md</code></td><td>Floating panels, dropdowns</td><td>0 4px 12px rgba(0,0,0,.2)</td></tr>
+  <tr><td><code>--wcp-shadow-lg</code></td><td>Raised dialogs, popovers</td><td>0 8px 24px rgba(0,0,0,.25)</td></tr>
+  <tr><td><code>--wcp-shadow-xl</code></td><td>Modals, full overlays</td><td>0 16px 40px rgba(0,0,0,.3)</td></tr>
 </table>
 
 <h3>Motion (7 tokens)</h3>
@@ -289,33 +299,32 @@ When a WCP host renders a widget, it injects a <code>&lt;style&gt;</code> block 
   <tr><th>Token</th><th>Role</th><th>Default</th></tr>
   <tr><td><code>--wcp-duration-fast</code></td><td>Micro-interactions (hover, focus)</td><td>100ms</td></tr>
   <tr><td><code>--wcp-duration-normal</code></td><td>Standard transitions</td><td>200ms</td></tr>
-  <tr><td><code>--wcp-duration-slow</code></td><td>Page transitions, reveals</td><td>400ms</td></tr>
-  <tr><td><code>--wcp-easing-default</code></td><td>General purpose</td><td>cubic-bezier(.4,0,.2,1)</td></tr>
-  <tr><td><code>--wcp-easing-in</code></td><td>Entering (accelerate)</td><td>cubic-bezier(.4,0,1,1)</td></tr>
-  <tr><td><code>--wcp-easing-out</code></td><td>Exiting (decelerate)</td><td>cubic-bezier(0,0,.2,1)</td></tr>
-  <tr><td><code>--wcp-easing-bounce</code></td><td>Playful spring</td><td>cubic-bezier(.68,-.55,.27,1.55)</td></tr>
+  <tr><td><code>--wcp-duration-slow</code></td><td>Page transitions, reveals</td><td>350ms</td></tr>
+  <tr><td><code>--wcp-easing-standard</code></td><td>General purpose</td><td>ease</td></tr>
+  <tr><td><code>--wcp-easing-out</code></td><td>Exiting (decelerate)</td><td>ease-out</td></tr>
+  <tr><td><code>--wcp-easing-in</code></td><td>Entering (accelerate)</td><td>ease-in</td></tr>
+  <tr><td><code>--wcp-easing-spring</code></td><td>Playful overshoot</td><td>cubic-bezier(0.34,1.56,0.64,1)</td></tr>
 </table>
 
-<h3>Z-Index Layers (8 tokens)</h3>
+<h3>Z-Index Layers (7 tokens)</h3>
 <table>
   <tr><th>Token</th><th>Role</th><th>Default</th></tr>
   <tr><td><code>--wcp-z-base</code></td><td>Default content</td><td>0</td></tr>
-  <tr><td><code>--wcp-z-raised</code></td><td>Raised cards</td><td>1</td></tr>
-  <tr><td><code>--wcp-z-dropdown</code></td><td>Dropdowns, selects</td><td>100</td></tr>
-  <tr><td><code>--wcp-z-sticky</code></td><td>Sticky headers</td><td>200</td></tr>
-  <tr><td><code>--wcp-z-overlay</code></td><td>Modal backdrops</td><td>300</td></tr>
-  <tr><td><code>--wcp-z-modal</code></td><td>Modal dialogs</td><td>400</td></tr>
-  <tr><td><code>--wcp-z-popover</code></td><td>Tooltips, popovers</td><td>500</td></tr>
-  <tr><td><code>--wcp-z-max</code></td><td>Toast notifications</td><td>9999</td></tr>
+  <tr><td><code>--wcp-z-raised</code></td><td>Raised cards</td><td>10</td></tr>
+  <tr><td><code>--wcp-z-dropdown</code></td><td>Dropdowns, selects</td><td>1000</td></tr>
+  <tr><td><code>--wcp-z-sticky</code></td><td>Sticky headers</td><td>1100</td></tr>
+  <tr><td><code>--wcp-z-modal</code></td><td>Modal dialogs and backdrops</td><td>1200</td></tr>
+  <tr><td><code>--wcp-z-toast</code></td><td>Toast notifications</td><td>1300</td></tr>
+  <tr><td><code>--wcp-z-tooltip</code></td><td>Tooltips, popovers</td><td>1400</td></tr>
 </table>
 
 <h3>Focus &amp; Accessibility (4 tokens)</h3>
 <table>
   <tr><th>Token</th><th>Role</th><th>Default</th></tr>
-  <tr><td><code>--wcp-focus-ring-color</code></td><td>Focus outline colour</td><td>rgba(88,166,255,.6)</td></tr>
   <tr><td><code>--wcp-focus-ring-width</code></td><td>Focus outline thickness</td><td>2px</td></tr>
   <tr><td><code>--wcp-focus-ring-offset</code></td><td>Gap between element and ring</td><td>2px</td></tr>
-  <tr><td><code>--wcp-focus-ring-style</code></td><td>Full shorthand for outline</td><td>2px solid rgba(88,166,255,.6)</td></tr>
+  <tr><td><code>--wcp-focus-ring-color</code></td><td>Focus outline colour</td><td>var(--wcp-color-primary)</td></tr>
+  <tr><td><code>--wcp-touch-target-min</code></td><td>Minimum interactive target size</td><td>44px</td></tr>
 </table>
 
 <h3>Widget Defaults (6 tokens)</h3>
@@ -418,10 +427,10 @@ If you set <code>--wcp-color-success</code> to a light colour (e.g. <code>#90EE9
   <tr><td>Input field</td><td><code>surface-raised</code></td><td><code>text</code></td><td><code>border</code></td><td>Surfaces / Borders</td></tr>
   <tr><td>Primary action button</td><td><code>primary</code></td><td><code>primary-on</code></td><td>—</td><td>Brand</td></tr>
   <tr><td>Success / Launch button</td><td><code>success</code></td><td><code>success-on</code></td><td>—</td><td>Status</td></tr>
-  <tr><td>Danger / Delete button</td><td><code>danger</code></td><td><code>danger-on</code></td><td>—</td><td>Status</td></tr>
+  <tr><td>Danger / Delete button</td><td><code>danger</code></td><td><code>text-inverse</code></td><td>—</td><td>Status</td></tr>
   <tr><td>Status badge</td><td><code>success-surface</code></td><td><code>success</code></td><td>—</td><td>Status</td></tr>
   <tr><td>Secondary / muted text</td><td>—</td><td><code>text-muted</code></td><td>—</td><td>Text</td></tr>
-  <tr><td>Disabled control</td><td>—</td><td><code>text-disabled</code></td><td><code>border-muted</code></td><td>Text / Borders</td></tr>
+  <tr><td>Disabled control</td><td>—</td><td><code>text-disabled</code></td><td><code>border-strong</code></td><td>Text / Borders</td></tr>
   <tr><td>Hyperlink</td><td>—</td><td><code>link</code></td><td>—</td><td>Text</td></tr>
   <tr><td>Scrollbar</td><td><code>surface</code></td><td>—</td><td><code>border</code></td><td>Surfaces / Borders</td></tr>
   <tr><td>Modal backdrop</td><td><code>overlay</code></td><td>—</td><td>—</td><td>Surfaces</td></tr>
@@ -442,7 +451,14 @@ Open the Theme Studio editor alongside your application (on a separate stave tab
 <ul>
   <li><strong>Copy URL</strong> — Click the "Copy URL" button next to any theme. This copies a URL like <code>http://localhost:3740/widget/api/theme/dracula</code> that returns the theme as JSON. Any WCP dashboard can import from this URL.</li>
   <li><strong>Add to Dashboard</strong> — Sends the theme directly to the host dashboard via WCP postMessage. The theme is applied immediately.</li>
-  <li><strong>Export as .wcpt</strong> — For distribution, use the WCP export format. The dashboard's export system can package themes as <code>.wcpt</code> files (WCP Theme archives).</li>
+  <li><strong>Export as .wcpt</strong> — For distribution, use the WCP export format. The dashboard's export system can package themes as <code>.wcpt</code> files (WCP Theme archives). See the <a href="https://wcpp.widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff)">WCP Portability Protocol</a> for the .wcpt specification.</li>
+  <li><strong>Export URL Base64</strong> — Click the "Export URL Base64" button to get a base64-encoded query string parameter you can append to any WCP-compliant URL. The modal shows two options:
+    <ul>
+      <li><strong>Full query string</strong> (<code>?com.doc.widgetcontextprotocol=…</code>) — append to a URL with no existing query parameters.</li>
+      <li><strong>Parameter only</strong> (<code>&amp;com.doc.widgetcontextprotocol=…</code>) — append to a URL that already has a query string.</li>
+    </ul>
+    The base64 payload encodes a theme object: <code>{ uuid, name, vars }</code> containing all 81 WCP tokens. When a visitor opens the URL, the site's adoption snippet decodes the theme, stores it in <code>localStorage</code>, and applies it immediately.
+  </li>
 </ul>
 
 <h3>Importing a Theme</h3>
@@ -474,6 +490,36 @@ Open the Theme Studio editor alongside your application (on a separate stave tab
   }
 }</code></pre>
 <p>The <code>vars</code> object contains only the tokens the theme author explicitly sets. The dashboard's <code>buildWcpTokens()</code> function derives the remaining tokens (e.g. <code>-dim</code>, <code>-surface</code>, <code>-on</code> variants) from these seed values automatically.</p>
+
+<h3>URL Theme Object</h3>
+<p>When you click <strong>Export URL Base64</strong>, the Theme Studio encodes a theme object for URL injection. Unlike the full theme JSON above (which includes <code>id</code>, <code>builtin</code>, and seed-only vars), the URL payload contains all <strong>81 resolved WCP tokens</strong>:</p>
+<pre><code>{
+  "uuid": "2d9e7698-c49e-482d-87cf-a2d8c03f423d",
+  "name": "Dracula",
+  "vars": {
+    "--wcp-color-bg": "#282a36",
+    "--wcp-color-surface": "#2d3040",
+    "--wcp-color-surface-raised": "#343746",
+    "--wcp-color-border": "#44475a",
+    "--wcp-color-text": "#f8f8f2",
+    "--wcp-color-text-muted": "#b0b0a0",
+    ... // all 81 tokens
+  }
+}</code></pre>
+<p>This JSON is <code>btoa(JSON.stringify(…))</code>-encoded into a base64 string, then appended to a URL as:</p>
+<ul>
+  <li><code>?com.doc.widgetcontextprotocol=<em>&lt;base64&gt;</em></code> — if the URL has no existing query parameters</li>
+  <li><code>&amp;com.doc.widgetcontextprotocol=<em>&lt;base64&gt;</em></code> — if the URL already has a query string</li>
+</ul>
+<p>When a visitor opens the URL, the site's <strong>adoption snippet</strong> decodes the payload, imports the theme into <code>localStorage</code>, and applies it immediately. The theme persists across page loads — the visitor sees it on every subsequent visit until they switch back to the site's built-in theme.</p>
+
+<h3>WCP Ecosystem Links</h3>
+<p>For more about themes, adoption, and the portability protocol:</p>
+<ul>
+  <li><a href="https://widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff)">WCP Specification</a> — The official Widget Context Protocol spec, including the Theme Adoption section</li>
+  <li><a href="https://dev.widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff)">WCP Developer Guide</a> — Hands-on guide with theme management panel code, copy-paste snippets, and use cases</li>
+  <li><a href="https://wcpp.widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff)">WCP Portability Protocol</a> — The .wcpt file format specification for theme distribution</li>
+</ul>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
@@ -505,7 +551,7 @@ Open the Theme Studio editor alongside your application (on a separate stave tab
   <tr><td>Forgetting <code>success-on</code> when changing <code>success</code></td><td>White text on light green</td><td>Set <code>success-on</code> to a dark colour</td></tr>
   <tr><td>Using <code>surface-raised</code> for the page background</td><td>No visual depth — cards can't elevate above it</td><td>Start with <code>bg</code>, build up</td></tr>
   <tr><td>Hard-coding <code>#ffffff</code> for text</td><td>Invisible on light themes</td><td>Use <code>var(--wcp-color-text)</code></td></tr>
-  <tr><td>Ignoring <code>border-muted</code></td><td>All borders same weight — no visual hierarchy</td><td>Use <code>border-muted</code> for subtle separators</td></tr>
+  <tr><td>Ignoring <code>border-strong</code></td><td>All borders same weight — no visual hierarchy</td><td>Use <code>border-strong</code> for prominent separators that need emphasis</td></tr>
 </table>
 </section>
 
@@ -574,7 +620,7 @@ Open the Theme Studio editor alongside your application (on a separate stave tab
 
 <!-- Version footer -->
 <p style="margin-top:48px;padding-top:16px;border-top:1px solid var(--wcp-color-border,#30363d);font-size:11px;color:var(--wcp-color-text-muted,#8b949e);">
-  WCP Theme Studio Guide v1.0 &mdash; Widget Context Protocol 2.2.0 &mdash; <a href="https://widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff);">widgetcontextprotocol.com</a>
+  WCP Theme Studio Guide v1.1 &mdash; Widget Context Protocol 2.1.0 &mdash; <a href="https://widgetcontextprotocol.com" style="color:var(--wcp-color-link,#58a6ff);">widgetcontextprotocol.com</a>
 </p>
 
 </main>
@@ -611,6 +657,23 @@ tocLinks.forEach(link => {
 
 // Mark first section as active initially
 if (tocLinks.length) tocLinks[0].classList.add('active');
+
+// ── WCP Theme Reception ─────────────────────────────────────
+function _applyThemeVars(vars) {
+  for (const [k, v] of Object.entries(vars))
+    document.documentElement.style.setProperty(k, v);
+}
+// Signal readiness and request the current theme from the host
+window.parent?.postMessage({ type: 'wcp:ready' }, '*');
+window.parent?.postMessage({ type: 'wcp:request-theme' }, '*');
+// Read theme from URL fragment (standalone window opened by host via wcp:open-window)
+if (window.location.hash.startsWith('#wcp-theme=')) {
+  try { _applyThemeVars(JSON.parse(atob(window.location.hash.slice(11)))); } catch {}
+}
+window.addEventListener('message', e => {
+  if (e.data?.type === 'wcp:context' && e.data.theme) _applyThemeVars(e.data.theme);
+  if (e.data?.type === 'wcp:theme' && e.data.vars)    _applyThemeVars(e.data.vars);
+});
 </script>
 </body>
 </html>

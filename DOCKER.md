@@ -122,8 +122,8 @@ Themes are shareable JSON files containing CSS custom property values:
 
 | Property | Value |
 |----------|-------|
-| WCP Version | 2.0.0 |
-| Widget Version | 1.4.0 |
+| WCP Version | 2.1.0 |
+| Widget Version | 1.7.0 |
 | Render mode | iframe |
 | Auth | none |
 | Default card size | 6×4 |

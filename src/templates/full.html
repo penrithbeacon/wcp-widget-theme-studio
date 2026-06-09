@@ -37,7 +37,7 @@ html,body{background:var(--wcp-color-bg);color:var(--wcp-color-text);font-family
 /* Centre: preview */
 .preview{overflow:auto;background:var(--wcp-color-bg);padding:0;display:flex;flex-direction:column;gap:0;min-height:0;height:100%;}
 .preview-sticky{position:sticky;top:0;z-index:20;background:var(--wcp-color-bg);padding:16px 20px 0;border-bottom:1px solid var(--wcp-color-border);}
-.preview-scroll{padding:16px 20px 80px;display:flex;flex-direction:column;gap:16px;}
+.preview-scroll{padding:16px 20px 80px;display:flex;flex-direction:column;gap:16px;position:relative;}
 .preview-title{font-size:11px;color:var(--wcp-color-text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;}
 .prev-card{background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:16px;box-shadow:var(--wcp-shadow-sm);}
 .prev-card-title{font-weight:600;margin-bottom:8px;}
@@ -67,7 +67,8 @@ html,body{background:var(--wcp-color-bg);color:var(--wcp-color-text);font-family
 .editor-label{font-size:10px;color:var(--wcp-color-text-muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
 .editor-name{width:100%;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:6px;color:var(--wcp-color-text);font-size:13px;padding:7px 10px;}
 .var-row{display:flex;gap:6px;align-items:center;margin-bottom:7px;}
-.var-label{font-size:10px;color:var(--wcp-color-text-muted);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.var-label{font-size:10px;color:var(--wcp-color-text-muted);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:color .15s;}
+.var-label:hover{color:var(--wcp-color-primary);}
 input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border);border-radius:4px;padding:1px;background:var(--wcp-color-surface-raised);cursor:pointer;flex-shrink:0;}
 .var-hex{flex:1;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-text);font-size:11px;padding:4px 7px;font-family:monospace;}
 .var-text{flex:1;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-text);font-size:11px;padding:4px 7px;}
@@ -75,6 +76,22 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
 .hidden{display:none!important;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-thumb{background:var(--wcp-color-border);border-radius:3px;}
+/* Hover tooltip */
+#wcp-tooltip{position:fixed;z-index:10000;background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:6px;padding:6px 10px;font-size:11px;font-family:ui-monospace,'SF Mono','Fira Code',monospace;color:var(--wcp-color-text);pointer-events:none;display:none;max-width:320px;box-shadow:var(--wcp-shadow-md);line-height:1.6;}
+/* Bullseye search markers */
+.wcp-bullseye{position:absolute;width:24px;height:24px;border-radius:50%;pointer-events:auto;cursor:pointer;z-index:9999;background:radial-gradient(circle,var(--wcp-color-danger) 3px,transparent 3px,transparent 6px,var(--wcp-color-danger) 6px,var(--wcp-color-danger) 8px,transparent 8px);animation:wcp-pulse 1.5s ease-in-out infinite;transform:translate(-50%,-50%);}
+@keyframes wcp-pulse{0%,100%{opacity:1;}50%{opacity:.5;}}
+/* Browse dropdown */
+.wcp-browse-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--wcp-color-primary);padding:8px 12px 4px;border-top:1px solid var(--wcp-color-border);}
+.wcp-browse-section:first-child{border-top:none;}
+.wcp-browse-item{padding:4px 12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--wcp-color-text);transition:background .1s;}
+.wcp-browse-item:hover{background:var(--wcp-color-surface-raised);}
+.wcp-browse-token{font-size:10px;color:var(--wcp-color-text-muted);font-family:ui-monospace,'SF Mono','Fira Code',monospace;}
+/* Z-Index stacked cards */
+.z-card{position:absolute;width:80px;padding:8px 6px;border-radius:var(--wcp-radius-sm);border:1px solid var(--wcp-color-border);font-size:10px;font-weight:600;text-align:center;transition:left .3s,top .3s;}
+/* Motion dots */
+.motion-dot{transition-property:left;}
+#motion-demo.played .motion-dot{left:calc(100% - 16px)!important;}
 </style>
 </head>
 <body>
@@ -111,7 +128,8 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
           {% endif %}
         </div>
         <div class="theme-item-actions" style="margin-top:4px">
-          <button class="btn" style="color:var(--wcp-color-success);border-color:rgba(63,185,80,.4);width:100%" onclick="event.stopPropagation();exportWcpt('{{t.id}}',this)">Export .wcpt</button>
+          <button class="btn" style="color:var(--wcp-color-success);border-color:rgba(63,185,80,.4);flex:1" onclick="event.stopPropagation();exportWcpt('{{t.id}}',this)">Export .wcpt</button>
+          <button class="btn" style="color:var(--wcp-color-link);border-color:rgba(56,189,248,.4);flex:1" onclick="event.stopPropagation();exportUrlBase64('{{t.id}}')">Export URL Base64</button>
         </div>
       </div>
       {% endfor %}
@@ -133,13 +151,20 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
         <div class="tab active" onclick="switchTab('settings',this)">Demo</div>
         <div class="tab" onclick="switchTab('about',this)">About</div>
       </div>
+      <div id="search-bar" style="display:flex;gap:6px;padding:8px 0 6px;position:relative">
+        <input type="text" id="wcp-token-search" placeholder="Search tokens…" oninput="searchTokens(this.value)"
+          style="flex:1;padding:5px 8px;border-radius:var(--wcp-radius-sm);border:1px solid var(--wcp-color-border);background:var(--wcp-color-surface);color:var(--wcp-color-text);font-size:11px;font-family:ui-monospace,'SF Mono','Fira Code',monospace;outline:none;">
+        <button class="btn" style="font-size:11px;white-space:nowrap" onclick="toggleBrowse()">Browse ▾</button>
+        <div id="browse-dropdown" style="display:none;position:absolute;right:0;top:100%;margin-top:4px;width:300px;max-height:320px;overflow-y:auto;background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);box-shadow:var(--wcp-shadow-lg);z-index:10000;padding:4px 0"></div>
+      </div>
     </div>
     <!-- Scrollable content -->
     <div class="preview-scroll">
     <!-- Tab: Demo -->
     <div id="tab-settings">
-      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--wcp-color-primary);margin-bottom:16px">
-        🎨 <strong>WCP Token Reference</strong> — live preview of all 78 design tokens. All components use <code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px">--wcp-*</code> variables exclusively.
+      <div style="background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.3);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--wcp-color-primary);margin-bottom:8px">
+        🎨 <strong>WCP Token Reference</strong> — live preview of all 81 design tokens. All components use <code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px">--wcp-*</code> variables exclusively.<br>
+        <span style="font-size:11px;opacity:.8">💡 <strong>Hover</strong> any element to see its tokens · <strong>Search</strong> or <strong>Browse</strong> to locate tokens in the preview</span>
       </div>
       <div class="prev-card" style="margin-bottom:16px">
         <div class="prev-card-title">Colour Palette</div>
@@ -149,31 +174,32 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
       <!-- ── Surfaces ─────────────────────────────────────────────── -->
       <div class="preview-title">Surfaces &amp; Borders</div>
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:6px">
-        <div style="background:var(--wcp-color-bg);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">bg</div>
-        <div style="background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">surface</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">raised</div>
-        <div style="background:var(--wcp-color-surface-sunken);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">sunken</div>
-        <div style="background:var(--wcp-color-overlay);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">overlay</div>
+        <div data-wcp="--wcp-color-bg:background" style="background:var(--wcp-color-bg);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">bg</div>
+        <div data-wcp="--wcp-color-surface:background" style="background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">surface</div>
+        <div data-wcp="--wcp-color-surface-raised:background" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">raised</div>
+        <div data-wcp="--wcp-color-surface-sunken:background" style="background:var(--wcp-color-surface-sunken);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">sunken</div>
+        <div data-wcp="--wcp-color-overlay:background" style="background:var(--wcp-color-overlay);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px 6px;text-align:center;font-size:9px;color:var(--wcp-color-text-muted)">overlay</div>
       </div>
       <div style="display:flex;gap:6px;margin-bottom:16px">
-        <div style="flex:1;border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px;font-size:9px;color:var(--wcp-color-text-muted);text-align:center">border</div>
-        <div style="flex:1;border:2px solid var(--wcp-color-border-strong);border-radius:var(--wcp-radius-sm);padding:8px;font-size:9px;color:var(--wcp-color-text-muted);text-align:center">border-strong</div>
+        <div data-wcp="--wcp-color-border:border" style="flex:1;border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:8px;font-size:9px;color:var(--wcp-color-text-muted);text-align:center">border</div>
+        <div data-wcp="--wcp-color-border-strong:border" style="flex:1;border:2px solid var(--wcp-color-border-strong);border-radius:var(--wcp-radius-sm);padding:8px;font-size:9px;color:var(--wcp-color-text-muted);text-align:center">border-strong</div>
       </div>
 
       <!-- ── Text ────────────────────────────────────────────────── -->
       <div class="preview-title">Text Colours</div>
       <div class="prev-card" style="margin-bottom:16px">
-        <div style="font-size:15px;font-weight:700;color:var(--wcp-color-text);margin-bottom:4px">Primary text — heading</div>
-        <div style="font-size:12px;color:var(--wcp-color-text-muted);margin-bottom:4px">Muted text — supporting detail and metadata</div>
-        <div style="font-size:12px;color:var(--wcp-color-text-disabled);margin-bottom:4px">Disabled text — inactive controls</div>
-        <div style="font-size:12px;color:var(--wcp-color-link)">Link colour — https://widgetcontextprotocol.com</div>
+        <div data-wcp="--wcp-color-text:text" style="font-size:15px;font-weight:700;color:var(--wcp-color-text);margin-bottom:4px">Primary text — heading</div>
+        <div data-wcp="--wcp-color-text-muted:text" style="font-size:12px;color:var(--wcp-color-text-muted);margin-bottom:4px">Muted text — supporting detail and metadata</div>
+        <div data-wcp="--wcp-color-text-disabled:text" style="font-size:12px;color:var(--wcp-color-text-disabled);margin-bottom:4px">Disabled text — inactive controls</div>
+        <div data-wcp="--wcp-color-link:text" style="font-size:12px;color:var(--wcp-color-link)">Link colour — https://widgetcontextprotocol.com</div>
+        <div data-wcp="--wcp-color-text-inverse:text" style="background:var(--wcp-color-primary);border-radius:4px;padding:4px 8px;display:inline-block;margin-top:4px"><span style="font-size:12px;color:var(--wcp-color-text-inverse)">Inverse text — on coloured backgrounds</span></div>
       </div>
 
       <!-- ── Brand ───────────────────────────────────────────────── -->
       <div class="preview-title">Brand &amp; Primary</div>
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
-        <div style="background:var(--wcp-color-primary);color:var(--wcp-color-primary-on);border-radius:var(--wcp-radius-md);padding:7px 18px;font-size:12px;font-weight:600">Primary button</div>
-        <div style="background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:var(--wcp-radius-md);padding:7px 18px;font-size:12px;font-weight:600;color:var(--wcp-color-primary)">Primary dim bg</div>
+        <div data-wcp="--wcp-color-primary:background, --wcp-color-primary-on:text" style="background:var(--wcp-color-primary);color:var(--wcp-color-primary-on);border-radius:var(--wcp-radius-md);padding:7px 18px;font-size:12px;font-weight:600">Primary button</div>
+        <div data-wcp="--wcp-color-primary-dim:background, --wcp-color-primary:border" style="background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:var(--wcp-radius-md);padding:7px 18px;font-size:12px;font-weight:600;color:var(--wcp-color-primary)">Primary dim bg</div>
         <div style="width:18px;height:18px;border-radius:var(--wcp-radius-sm);background:var(--wcp-color-focus-ring-color,var(--wcp-color-primary));outline:var(--wcp-focus-ring-width) solid var(--wcp-color-primary);outline-offset:var(--wcp-focus-ring-offset)"></div>
         <span style="font-size:11px;color:var(--wcp-color-text-muted)">← focus ring</span>
       </div>
@@ -181,22 +207,23 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
       <!-- ── Status ──────────────────────────────────────────────── -->
       <div class="preview-title">Status — Colour &amp; Surface</div>
       <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
-        <div style="background:var(--wcp-color-success-surface);border:1px solid var(--wcp-color-success);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+        <div data-wcp="--wcp-color-success-surface:background, --wcp-color-success:border" style="background:var(--wcp-color-success-surface);border:1px solid var(--wcp-color-success);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
           <span style="color:var(--wcp-color-success);font-size:13px">✓</span>
           <span style="font-size:12px;color:var(--wcp-color-success);font-weight:600">Success</span>
-          <span style="font-size:11px;color:var(--wcp-color-text-muted)">success-surface + success</span>
+          <span data-wcp="--wcp-color-success:background, --wcp-color-success-on:text" style="background:var(--wcp-color-success);color:var(--wcp-color-success-on);padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600">Done</span>
+          <span style="font-size:11px;color:var(--wcp-color-text-muted)">success-surface + success + success-on</span>
         </div>
-        <div style="background:var(--wcp-color-warning-surface);border:1px solid var(--wcp-color-warning);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+        <div data-wcp="--wcp-color-warning-surface:background, --wcp-color-warning:border" style="background:var(--wcp-color-warning-surface);border:1px solid var(--wcp-color-warning);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
           <span style="color:var(--wcp-color-warning);font-size:13px">⚠</span>
           <span style="font-size:12px;color:var(--wcp-color-warning);font-weight:600">Warning</span>
           <span style="font-size:11px;color:var(--wcp-color-text-muted)">warning-surface + warning</span>
         </div>
-        <div style="background:var(--wcp-color-danger-surface);border:1px solid var(--wcp-color-danger);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+        <div data-wcp="--wcp-color-danger-surface:background, --wcp-color-danger:border" style="background:var(--wcp-color-danger-surface);border:1px solid var(--wcp-color-danger);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
           <span style="color:var(--wcp-color-danger);font-size:13px">✗</span>
           <span style="font-size:12px;color:var(--wcp-color-danger);font-weight:600">Danger</span>
           <span style="font-size:11px;color:var(--wcp-color-text-muted)">danger-surface + danger</span>
         </div>
-        <div style="background:var(--wcp-color-info-surface);border:1px solid var(--wcp-color-info);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
+        <div data-wcp="--wcp-color-info-surface:background, --wcp-color-info:border" style="background:var(--wcp-color-info-surface);border:1px solid var(--wcp-color-info);border-radius:var(--wcp-radius-md);padding:9px 12px;display:flex;gap:8px;align-items:center">
           <span style="color:var(--wcp-color-info);font-size:13px">ℹ</span>
           <span style="font-size:12px;color:var(--wcp-color-info);font-weight:600">Info</span>
           <span style="font-size:11px;color:var(--wcp-color-text-muted)">info-surface + info</span>
@@ -206,51 +233,59 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
       <!-- ── Typography ──────────────────────────────────────────── -->
       <div class="preview-title">Typography Scale</div>
       <div class="prev-card" style="margin-bottom:16px">
-        <div style="font-size:var(--wcp-font-size-3xl);font-weight:var(--wcp-font-weight-bold);color:var(--wcp-color-text);line-height:var(--wcp-line-height-tight);margin-bottom:4px">3XL · Display</div>
-        <div style="font-size:var(--wcp-font-size-2xl);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);line-height:var(--wcp-line-height-tight);margin-bottom:4px">2XL · Page Heading</div>
-        <div style="font-size:var(--wcp-font-size-xl);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);margin-bottom:4px">XL · Section Heading</div>
-        <div style="font-size:var(--wcp-font-size-lg);color:var(--wcp-color-text);margin-bottom:4px">LG · Body comfortable</div>
-        <div style="font-size:var(--wcp-font-size-md);color:var(--wcp-color-text);margin-bottom:4px">MD · Body default</div>
-        <div style="font-size:var(--wcp-font-size-sm);color:var(--wcp-color-text-muted);margin-bottom:4px">SM · Secondary</div>
-        <div style="font-size:var(--wcp-font-size-xs);color:var(--wcp-color-text-muted)">XS · Labels &amp; captions</div>
-        <div style="font-size:var(--wcp-font-size-sm);font-family:var(--wcp-font-mono);color:var(--wcp-color-text-muted);margin-top:6px;background:var(--wcp-color-surface-raised);padding:4px 8px;border-radius:var(--wcp-radius-sm)">mono · code snippet example</div>
+        <div data-wcp="--wcp-font-family:font" style="font-size:var(--wcp-font-size-sm);font-family:var(--wcp-font-family);color:var(--wcp-color-text-muted);margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--wcp-color-border)">Base font family · <span style="font-family:var(--wcp-font-family);color:var(--wcp-color-text)">The quick brown fox jumps over the lazy dog</span></div>
+        <div data-wcp="--wcp-font-size-3xl:size, --wcp-font-weight-bold:weight, --wcp-line-height-tight:line-height" style="font-size:var(--wcp-font-size-3xl);font-weight:var(--wcp-font-weight-bold);color:var(--wcp-color-text);line-height:var(--wcp-line-height-tight);margin-bottom:4px">3XL · Display</div>
+        <div data-wcp="--wcp-font-size-2xl:size, --wcp-font-weight-semibold:weight" style="font-size:var(--wcp-font-size-2xl);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);line-height:var(--wcp-line-height-tight);margin-bottom:4px">2XL · Page Heading</div>
+        <div data-wcp="--wcp-font-size-xl:size" style="font-size:var(--wcp-font-size-xl);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);margin-bottom:4px">XL · Section Heading</div>
+        <div data-wcp="--wcp-font-size-lg:size" style="font-size:var(--wcp-font-size-lg);color:var(--wcp-color-text);margin-bottom:4px">LG · Body comfortable</div>
+        <div data-wcp="--wcp-font-size-md:size, --wcp-font-weight-medium:weight" style="font-size:var(--wcp-font-size-md);font-weight:var(--wcp-font-weight-medium);color:var(--wcp-color-text);margin-bottom:4px">MD · Medium weight (500)</div>
+        <div data-wcp="--wcp-font-size-sm:size, --wcp-font-weight-normal:weight" style="font-size:var(--wcp-font-size-sm);font-weight:var(--wcp-font-weight-normal);color:var(--wcp-color-text-muted);margin-bottom:4px">SM · Normal weight (400)</div>
+        <div data-wcp="--wcp-font-size-xs:size" style="font-size:var(--wcp-font-size-xs);color:var(--wcp-color-text-muted)">XS · Labels &amp; captions</div>
+        <div data-wcp="--wcp-font-mono:font" style="font-size:var(--wcp-font-size-sm);font-family:var(--wcp-font-mono);color:var(--wcp-color-text-muted);margin-top:6px;background:var(--wcp-color-surface-raised);padding:4px 8px;border-radius:var(--wcp-radius-sm)">mono · code snippet example</div>
+        <div data-wcp="--wcp-line-height-relaxed:line-height, --wcp-line-height-normal:line-height, --wcp-line-height-tight:line-height" style="margin-top:8px;padding-top:8px;border-top:1px solid var(--wcp-color-border);font-size:var(--wcp-font-size-sm);color:var(--wcp-color-text-muted)">
+          <div style="display:flex;gap:8px">
+            <div style="flex:1;line-height:var(--wcp-line-height-tight);padding:4px 6px;background:var(--wcp-color-surface-raised);border-radius:var(--wcp-radius-sm)"><strong style="font-size:9px;color:var(--wcp-color-primary)">TIGHT</strong><br>Line height tight makes text compact for headings and dense UI.</div>
+            <div style="flex:1;line-height:var(--wcp-line-height-normal);padding:4px 6px;background:var(--wcp-color-surface-raised);border-radius:var(--wcp-radius-sm)"><strong style="font-size:9px;color:var(--wcp-color-primary)">NORMAL</strong><br>Line height normal is the standard reading rhythm for body text.</div>
+            <div style="flex:1;line-height:var(--wcp-line-height-relaxed);padding:4px 6px;background:var(--wcp-color-surface-raised);border-radius:var(--wcp-radius-sm)"><strong style="font-size:9px;color:var(--wcp-color-primary)">RELAXED</strong><br>Line height relaxed gives generous spacing for readability.</div>
+          </div>
+        </div>
       </div>
 
       <!-- ── Spacing ──────────────────────────────────────────────── -->
       <div class="preview-title">Spacing Scale</div>
       <div style="display:flex;align-items:flex-end;gap:4px;margin-bottom:16px">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-1)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">1</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-2)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">2</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-3)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">3</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-4)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">4</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-5)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">5</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-6)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">6</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-7)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">7</span></div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-8)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">8</span></div>
+        <div data-wcp="--wcp-space-1:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-1)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">1</span></div>
+        <div data-wcp="--wcp-space-2:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-2)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">2</span></div>
+        <div data-wcp="--wcp-space-3:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-3)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">3</span></div>
+        <div data-wcp="--wcp-space-4:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-4)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">4</span></div>
+        <div data-wcp="--wcp-space-5:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-5)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">5</span></div>
+        <div data-wcp="--wcp-space-6:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-6)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">6</span></div>
+        <div data-wcp="--wcp-space-7:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-7)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">7</span></div>
+        <div data-wcp="--wcp-space-8:height" style="display:flex;flex-direction:column;align-items:center;gap:3px;flex:1"><div style="width:100%;background:var(--wcp-color-primary-dim);border:1px solid var(--wcp-color-primary);border-radius:2px;height:var(--wcp-space-8)"></div><span style="font-size:8px;color:var(--wcp-color-text-muted)">8</span></div>
       </div>
 
       <!-- ── Shape ───────────────────────────────────────────────── -->
       <div class="preview-title">Shape — Border Radius</div>
       <div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:4px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">sm</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">md</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:12px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">lg</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:16px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">xl</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:9999px;padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">round</div>
+        <div data-wcp="--wcp-radius-sm:radius" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">sm</div>
+        <div data-wcp="--wcp-radius-md:radius" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">md</div>
+        <div data-wcp="--wcp-radius-lg:radius" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-lg);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">lg</div>
+        <div data-wcp="--wcp-radius-xl:radius" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-xl);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">xl</div>
+        <div data-wcp="--wcp-radius-round:radius" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-round);padding:10px 14px;font-size:10px;color:var(--wcp-color-text-muted);white-space:nowrap">round</div>
       </div>
 
       <!-- ── Shadow ──────────────────────────────────────────────── -->
       <div class="preview-title">Shadow — Elevation</div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;padding:8px 0">
-        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-sm)">sm</div>
-        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-md)">md</div>
-        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-lg)">lg</div>
-        <div style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-xl)">xl</div>
+        <div data-wcp="--wcp-shadow-sm:shadow" style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-sm)">sm</div>
+        <div data-wcp="--wcp-shadow-md:shadow" style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-md)">md</div>
+        <div data-wcp="--wcp-shadow-lg:shadow" style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-lg)">lg</div>
+        <div data-wcp="--wcp-shadow-xl:shadow" style="background:var(--wcp-color-surface);border-radius:var(--wcp-radius-md);padding:12px 8px;text-align:center;font-size:10px;color:var(--wcp-color-text-muted);box-shadow:var(--wcp-shadow-xl)">xl</div>
       </div>
 
       <!-- ── Widget Defaults ─────────────────────────────────────── -->
       <div class="preview-title">Widget Card (using --wcp-widget-* tokens)</div>
-      <div style="background:var(--wcp-widget-bg);border:1px solid var(--wcp-widget-border);border-radius:var(--wcp-widget-radius);padding:var(--wcp-widget-padding);box-shadow:var(--wcp-widget-shadow);margin-bottom:16px">
+      <div data-wcp="--wcp-widget-bg:background, --wcp-widget-border:border, --wcp-widget-radius:radius, --wcp-widget-padding:padding, --wcp-widget-shadow:shadow, --wcp-widget-gap:gap" style="background:var(--wcp-widget-bg);border:1px solid var(--wcp-widget-border);border-radius:var(--wcp-widget-radius);padding:var(--wcp-widget-padding);box-shadow:var(--wcp-widget-shadow);margin-bottom:16px">
         <div style="font-size:var(--wcp-font-size-lg);font-weight:var(--wcp-font-weight-semibold);color:var(--wcp-color-text);margin-bottom:var(--wcp-widget-gap)">Widget Default Card</div>
         <div style="font-size:var(--wcp-font-size-sm);color:var(--wcp-color-text-muted);line-height:var(--wcp-line-height-normal)">This card uses only <code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:var(--wcp-radius-sm);font-family:var(--wcp-font-mono)">--wcp-widget-*</code> tokens for its chrome, and the type scale for its text.</div>
         <div style="display:flex;gap:var(--wcp-widget-gap);margin-top:var(--wcp-widget-gap);flex-wrap:wrap">
@@ -259,27 +294,56 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
         </div>
       </div>
 
+      <!-- ── Focus & Accessibility ────────────────────────────── -->
+      <div class="preview-title">Focus &amp; Accessibility</div>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
+        <div data-wcp="--wcp-touch-target-min:width, --wcp-touch-target-min:height" style="width:var(--wcp-touch-target-min);height:var(--wcp-touch-target-min);background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--wcp-color-text-muted);flex-shrink:0">44px</div>
+        <span style="font-size:11px;color:var(--wcp-color-text-muted)">← minimum touch target</span>
+        <div data-wcp="--wcp-focus-ring-width:outline, --wcp-focus-ring-color:outline-color, --wcp-focus-ring-offset:outline-offset" style="width:20px;height:20px;border-radius:var(--wcp-radius-sm);background:var(--wcp-color-surface-raised);outline:var(--wcp-focus-ring-width) solid var(--wcp-focus-ring-color);outline-offset:var(--wcp-focus-ring-offset);flex-shrink:0"></div>
+        <span style="font-size:11px;color:var(--wcp-color-text-muted)">← focus ring (width · offset · colour)</span>
+      </div>
+
       <!-- ── Motion ─────────────────────────────────────────────── -->
-      <div class="preview-title">Motion Tokens</div>
-      <div class="prev-card" style="margin-bottom:16px">
-        <div style="font-size:11px;color:var(--wcp-color-text-muted);line-height:1.7">
-          <div><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-duration-fast</code> · 100ms · micro-interactions</div>
-          <div><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-duration-normal</code> · 200ms · standard transitions</div>
-          <div><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-duration-slow</code> · 350ms · complex transitions</div>
-          <div style="margin-top:4px"><code style="background:var(--wcp-color-surface-raised);padding:1px 5px;border-radius:3px;font-family:var(--wcp-font-mono)">--wcp-easing-spring</code> · cubic-bezier(0.34,1.56,0.64,1) · bouncy</div>
+      <div class="preview-title">Motion Tokens <button class="btn" style="float:right;font-size:10px;padding:2px 10px" onclick="playMotionDemo()">▶ Play All</button></div>
+      <div class="prev-card" style="margin-bottom:16px;overflow:hidden">
+        <div id="motion-demo" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+          <div style="text-align:center">
+            <div data-wcp="--wcp-duration-fast:duration, --wcp-easing-standard:easing" style="position:relative;height:32px;background:var(--wcp-color-surface-sunken);border-radius:var(--wcp-radius-sm);overflow:hidden">
+              <div class="motion-dot" style="position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--wcp-color-primary);transform:translateY(-50%);left:4px;transition-duration:var(--wcp-duration-fast);transition-timing-function:var(--wcp-easing-standard);transition-property:left"></div>
+            </div>
+            <div style="font-size:8px;color:var(--wcp-color-text-muted);margin-top:3px">fast · standard</div>
+          </div>
+          <div style="text-align:center">
+            <div data-wcp="--wcp-duration-normal:duration, --wcp-easing-out:easing" style="position:relative;height:32px;background:var(--wcp-color-surface-sunken);border-radius:var(--wcp-radius-sm);overflow:hidden">
+              <div class="motion-dot" style="position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--wcp-color-success);transform:translateY(-50%);left:4px;transition-duration:var(--wcp-duration-normal);transition-timing-function:var(--wcp-easing-out);transition-property:left"></div>
+            </div>
+            <div style="font-size:8px;color:var(--wcp-color-text-muted);margin-top:3px">normal · out</div>
+          </div>
+          <div style="text-align:center">
+            <div data-wcp="--wcp-duration-slow:duration, --wcp-easing-in:easing" style="position:relative;height:32px;background:var(--wcp-color-surface-sunken);border-radius:var(--wcp-radius-sm);overflow:hidden">
+              <div class="motion-dot" style="position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--wcp-color-info);transform:translateY(-50%);left:4px;transition-duration:var(--wcp-duration-slow);transition-timing-function:var(--wcp-easing-in);transition-property:left"></div>
+            </div>
+            <div style="font-size:8px;color:var(--wcp-color-text-muted);margin-top:3px">slow · in</div>
+          </div>
+          <div style="text-align:center">
+            <div data-wcp="--wcp-duration-normal:duration, --wcp-easing-spring:easing" style="position:relative;height:32px;background:var(--wcp-color-surface-sunken);border-radius:var(--wcp-radius-sm);overflow:hidden">
+              <div class="motion-dot" style="position:absolute;top:50%;width:12px;height:12px;border-radius:50%;background:var(--wcp-color-warning);transform:translateY(-50%);left:4px;transition-duration:var(--wcp-duration-normal);transition-timing-function:var(--wcp-easing-spring);transition-property:left"></div>
+            </div>
+            <div style="font-size:8px;color:var(--wcp-color-text-muted);margin-top:3px">normal · spring</div>
+          </div>
         </div>
       </div>
 
       <!-- ── Z-Index ─────────────────────────────────────────────── -->
-      <div class="preview-title">Z-Index Layers</div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">base</span> · 0</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">raised</span> · 10</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">dropdown</span> · 1000</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">sticky</span> · 1100</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">modal</span> · 1200</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">toast</span> · 1300</div>
-        <div style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-sm);padding:4px 8px;font-size:9px;color:var(--wcp-color-text-muted)"><span style="color:var(--wcp-color-text)">tooltip</span> · 1400</div>
+      <div class="preview-title">Z-Index Layers <button class="btn" style="float:right;font-size:10px;padding:2px 10px" onclick="shuffleZDemo()">🔀 Shuffle</button></div>
+      <div id="z-demo" style="position:relative;height:150px;margin-bottom:16px;background:var(--wcp-color-surface-sunken);border-radius:var(--wcp-radius-md);border:1px solid var(--wcp-color-border);overflow:hidden">
+        <div data-wcp="--wcp-z-base:z-index" class="z-card" style="z-index:var(--wcp-z-base);left:6px;top:80px;background:var(--wcp-color-surface)">base</div>
+        <div data-wcp="--wcp-z-raised:z-index" class="z-card" style="z-index:var(--wcp-z-raised);left:36px;top:68px;background:var(--wcp-color-surface-raised)">raised</div>
+        <div data-wcp="--wcp-z-dropdown:z-index" class="z-card" style="z-index:var(--wcp-z-dropdown);left:66px;top:56px;background:var(--wcp-color-info-surface);border-color:var(--wcp-color-info)"><span style="color:var(--wcp-color-info)">dropdown</span></div>
+        <div data-wcp="--wcp-z-sticky:z-index" class="z-card" style="z-index:var(--wcp-z-sticky);left:96px;top:44px;background:var(--wcp-color-warning-surface);border-color:var(--wcp-color-warning)"><span style="color:var(--wcp-color-warning)">sticky</span></div>
+        <div data-wcp="--wcp-z-modal:z-index" class="z-card" style="z-index:var(--wcp-z-modal);left:126px;top:32px;background:var(--wcp-color-danger-surface);border-color:var(--wcp-color-danger)"><span style="color:var(--wcp-color-danger)">modal</span></div>
+        <div data-wcp="--wcp-z-toast:z-index" class="z-card" style="z-index:var(--wcp-z-toast);left:156px;top:20px;background:var(--wcp-color-success-surface);border-color:var(--wcp-color-success)"><span style="color:var(--wcp-color-success)">toast</span></div>
+        <div data-wcp="--wcp-z-tooltip:z-index" class="z-card" style="z-index:var(--wcp-z-tooltip);left:186px;top:8px;background:var(--wcp-color-primary-dim);border-color:var(--wcp-color-primary)"><span style="color:var(--wcp-color-primary)">tooltip</span></div>
       </div>
     </div>
 
@@ -332,6 +396,8 @@ input[type=color]{width:32px;height:28px;border:1px solid var(--wcp-color-border
   </div>
 
 </div>
+
+<div id="wcp-tooltip"></div>
 
 <script>
 const WCP_ORCHESTRATION_ID = "{{ wcp_orchestration_id|default('', true) }}";
@@ -449,7 +515,7 @@ let editId    = null;
 let workVars  = {};
 
 // Inline token resolver — mirrors dashboard's resolveWcpTokens / buildWcpTokens.
-// Takes a theme's vars (--wcp-* format) and returns the full ~78-token set.
+// Takes a theme's vars (--wcp-* format) and returns the full 81-token set.
 function _resolveAllVars(themeVars) {
   const v = themeVars;
   function h(hex, a) {
@@ -758,13 +824,13 @@ function openEditor(title, subtitle) {
       if (d.t === 'color') {
         const hex = val.startsWith('#') ? val : '#888888';
         return `<div class="var-row">
-          <span class="var-label" title="${d.k}">${d.l}</span>
+          <span class="var-label" data-wcp-token="${d.k}" title="${d.k}" onmouseenter="_labelEnter(this)" onmouseleave="_labelLeave(this)">${d.l}</span>
           <input type="color" id="cp-${kid}" value="${hex}" oninput="syncColor('${d.k}',this.value,'tx')">
           <input type="text" class="var-hex" id="tx-${kid}" value="${val}" maxlength="25" oninput="syncColor('${d.k}',this.value,'cp')">
         </div>`;
       } else {
         return `<div class="var-row">
-          <span class="var-label" title="${d.k}">${d.l}</span>
+          <span class="var-label" data-wcp-token="${d.k}" title="${d.k}" onmouseenter="_labelEnter(this)" onmouseleave="_labelLeave(this)">${d.l}</span>
           <input type="text" class="var-text" id="tx-${kid}" value="${val}" oninput="workVars['${d.k}']=this.value;applyVars(workVars)">
         </div>`;
       }
@@ -889,6 +955,65 @@ function showThemeJson() {
   });
 }
 
+function exportUrlBase64(id) {
+  const t = THEMES.find(x => x.id === id);
+  if (!t) return;
+  const payload = { uuid: t.uuid || null, name: t.name, vars: _resolveAllVars(t.vars) };
+  const b64 = btoa(JSON.stringify(payload));
+  const paramKey = 'com.doc.widgetcontextprotocol';
+  const fullQS = `?${paramKey}=${b64}`;
+  const appendParam = `&${paramKey}=${b64}`;
+
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay-root';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
+
+  const box = document.createElement('div');
+  box.style.cssText = 'background:var(--wcp-color-surface);border:1px solid var(--wcp-color-border);border-radius:var(--wcp-radius-md);padding:20px;width:560px;max-width:95vw;max-height:85vh;display:flex;flex-direction:column;gap:14px;box-shadow:var(--wcp-shadow-sm);overflow-y:auto;';
+  box.addEventListener('click', e => e.stopPropagation());
+
+  box.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <strong style="font-size:14px;">🔗 Export URL Base64 — ${t.name}</strong>
+      <button id="_url64-close" style="background:none;border:none;color:var(--wcp-color-text-muted);cursor:pointer;font-size:18px;line-height:1;">×</button>
+    </div>
+    <div style="font-size:12px;color:var(--wcp-color-text-muted);line-height:1.5;">
+      Append one of these to any WCP-compliant URL to inject this theme.
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <label style="font-size:11px;font-weight:600;color:var(--wcp-color-text);">Full query string <span style="font-weight:400;color:var(--wcp-color-text-muted)">— append to a URL with no existing parameters</span></label>
+      <div style="display:flex;gap:6px;align-items:stretch;">
+        <pre id="_url64-full" style="flex:1;overflow-x:auto;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.5;color:var(--wcp-color-text);white-space:nowrap;margin:0;">${fullQS.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+        <button id="_url64-copy-full" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-link);cursor:pointer;font-size:11px;padding:6px 12px;white-space:nowrap;">Copy</button>
+      </div>
+      <div style="font-size:10px;color:var(--wcp-color-text-muted);line-height:1.4;margin-top:2px;">
+        Example: <code style="background:var(--wcp-color-surface-raised);padding:1px 4px;border-radius:3px;">https://example.com${fullQS.substring(0,40)}…</code>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <label style="font-size:11px;font-weight:600;color:var(--wcp-color-text);">Parameter only <span style="font-weight:400;color:var(--wcp-color-text-muted)">— append to a URL that already has a query string</span></label>
+      <div style="display:flex;gap:6px;align-items:stretch;">
+        <pre id="_url64-param" style="flex:1;overflow-x:auto;background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:6px;padding:8px 10px;font-size:10px;line-height:1.5;color:var(--wcp-color-text);white-space:nowrap;margin:0;">${appendParam.replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+        <button id="_url64-copy-param" style="background:var(--wcp-color-surface-raised);border:1px solid var(--wcp-color-border);border-radius:5px;color:var(--wcp-color-link);cursor:pointer;font-size:11px;padding:6px 12px;white-space:nowrap;">Copy</button>
+      </div>
+      <div style="font-size:10px;color:var(--wcp-color-text-muted);line-height:1.4;margin-top:2px;">
+        Example: <code style="background:var(--wcp-color-surface-raised);padding:1px 4px;border-radius:3px;">https://example.com?page=1${appendParam.substring(0,40)}…</code>
+      </div>
+    </div>`;
+
+  overlay.appendChild(box);
+  overlay.addEventListener('click', () => overlay.remove());
+  document.body.appendChild(overlay);
+
+  document.getElementById('_url64-close').addEventListener('click', () => overlay.remove());
+  document.getElementById('_url64-copy-full').addEventListener('click', function() {
+    _copyText(fullQS, this);
+  });
+  document.getElementById('_url64-copy-param').addEventListener('click', function() {
+    _copyText(appendParam, this);
+  });
+}
+
 function showStudioAbout() {
   const overlay = document.createElement('div');
   overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:flex;align-items:center;justify-content:center;';
@@ -928,6 +1053,152 @@ window.addEventListener('message', e => {
   if (e.data?.type === 'wcp:context' && e.data.theme) _applyThemeVars(e.data.theme);
   if (e.data?.type === 'wcp:theme' && e.data.vars)    _applyThemeVars(e.data.vars);
 });
+
+/* ── Hover Tooltip ─────────────────────────────────────────── */
+(function() {
+  const tooltip = document.getElementById('wcp-tooltip');
+  const demoTab = document.getElementById('tab-settings');
+  if (!tooltip || !demoTab) return;
+
+  demoTab.addEventListener('mouseover', e => {
+    const el = e.target.closest('[data-wcp]');
+    if (!el) { tooltip.style.display = 'none'; return; }
+    const tokens = el.dataset.wcp.split(',').map(t => t.trim());
+    tooltip.innerHTML = tokens.map(t => {
+      const [name, role] = t.split(':');
+      return '<div><span style="color:var(--wcp-color-primary)">' + name.trim() + '</span>'
+        + (role ? ' <span style="color:var(--wcp-color-text-muted)">· ' + role.trim() + '</span>' : '')
+        + '</div>';
+    }).join('');
+    tooltip.style.display = 'block';
+  });
+
+  demoTab.addEventListener('mousemove', e => {
+    if (tooltip.style.display === 'block') {
+      tooltip.style.left = Math.min(e.clientX + 12, window.innerWidth - tooltip.offsetWidth - 8) + 'px';
+      tooltip.style.top = (e.clientY + 16) + 'px';
+    }
+  });
+
+  demoTab.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+})();
+
+/* ── Search + Bullseye ─────────────────────────────────────── */
+let _bullseyePinned = false;
+let _labelHoverToken = null;
+
+function searchTokens(query) {
+  clearBullseyes(true);
+  if (!query || query.length < 2) return;
+  _placeBullseyes(query);
+}
+function _placeBullseyes(query) {
+  query = query.toLowerCase();
+  const container = document.querySelector('.preview-scroll');
+  if (!container) return;
+  container.querySelectorAll('[data-wcp]').forEach(el => {
+    if (!el.dataset.wcp.toLowerCase().includes(query)) return;
+    const rect = el.getBoundingClientRect();
+    const contRect = container.getBoundingClientRect();
+    const b = document.createElement('div');
+    b.className = 'wcp-bullseye';
+    b.style.left = (rect.left - contRect.left + container.scrollLeft + rect.width / 2) + 'px';
+    b.style.top  = (rect.top  - contRect.top  + container.scrollTop  + rect.height / 2) + 'px';
+    b.onclick = () => { _bullseyePinned = !_bullseyePinned; if (!_bullseyePinned) clearBullseyes(); };
+    el.style.outline = '2px solid var(--wcp-color-primary)';
+    el.style.outlineOffset = '2px';
+    el.dataset.wcpHighlighted = '1';
+    container.appendChild(b);
+  });
+}
+function clearBullseyes(keepSearch) {
+  _bullseyePinned = false;
+  _labelHoverToken = null;
+  document.querySelectorAll('.wcp-bullseye').forEach(b => b.remove());
+  document.querySelectorAll('[data-wcp-highlighted]').forEach(el => {
+    el.style.outline = ''; el.style.outlineOffset = '';
+    delete el.dataset.wcpHighlighted;
+  });
+  if (!keepSearch) { const s = document.getElementById('wcp-token-search'); if (s) s.value = ''; }
+}
+
+/* ── Editor Label → Bullseye ─────────────────────────────── */
+function _labelEnter(el) {
+  const token = el.dataset.wcpToken;
+  if (!token) return;
+  // If already pinned on this same token, leave them alone
+  if (_bullseyePinned && _labelHoverToken === token) return;
+  // Clear any existing bullseyes (even pinned ones get replaced by new token)
+  clearBullseyes(true);
+  _labelHoverToken = token;
+  _placeBullseyes(token);
+}
+function _labelLeave(el) {
+  // If pinned (user clicked a bullseye), keep them visible
+  if (_bullseyePinned) return;
+  clearBullseyes(true);
+}
+
+/* ── Browse Dropdown ───────────────────────────────────────── */
+let _browseBuilt = false;
+function toggleBrowse() {
+  const dd = document.getElementById('browse-dropdown');
+  if (!dd) return;
+  if (!_browseBuilt) {
+    dd.innerHTML = VAR_DEFS.map(d => {
+      if (d.s) return '<div class="wcp-browse-section">' + d.s + '</div>';
+      return '<div class="wcp-browse-item" onclick="selectBrowseToken(\'' + d.k + '\')">'
+        + '<span>' + d.l + '</span><span class="wcp-browse-token">' + d.k + '</span></div>';
+    }).join('');
+    _browseBuilt = true;
+  }
+  dd.style.display = dd.style.display === 'none' ? 'block' : 'none';
+}
+function selectBrowseToken(token) {
+  const s = document.getElementById('wcp-token-search');
+  if (s) s.value = token;
+  document.getElementById('browse-dropdown').style.display = 'none';
+  searchTokens(token);
+}
+document.addEventListener('click', e => {
+  const bar = document.getElementById('search-bar');
+  if (bar && !bar.contains(e.target)) {
+    const dd = document.getElementById('browse-dropdown');
+    if (dd) dd.style.display = 'none';
+  }
+});
+
+/* ── Motion Demo ───────────────────────────────────────────── */
+function playMotionDemo() {
+  const demo = document.getElementById('motion-demo');
+  if (!demo) return;
+  if (demo.classList.contains('played')) {
+    demo.classList.remove('played');
+    // Reset dot positions by forcing reflow
+    demo.querySelectorAll('.motion-dot').forEach(d => { d.style.left = '4px'; });
+  } else {
+    // Ensure dots start at left, then animate
+    demo.querySelectorAll('.motion-dot').forEach(d => { d.style.left = '4px'; });
+    requestAnimationFrame(() => requestAnimationFrame(() => demo.classList.add('played')));
+  }
+}
+
+/* ── Z-Index Shuffle Demo ──────────────────────────────────── */
+function shuffleZDemo() {
+  const cards = document.querySelectorAll('#z-demo .z-card');
+  if (!cards.length) return;
+  const originals = [];
+  cards.forEach(c => { originals.push({ left: c.style.left, top: c.style.top }); });
+  // Randomise positions
+  cards.forEach(c => {
+    c.style.left = Math.floor(Math.random() * 200) + 'px';
+    c.style.top  = Math.floor(Math.random() * 100) + 'px';
+  });
+  // Restore after 600ms so z-index ordering resolves visually
+  setTimeout(() => {
+    cards.forEach((c, i) => { c.style.left = originals[i].left; c.style.top = originals[i].top; });
+  }, 600);
+}
 </script>
 </body>
 </html>
